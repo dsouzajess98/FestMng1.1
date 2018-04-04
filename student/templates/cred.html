@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>User Credentials</title>
+</head>
+<body>
+	<br> <br>
+	<table>
+	
+		{% for f in fusers %}
+		<tr>
+			<th> Username: </th>
+			<td>{{f.un}}</td>
+
+		</tr>
+		<br>
+		<tr>
+			<th> Password: </th>
+			<td>{{f.pw}}</td>
+		</tr>
+		{% endfor %}
+	</table>
+	<br><br>
+</body>
+</html>

@@ -1,0 +1,67 @@
+
+{% load staticfiles %}
+<!DOCTYPE html>
+
+<HTML>
+<head>
+	<title>Student data</title>
+</head>
+<body>
+<br><br>
+	<br><br>
+<center>	<img src="{% static 'bg.png' %}" style="height:200px;"> <!--Put the path in the single quotes after in staic folder-->
+<br><br>
+
+	{% if flag %}
+	
+	{% else %}
+		<form method="POST" action="/student/saveData/">
+	     {% csrf_token %}
+			<label style="margin-right:80px;"> Full Name:</label>
+			<input type="text" name="full_name" required><br><br><!--type in input is just user view Also the name need not be same as the variables in models-->
+			<label style="margin-right:65px;"> Roll Number: </label>
+			<input type="number" name="rollno" required><br><br>
+			<label style="margin-right:115px;"> Class:</label>
+			<input type="text" name="class_studying" required><br><br>
+			<label style="margin-right:55px;"> Father's Name: </label>
+			<input type="text" name="father_name" required><br><br>
+			<label style="margin-right:50px;"> Mother's Name: </label>
+			<input type="text" name="mother_name" required><br><br>
+			<label> Father's Phone Number: </label>
+			<input type="text" name="father_phn" required><br><br>
+			<button type="submit">Submit</button>
+		</form>
+		{% endif %}
+		<br><br><br>
+		
+	<table>
+		<thead>
+			<tr>
+				<th>Full Name&nbsp;&nbsp;</th>
+				<th>Roll Number&nbsp;&nbsp;</th>
+				<th>Class&nbsp;&nbsp;</th>
+				<th>Father's Name&nbsp;&nbsp;</th>
+				<th>Mother's Name&nbsp;&nbsp;</th>
+				<th>Father's Phone Number&nbsp;&nbsp;</th>
+				<th>Teacher Name &nbsp;&nbsp;</th>
+			</tr>
+		</thead>
+		<tbody>
+		   {% for student in students %}<!--here student is an object can use anything else -->
+		   <tr>
+				<td>{{ student.full_name }}</td>
+				<td>{{ student.rollno }}</td>
+				<td>{{ student.class_studying }}</td>
+				<td>{{ student.father_name }}</td>
+				<td>{{ student.mother_name }}</td>
+				<td>{{ student.father_phn }}</td>
+				<td>{{ student.teacher.name }}</td> <!-- Name of teacher -->
+		   </tr>
+		   {% endfor %}
+		</tbody>
+		
+	</table>
+ </center>
+</body>
+
+</HTML>

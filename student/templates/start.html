@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>4 Digit Verification</title>
+</head>
+<body>
+	<br> </br>
+	<form method="post" action="/saveData/">
+	{% csrf_token %}
+		<label>Enter ID: </label>
+		<input type="password" name="spid" required><br><br>
+		<button type="submit">Submit</button>
+	</form>
+	<br><br>
+</body>
+</html>
