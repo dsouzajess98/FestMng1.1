@@ -31,7 +31,7 @@
       <div class="login_wrapper">
         <div class="animate form login_form">
           <section class="login_content">
-            <form method="POST" action="/student/signin/">
+            <form method="POST" action="/signin/">
 	          {% csrf_token %}
               <h1>Login Form</h1>
               <div>
@@ -66,25 +66,16 @@
 
         <div id="register" class="animate form registration_form">
           <section class="login_content">
-            <form>
-              <h1>Request Account</h1>
+            <form method="POST" action="/saveData/">
+			{% csrf_token %}
+              <h1>Get Your Credentials</h1>
+			  
               <div>
-                <input type="text" class="form-control" placeholder="Name" required="" />
+                <input type="password" name="spid"  class="form-control" placeholder="Enter ID" required="" />
               </div>
+              
               <div>
-                <input type="email" class="form-control" placeholder="Email" required="" />
-              </div>
-              <div>
-                <input type="text" class="form-control" placeholder="Roll Number" required="" />
-              </div>
-			  <div>
-                <input type="text" class="form-control" placeholder="Year" required="" />
-              </div>
-			  <div>
-                <input type="text" class="form-control" placeholder="Post" required="" />
-              </div>
-              <div>
-                <a class="btn btn-default submit" href="index.html">Submit</a>
+                <button class="btn btn-default submit" type="submit">Submit</button>
               </div>
 
               <div class="clearfix"></div>
@@ -103,6 +94,10 @@
                 </div>
               </div>
             </form>
+			{% if flag %}
+			Hello
+			{% end if %}
+			
           </section>
         </div>
       </div>

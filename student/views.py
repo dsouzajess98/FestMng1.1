@@ -22,8 +22,6 @@ def saveData(request):
 
 	if request.method == "POST":
 		cid = request.POST['spid']
-		
-	print(cid)
 
 	if Fuser.objects.filter(fid=cid).exists():
 		if Fuser.objects.filter(nop=0).exists() :
@@ -40,18 +38,17 @@ def dispCred(request,id):
 
 	obj=Fuser.objects.filter(fid=id)
 	resp={}
-	resp['flag']=False
+	resp['flag1']=False
 	resp['fusers']=obj
-	return render(request, 'cred.html',resp)
+	return redirect(fourdig,resp,1)
 
 
-def fourdig(request):
+def fourdig(request,reponse,flag=0):
 #need to write code to check if first time
-
-	return render(request, 'start.html')
+	return render(request, 'start.html',resp)
 	
 	
-@login_required(login_url='/student/signin')	
+@login_required(login_url='/signin')	
 def home(request):
 	response ={}
 	current_user = request.user.username
@@ -59,7 +56,7 @@ def home(request):
 	return render(request,'production/index.html',response)
 	#return redirect('\gentelella-master\production\index.html')
 
-@login_required(login_url='/student/signin')	
+@login_required(login_url='/signin')	
 def newreq(request):
 	response ={}
 	allUsers = User.objects.all()
@@ -89,7 +86,7 @@ def savereq(request):
 		obj.save();
 		
 			
-	return redirect('/student/index')	
+	return redirect('/index')	
 	
 
 	
@@ -103,7 +100,7 @@ def signin(request):
 			return render(request,'login.html',response)
 		else :
 			login(request,user)
-			return redirect('/student/index')
+			return redirect('/index')
 	return render(request,'login.html',response) #simply pressed login with no details redirect bakc
 		
 def logout_view(request):
