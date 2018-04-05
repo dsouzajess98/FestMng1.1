@@ -17,7 +17,6 @@ from random import randint
 
 
 register = template.Library()
-
 def saveData(request):
 
 	if request.method == "POST":
@@ -25,27 +24,42 @@ def saveData(request):
 
 	if Fuser.objects.filter(fid=cid).exists():
 		if Fuser.objects.filter(nop=0).exists() :
-			fob=Fuser.objects.filter(fid=cid).update(nop=1)
+			fob=Fuser.objects.filter(fid=cid).update(nop=0)
  			return redirect(dispCred,cid)
 		else:
-			text="""<h1> Credentials already issued </h1>"""
-			return HttpResponse(text)
+			check = {}
+			check['msg'] = 1
+			check['flag'] = 0
+			return render(request, 'login.html',check)
 	else:
 		text="""<h2> Invalid ID </h2>"""
 		return HttpResponse(text)
 
 def dispCred(request,id):
 
+	if Fuser.objects.filter(fid=id,nop=1).exists():
+			text="""<h1> Credentials already issued </h1>"""
+			check = {}
+			print('hello')
+			check['msg'] = 1
+			check['flag'] = 0
+			return render(request, 'login.html',check) 
+	print('hello2')
 	obj=Fuser.objects.filter(fid=id)
+	
 	resp={}
-	resp['flag1']=False
-	resp['fusers']=obj
-	return redirect(fourdig,resp,1)
+	resp['flag']=1
+	resp['msg'] = 0
+	resp['fusers']=obj	
+	fob=Fuser.objects.filter(fid=id).update(nop=1)
+	return render(request, 'login.html',resp)
 
 
-def fourdig(request,reponse,flag=0):
+def fourdig(request):
 #need to write code to check if first time
-	return render(request, 'start.html',resp)
+	for p in User.objects.all():
+		print(p.password)
+	return render(request, 'start.html')
 	
 	
 @login_required(login_url='/signin')	

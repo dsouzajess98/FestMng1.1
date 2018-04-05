@@ -34,6 +34,17 @@
             <form method="POST" action="/signin/">
 	          {% csrf_token %}
               <h1>Login Form</h1>
+			  {% if msg %}
+			   <p style="color:red;">Your credentials have already been issued. Kindly Login</p>
+			   {% endif %}
+			   {% if flag %}
+			   <p style="color:red;">Following are credentials your credentials 
+			   {% for f in fusers %}
+               Username: {{f.un}}<br>
+			   Password: {{f.pw}}
+			   {% endfor %}
+			   {% endif %}</p>
+			  <h1 style="font-color:red;"></h1>
               <div>
                 <input type="text" class="form-control" placeholder="Username" name="username" required="" />
               </div>
@@ -95,8 +106,9 @@
               </div>
             </form>
 			{% if flag %}
-			Hello
-			{% end if %}
+			hello
+			{% endif %}
+			bye
 			
           </section>
         </div>
