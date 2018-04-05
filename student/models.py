@@ -21,10 +21,11 @@ class Fuser( models.Model):
 		
 class Request(models.Model):
 	rid = models.IntegerField(null=False)
-	Type = models.CharField(max_length=1)
+	Type = models.CharField(max_length=255)
 	descrp = models.CharField(max_length=255 ,null=True) 
 	fromuser =  models.CharField(max_length=255 ,null=False)
 	touser = models.CharField(max_length=255 ,null=False)
+	date = models.DateField(null=True)
 	
 	def __str__(self) :
 	    return str(self.rid)

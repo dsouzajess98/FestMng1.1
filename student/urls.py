@@ -11,6 +11,7 @@ urlpatterns = [
 	url(r'^createrequest/$',views.newreq,name="createreq"),
         url(r'^start/', views.fourdig),
         url(r'^saveData/$', views.saveData),
+		url(r'^myprofile/$', views.prof),
         url(r'^cred/$',views.dispCred),
         url(r'^cred/(?P<id>[A-Za-z0-9.,]+)/$',views.dispCred),
 ]

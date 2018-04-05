@@ -7,7 +7,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	  
+
     <title>Fest Management | </title>
 
     <!-- Bootstrap -->
@@ -15,23 +15,8 @@
     <!-- Font Awesome -->
     <link href="{% static 'vendors/font-awesome/css/font-awesome.min.css' %}" rel="stylesheet">
     <!-- NProgress -->
-    <link href="{% static 'vendors/nprogress/nprogress.css" rel="stylesheet' %}">
-    <!-- iCheck -->
-    <link href="{% static 'vendors/iCheck/skins/flat/green.css" rel="stylesheet' %}">
-    <!-- bootstrap-wysiwyg -->
-    <link href="{% static 'vendors/google-code-prettify/bin/prettify.min.css' %}" rel="stylesheet">
-	<link href="{% static 'vendors/bootstrap-daterangepicker/daterangepicker.css' %}" rel="stylesheet">
-    <!-- bootstrap-datetimepicker -->
-    <link href="{% static 'vendors/bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.css' %}" rel="stylesheet">
-    <!-- Select2 -->
-    <link href="{% static 'vendors/select2/dist/css/select2.min.css' %}" rel="stylesheet">
-    <!-- Switchery -->
-    <link href="{% static 'vendors/switchery/dist/switchery.min.css' %}" rel="stylesheet">
-    <!-- starrr -->
-    <link href="{% static 'vendors/starrr/dist/starrr.css' %}" rel="stylesheet">
-    <!-- bootstrap-daterangepicker -->
-    <link href="{% static 'vendors/bootstrap-daterangepicker/daterangepicker.css' %}" rel="stylesheet">
-
+    <link href="{% static 'vendors/nprogress/nprogress.css' %}" rel="stylesheet">
+    
     <!-- Custom Theme Style -->
     <link href="{% static 'build/css/custom.min.css' %}" rel="stylesheet">
   </head>
@@ -39,7 +24,7 @@
   <body class="nav-md">
     <div class="container body">
       <div class="main_container">
-        <div class="col-md-3 left_col">
+ <div class="col-md-3 left_col">
           <div class="left_col scroll-view">
             <div class="navbar nav_title" style="border: 0;">
               <a href={% url 'index' %} class="site_title"><i class="fa fa-paw"></i> <span>Fest Manager</span></a>
@@ -190,8 +175,9 @@
           </div>
         </div>
 
+
         <!-- top navigation -->
-        <div class="top_nav">
+         <div class="top_nav">
           <div class="nav_menu">
             <nav>
               <div class="nav toggle">
@@ -299,7 +285,7 @@
           <div class="">
             <div class="page-title">
               <div class="title_left">
-                <h3>Make a new request</h3>
+                <h3>My Profile</h3>
               </div>
 
               <div class="title_right">
@@ -307,119 +293,116 @@
                   <div class="input-group">
                     <input type="text" class="form-control" placeholder="Search for...">
                     <span class="input-group-btn">
-                      <button class="btn btn-default" type="button">Go!</button>
-                    </span>
+                              <button class="btn btn-default" type="button">Go!</button>
+                          </span>
                   </div>
                 </div>
               </div>
             </div>
             <div class="clearfix"></div>
+
             <div class="row">
               <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
-                   <h2>Fill in the following details</h2>
-
+                    
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content">
 
-                    <!-- start form for validation -->
-                    <form id="demo-form" method="POST" action="/savereq/">
-					{% csrf_token %}
-                      <label for="type1">Type of Request</label>
-                          <select name="type"  >
-                            <option value="">Choose..</option>
-                            <option value="approv">Approval</option>
-                            <option value="acq">Acquire</option>
-                            <option value="other">Others</option>
-                          </select>
-                        <br><br><br>
-                        <label for="heard">Do you want to send it to ..</label><br>
-							<input type="radio" name="gender" value="male" checked>Department<br>
-							<input type="radio" name="gender" value="female"> Specific person<br>
-						
-						 <div id="dept" style="display:none">
-						  <br><br><br>
-                          <label for="end">Department:</label>
-                          <select name="to" >
-                            <option value="">Choose..</option>
-                            <option value="press1">ECC</option>
-                            <option value="qcm">QCM</option>
-                            <option value="mouth">Sponsorship</option>
-                          </select>
-						  </div>
-						  <div id="per" >
-						   <br><br><br>
-						   <label for="end">To:</label>
-                          <select name="to" id="users" size="1">
-						  {% for user in users %}
-                            <option id="tousers" value="{{user.username}}">{{user.username}}</option>
-                           {% endfor %} 
-                          </select>
-						  
-                          </div><br><br><br>
-                <div class=''>
-                   <label>When do you want it by?</label>
-                    <div class="form-group">
-                        <div class='input-group date' id='myDatepicker2'>
-                            <input type='text' name="date" class="form-control" />
-                            <span class="input-group-addon">
-                               <span class="glyphicon glyphicon-calendar"></span>
-                            </span>
+                    <form class="form-horizontal form-label-left" novalidate>
+
+                      
+                      <span class="section">Personal Info</span>
+
+                      <div class="item form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Name <span class="required">*</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                          <input id="name" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" name="name" placeholder="both name(s) e.g Jon Doe" required="required" type="text">
                         </div>
-                    </div>
-                </div>
-						  <style>
-						  #users {
-							
-							width:200px;
-							
-							}
-						  </style> 
-						 <!-- <script>
-						/* When the user clicks on the button,
-								toggle between hiding and showing the dropdown content */
-
-							function filterFunction() {
-							var chdiv = document.getElementById("users");
-							var check = chdiv.getElementById("tousers");
-							document.getElementById("search").innerHTML= check;
-								var input, filter, ul, li, a, i;
-								input = document.getElementById("myInput");
-								filter = input.value.toUpperCase();
-								div = document.getElementById("myDropdown");
-								a = div.getElementsByTagName("option");
-								for (i = 0; i < a.length; i++) {
-							if (a[i].innerHTML.toUpperCase().indexOf(filter) > -1) {
-									document.getElementById("search").innerHTML = a[i];
-									} 
-								}
-						}
-						</script>-->
-						  
-						  <br><br><br>
-                          <label for="message">Message (20 chars min, 100 max) :</label>
-                          <textarea id="message" required="required" class="form-control" name="message" data-parsley-trigger="keyup" data-parsley-minlength="20" data-parsley-maxlength="100" data-parsley-minlength-message="Come on! You need to enter at least a 20 caracters long comment.."
-                            data-parsley-validation-threshold="10"></textarea>
-
-                          <br/>
-                           <button class="btn btn-primary" type="submit">Submit</button>
-
+                      </div>
+                      <div class="item form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="email">Email <span class="required">*</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                          <input type="email" id="email" name="email" required="required" class="form-control col-md-7 col-xs-12">
+                        </div>
+                      </div>
+                      <div class="item form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="email">Confirm Email <span class="required">*</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                          <input type="email" id="email2" name="confirm_email" data-validate-linked="email" required="required" class="form-control col-md-7 col-xs-12">
+                        </div>
+                      </div>
+                      <div class="item form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="number">Number <span class="required">*</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                          <input type="number" id="number" name="number" required="required" data-validate-minmax="10,100" class="form-control col-md-7 col-xs-12">
+                        </div>
+                      </div>
+                      <div class="item form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="website">Website URL <span class="required">*</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                          <input type="url" id="website" name="website" required="required" placeholder="www.website.com" class="form-control col-md-7 col-xs-12">
+                        </div>
+                      </div>
+                      <div class="item form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="occupation">Occupation <span class="required">*</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                          <input id="occupation" type="text" name="occupation" data-validate-length-range="5,20" class="optional form-control col-md-7 col-xs-12">
+                        </div>
+                      </div>
+                      <div class="item form-group">
+                        <label for="password" class="control-label col-md-3">Password</label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                          <input id="password" type="password" name="password" data-validate-length="6,8" class="form-control col-md-7 col-xs-12" required="required">
+                        </div>
+                      </div>
+                      <div class="item form-group">
+                        <label for="password2" class="control-label col-md-3 col-sm-3 col-xs-12">Repeat Password</label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                          <input id="password2" type="password" name="password2" data-validate-linked="password" class="form-control col-md-7 col-xs-12" required="required">
+                        </div>
+                      </div>
+                      <div class="item form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="telephone">Telephone <span class="required">*</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                          <input type="tel" id="telephone" name="phone" required="required" data-validate-length-range="8,20" class="form-control col-md-7 col-xs-12">
+                        </div>
+                      </div>
+                      <div class="item form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="textarea">Textarea <span class="required">*</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                          <textarea id="textarea" required="required" name="textarea" class="form-control col-md-7 col-xs-12"></textarea>
+                        </div>
+                      </div>
+                      <div class="ln_solid"></div>
+                      <div class="form-group">
+                        <div class="col-md-6 col-md-offset-3">
+                          <button type="submit" class="btn btn-primary">Cancel</button>
+                          <button id="send" type="submit" class="btn btn-success">Submit</button>
+                        </div>
+                      </div>
                     </form>
                   </div>
                 </div>
               </div>
             </div>
-
-        </div>
+          </div>
         </div>
         <!-- /page content -->
 
         <!-- footer content -->
         <footer>
           <div class="pull-right">
-            Rights Reserved GameChangers</a>
+            Rights Reserved GameChangers
           </div>
           <div class="clearfix"></div>
         </footer>
@@ -435,66 +418,11 @@
     <script src="{% static 'vendors/fastclick/lib/fastclick.js' %}"></script>
     <!-- NProgress -->
     <script src="{% static 'vendors/nprogress/nprogress.js' %}"></script>
-    <!-- bootstrap-progressbar -->
-    <script src="{% static 'vendors/bootstrap-progressbar/bootstrap-progressbar.min.js' %}"></script>
-    <!-- iCheck -->
-    <script src="{% static 'vendors/iCheck/icheck.min.js' %}"></script>
-    <!-- bootstrap-daterangepicker -->
-    <script src="{% static 'vendors/moment/min/moment.min.js' %}"></script>
-    <script src="{% static 'vendors/bootstrap-daterangepicker/daterangepicker.js' %}"></script>
-    <!-- bootstrap-wysiwyg -->
-    <script src="{% static 'vendors/bootstrap-wysiwyg/js/bootstrap-wysiwyg.min.js' %}"></script>
-    <script src="{% static 'vendors/jquery.hotkeys/jquery.hotkeys.js' %}"></script>
-    <script src="{% static 'vendors/google-code-prettify/src/prettify.js' %}"></script>
-    <!-- jQuery Tags Input -->
-    <script src="{% static 'vendors/jquery.tagsinput/src/jquery.tagsinput.js' %}"></script>
-    <!-- Switchery -->
-    <script src="{% static 'vendors/switchery/dist/switchery.min.js' %}"></script>
-    <!-- Select2 -->
-    <script src="{% static 'vendors/select2/dist/js/select2.full.min.js' %}"></script>
-    <!-- Parsley -->
-    <script src="{% static 'vendors/parsleyjs/dist/parsley.min.js' %}"></script>
-    <!-- Autosize -->
-    <script src="{% static 'vendors/autosize/dist/autosize.min.js' %}"></script>
-    <!-- jQuery autocomplete -->
-    <script src="{% static 'vendors/devbridge-autocomplete/dist/jquery.autocomplete.min.js' %}"></script>
-    <!-- starrr -->
-    <script src="{% static 'vendors/starrr/dist/starrr.js' %}"></script>
-    <!-- Custom Theme Scripts -->
-    <script src="{% static 'build/js/custom.min.js' %}"></script>
-	
-	<script src="{% static 'vendors/bootstrap-daterangepicker/daterangepicker.js' %}"></script>
-    <!-- bootstrap-datetimepicker -->    
-    <script src="{% static 'vendors/bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js' %}"></script>
-	<script>
-    $('#myDatepicker').datetimepicker();
-    
-    $('#myDatepicker2').datetimepicker({
-        format: 'YYYY-MM-DD'
-    });
-    
-    $('#myDatepicker3').datetimepicker({
-        format: 'hh:mm A'
-    });
-    
-    $('#myDatepicker4').datetimepicker({
-        ignoreReadonly: true,
-        allowInputToggle: true
-    });
+    <!-- validator -->
+    <script src="{% static 'vendors/validator/validator.js' %}"></script>
 
-    $('#datetimepicker6').datetimepicker();
-    
-    $('#datetimepicker7').datetimepicker({
-        useCurrent: false
-    });
-    
-    $("#datetimepicker6").on("dp.change", function(e) {
-        $('#datetimepicker7').data("DateTimePicker").minDate(e.date);
-    });
-    
-    $("#datetimepicker7").on("dp.change", function(e) {
-        $('#datetimepicker6').data("DateTimePicker").maxDate(e.date);
-    });
-</script>
+    <!-- Custom Theme Scripts -->
+    <script src="{% static 'build/js/custom.min.js"></script>
+	
   </body>
 </html>

@@ -13,7 +13,8 @@ from .models import Fuser,Request
 from django.contrib.auth.decorators import login_required,user_passes_test #even after loging in the function only if he is certain user
 from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.models import User
-from random import randint
+from random import randint, choice
+from string import ascii_lowercase,digits
 
 
 register = template.Library()
@@ -24,7 +25,6 @@ def saveData(request):
 
 	if Fuser.objects.filter(fid=cid).exists():
 		if Fuser.objects.filter(nop=0).exists() :
-			fob=Fuser.objects.filter(fid=cid).update(nop=0)
  			return redirect(dispCred,cid)
 		else:
 			check = {}
@@ -35,30 +35,38 @@ def saveData(request):
 		text="""<h2> Invalid ID </h2>"""
 		return HttpResponse(text)
 
+def gen_rand_user(length=8,chars=ascii_lowercase+digits,split=4,delimiter='-'):
+	check = ''.join([choice(chars) for i in xrange(length)])
+	return check
+	
 def dispCred(request,id):
 
 	if Fuser.objects.filter(fid=id,nop=1).exists():
 			text="""<h1> Credentials already issued </h1>"""
 			check = {}
-			print('hello')
 			check['msg'] = 1
 			check['flag'] = 0
 			return render(request, 'login.html',check) 
-	print('hello2')
 	obj=Fuser.objects.filter(fid=id)
 	
 	resp={}
 	resp['flag']=1
 	resp['msg'] = 0
-	resp['fusers']=obj	
-	fob=Fuser.objects.filter(fid=id).update(nop=1)
+		
+	
+	usn = gen_rand_user()
+	pw = gen_rand_user()
+	resp['username']=usn
+	while User.objects.filter(username=resp['username']):
+		resp['username'] = gen_rand_user()
+	resp['password']=pw
+	user = User.objects.create_user(username = usn,password = pw,email='')
+	fob=Fuser.objects.filter(fid=id).update(nop=1,un=usn)
 	return render(request, 'login.html',resp)
 
 
 def fourdig(request):
 #need to write code to check if first time
-	for p in User.objects.all():
-		print(p.password)
 	return render(request, 'start.html')
 	
 	
@@ -67,9 +75,31 @@ def home(request):
 	response ={}
 	current_user = request.user.username
 	response['name'] = current_user
+	count = 0 
+	for r in Request.objects.filter(touser=current_user):
+		count = count + 1
+	response['notif'] = count
 	return render(request,'production/index.html',response)
 	#return redirect('\gentelella-master\production\index.html')
 
+@login_required(login_url='/signin')	
+def prof(request):
+	response ={}
+	current_user = request.user.username
+	response['name'] = current_user
+	count = 0 
+	for r in Request.objects.filter(touser=current_user):
+		count = count + 1
+	response['notif'] = count
+	response['flag']=0
+	for u in Fuser.objects.filter(un=current_user)
+		if(u.nop = 1):
+			fob=Fuser.objects.filter(fid=id).update(nop=2)
+			response['flag']=1
+			
+	return render(request,'production/profile.html',response)
+	
+	
 @login_required(login_url='/signin')	
 def newreq(request):
 	response ={}
@@ -77,6 +107,10 @@ def newreq(request):
 	current_user = request.user.username
 	response['name'] = current_user
 	response['users'] = allUsers
+	count = 0
+	for r in Request.objects.filter(touser=current_user):
+		count = count + 1
+	response['notif'] = count
 	return render(request,'production/request.html',response)
 
 @register.assignment_tag()
@@ -88,21 +122,23 @@ def savereq(request):
 		type = request.POST['type']
 		descrp = request.POST['message']
 		touser = request.POST['to']
+		datereq = request.POST['date']
+		print(type)
 		check = random_no()
 		while Request.objects.filter(rid=check):
 			check = random_no()
 		obj = Request()
 		obj.rid=check
-		obj.type=type
+		obj.Type=type
 		obj.descrp=descrp
 		obj.fromuser=request.user.username
 		obj.touser = touser
+		obj.date = datereq
 		obj.save();
 		
 			
 	return redirect('/index')	
 	
-
 	
 def signin(request):
 	response = {}
