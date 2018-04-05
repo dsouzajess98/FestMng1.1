@@ -8,7 +8,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 	  
-    <title>Fest Management | </title>
+    <title>Request | </title>
 
     <!-- Bootstrap -->
     <link href="{% static 'vendors/bootstrap/dist/css/bootstrap.min.css' %}" rel="stylesheet">
@@ -318,47 +318,59 @@
               <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
-                   <h2>Fill in the following details</h2>
+<!--                   <h2>Fill in the following details</h2>
 
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content">
 
-                    <!-- start form for validation -->
+                    -- start form for validation -->
                     <form id="demo-form" method="POST" action="/savereq/">
 					{% csrf_token %}
                       <label for="type1">Type of Request</label>
                           <select name="type"  >
-                            <option value="">Choose..</option>
+                            <option value="">Choose:</option>
                             <option value="approv">Approval</option>
                             <option value="acq">Acquire</option>
                             <option value="other">Others</option>
                           </select>
                         <br><br><br>
-                        <label for="heard">Do you want to send it to ..</label><br>
+						
+						{% if not flag %}
+<!--                        <label for="heard">Do you want to send it to ..</label><br>
 							<input type="radio" name="gender" value="male" checked>Department<br>
 							<input type="radio" name="gender" value="female"> Specific person<br>
-						
-						 <div id="dept" style="display:none">
-						  <br><br><br>
+-->						
+						 <div id="dept" >
                           <label for="end">Department:</label>
                           <select name="to" >
-                            <option value="">Choose..</option>
-                            <option value="press1">ECC</option>
+                            <option value="ecc">ECC</option>
                             <option value="qcm">QCM</option>
-                            <option value="mouth">Sponsorship</option>
+                            <option value="spons">Sponsorship</option>
                           </select>
 						  </div>
 						  <div id="per" >
 						   <br><br><br>
 						   <label for="end">To:</label>
-                          <select name="to" id="users" size="1">
-						  {% for user in users %}
-                            <option id="tousers" value="{{user.username}}">{{user.username}}</option>
+                          <select name="to" id="users" size="1" action=check()>
+						
+						   {% for fuser in fusers %}
+								
+								
+									<option id="tousers" value="{{fuser.un}}">{{fuser.un}}</option>
+								
                            {% endfor %} 
                           </select>
-						  
+						  <div id="check">
+						  </div>
+						  <script>
+						  function check() {
+							var x=document.getElementById('to');
+							document.getElementById('id').innerHTML(x);
+							}
+						  </script>
                           </div><br><br><br>
+						  {% endif %}
                 <div class=''>
                    <label>When do you want it by?</label>
                     <div class="form-group">
