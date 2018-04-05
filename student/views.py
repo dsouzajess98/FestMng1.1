@@ -47,6 +47,7 @@ def dispCred(request,id):
 			check['msg'] = 1
 			check['flag'] = 0
 			return render(request, 'login.html',check) 
+
 	obj=Fuser.objects.filter(fid=id)
 	
 	resp={}
@@ -99,6 +100,9 @@ def prof(request):
 			
 	return render(request,'production/profile.html',response)
 	
+@login_required(login_url='/signin')	
+def profupd(request):
+	return render(request,'production/profile.html',response)
 	
 @login_required(login_url='/signin')	
 def newreq(request):

@@ -9,9 +9,9 @@ urlpatterns = [
 	url(r'^index/$',views.home,name="index"),
 	url(r'^logout/$',views.logout_view,name="logout"),
 	url(r'^createrequest/$',views.newreq,name="createreq"),
-        url(r'^start/', views.fourdig),
         url(r'^saveData/$', views.saveData),
 		url(r'^myprofile/$', views.prof),
         url(r'^cred/$',views.dispCred),
+		url(r'^profileupd/$',views.profupd),
         url(r'^cred/(?P<id>[A-Za-z0-9.,]+)/$',views.dispCred),
 ]
