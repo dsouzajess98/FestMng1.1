@@ -7,6 +7,7 @@ urlpatterns = [
 	url(r'^savereq/$',views.savereq),
 	url(r'^signin/$',views.signin),
 	url(r'^index/$',views.home,name="index"),
+	url(r'^index/createrequest/(?P<to>[A-Za-z0-9.,]+)/$',views.newreq),
 	url(r'^logout/$',views.logout_view,name="logout"),
 	url(r'^createrequest/$',views.newreq,name="createreq"),
         url(r'^start/', views.fourdig),

@@ -1,21 +1,17 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 from django import template
-
 from django.shortcuts import render
 from django.conf import settings
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseRedirect
-
 from django.contrib.auth.models import User
-
 from .models import Fuser,Request
 from django.contrib.auth.decorators import login_required,user_passes_test #even after loging in the function only if he is certain user
 from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.models import User
 from random import randint, choice
 from string import ascii_lowercase,digits
-
 
 register = template.Library()
 def saveData(request):
@@ -74,6 +70,7 @@ def fourdig(request):
 def home(request):
 	response ={}
 	current_user = request.user.username
+#	current_user = User.get_username()
 	response['name'] = current_user
 	count = 0 
 	for r in Request.objects.filter(touser=current_user):
@@ -86,14 +83,16 @@ def home(request):
 def prof(request):
 	response ={}
 	current_user = request.user.username
+#	current_user = User.get_username()
 	response['name'] = current_user
 	count = 0 
 	for r in Request.objects.filter(touser=current_user):
 		count = count + 1
 	response['notif'] = count
 	response['flag']=0
-	for u in Fuser.objects.filter(un=current_user)
-		if(u.nop = 1):
+	for u in Fuser.objects.filter(un=current_user):
+		if u.nop == 1:
+			print(u.un)
 			fob=Fuser.objects.filter(fid=id).update(nop=2)
 			response['flag']=1
 			
@@ -101,16 +100,23 @@ def prof(request):
 	
 	
 @login_required(login_url='/signin')	
-def newreq(request):
+def newreq(request, to='xyz'):
 	response ={}
 	allUsers = User.objects.all()
 	current_user = request.user.username
+	Fuse= Fuser.objects.all()
 	response['name'] = current_user
 	response['users'] = allUsers
+	response['fusers']= Fuse
 	count = 0
 	for r in Request.objects.filter(touser=current_user):
 		count = count + 1
 	response['notif'] = count
+	if(to=='xyz'):
+		response['flag']=0
+	else:
+		response['flag']=1
+		
 	return render(request,'production/request.html',response)
 
 @register.assignment_tag()
