@@ -92,8 +92,8 @@ def prof(request):
 		count = count + 1
 	response['notif'] = count
 	response['flag']=0
-	for u in Fuser.objects.filter(un=current_user)
-		if(u.nop = 1):
+	for u in Fuser.objects.filter(un=current_user):
+		if u.nop == 1 :
 			fob=Fuser.objects.filter(fid=id).update(nop=2)
 			response['flag']=1
 			
