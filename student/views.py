@@ -45,7 +45,6 @@ def dispCred(request,id):
 			check = {}
 			check['msg'] = 1
 			check['flag'] = 0
-<<<<<<< HEAD
 			return render(request, 'login.html',check)
 	if Fuser.objects.filter(fid=id).exists() == False:
 			text="""<h1> Invalid ID </h1>"""
@@ -53,10 +52,7 @@ def dispCred(request,id):
 			check['msg'] = 1
 			check['flag'] = 0
 			return render(request, 'login.html',check)			
-
-=======
-			return render(request, 'login.html',check) 
->>>>>>> 9f33c4ea7a98523829e991a6fafaed3d6d60aebc
+			
 	obj=Fuser.objects.filter(fid=id)
 	
 	resp={}
