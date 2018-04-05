@@ -33,7 +33,10 @@ def saveData(request):
 			return render(request, 'login.html',check)
 	else:
 		text="""<h2> Invalid ID </h2>"""
-		return HttpResponse(text)
+		check = {}
+		check['msg'] = 2
+		check['flag'] = 0
+		return render(request, 'login.html',check)
 
 def gen_rand_user(length=8,chars=ascii_lowercase+digits,split=4,delimiter='-'):
 	check = ''.join([choice(chars) for i in xrange(length)])
@@ -46,7 +49,13 @@ def dispCred(request,id):
 			check = {}
 			check['msg'] = 1
 			check['flag'] = 0
-			return render(request, 'login.html',check) 
+			return render(request, 'login.html',check)
+	if Fuser.objects.filter(fid=id).exists() == False:
+			text="""<h1> Invalid ID </h1>"""
+			check = {}
+			check['msg'] = 1
+			check['flag'] = 0
+			return render(request, 'login.html',check)			
 
 	obj=Fuser.objects.filter(fid=id)
 	
@@ -57,7 +66,9 @@ def dispCred(request,id):
 	
 	usn = gen_rand_user()
 	pw = gen_rand_user()
+	
 	resp['username']=usn
+	print(pw)
 	while User.objects.filter(username=resp['username']):
 		resp['username'] = gen_rand_user()
 	resp['password']=pw
