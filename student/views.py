@@ -43,6 +43,7 @@ def dispCred(request,id):
 			check['msg'] = 1
 			check['flag'] = 0
 			return render(request, 'login.html',check) 
+
 	obj=Fuser.objects.filter(fid=id)
 	
 	resp={}
@@ -91,13 +92,15 @@ def prof(request):
 	response['notif'] = count
 	response['flag']=0
 	for u in Fuser.objects.filter(un=current_user):
-		if u.nop == 1:
-			print(u.un)
+		if u.nop == 1 :
 			fob=Fuser.objects.filter(fid=id).update(nop=2)
 			response['flag']=1
 			
 	return render(request,'production/profile.html',response)
 	
+@login_required(login_url='/signin')	
+def profupd(request):
+	return render(request,'production/profile.html',response)
 	
 @login_required(login_url='/signin')	
 def newreq(request, to='xyz'):
