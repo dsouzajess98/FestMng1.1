@@ -221,29 +221,65 @@ def savereq(request,par):
 				f=True #same dept
 			else:
 				f=False #diff dept
+			
 			print f
+			if f==False:
+				g=False
+			else:
+				g=True
+			
 			if f==True :
 			
 				curr=Fuser.objects.get(un=request.user)
 				if p=='su' :
 					to = curr.subc
-				else :
-					to = 'admin'
+				elif p=='co' :
+					to = curr.core
+				else:
+					g=False
+				while Request.objects.filter(rid=check):
+					check = random_no()
 					
-			while Request.objects.filter(rid=check):
-				check = random_no()
+				obj = Request()
+				obj.rid=check
+				obj.Type=type
+				obj.descrp=descrp
+				obj.fromuser = request.user
+				obj.touser = to
+				obj.date = datereq
+				obj.save();
+					
+			elif f==False and g==False:
 				
-			obj = Request()
-			obj.rid=check
-			obj.Type=type
-			obj.descrp=descrp
-			obj.fromuser = request.user
-			obj.touser = to
-			obj.date = datereq
-			obj.save();
+				to = 'admin'
+				minw=10
+				
+				for usr in Fuser.objects.filter(dept=d,post=p):
+					count=0
+					for r in Request.objects.filter(touser=usr.un):
+						count = count + 1
+					if count<minw :
+						minw=count
+						to = usr.un
+					else :
+						to = 'admin'
+				
+				print(to)
+				
+				while Request.objects.filter(rid=check):
+					check = random_no()
+					
+				obj = Request()
+				obj.rid=check
+				obj.Type=type
+				obj.descrp=descrp
+				obj.fromuser = request.user
+				obj.touser = to
+				obj.date = datereq
+				obj.save();
 			
 			
-	return render(request,'production/index.html')	
+	return redirect('/index')	
 
 	
 	
