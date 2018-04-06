@@ -92,11 +92,12 @@ def home(request):
 	for r in Request.objects.filter(touser=current_user):
 		count = count + 1
 	response['notif'] = count
+#	print(current_user)
 	if Fuser.objects.filter(un=current_user,filter=1):
 		curr=False
 	else :
 		curr=True
-	
+#	print(curr)
 	response['curr']=curr
 	return render(request,'production/index.html',response)
 	#return redirect('\gentelella-master\production\index.html')
@@ -132,28 +133,38 @@ def newreq(request, to='xyz'):
 	response['name'] = current_user
 	response['users'] = allUsers
 	response['fusers']= Fuse
+	
 	count = 0
 	for r in Request.objects.filter(touser=current_user):
 		count = count + 1
 	response['notif'] = count
 	if(to=='xyz'):
 		response['flag']=0
+		response['touser']='def'
 	else:
 		response['flag']=1
-		
+		response['touser']=to
 	return render(request,'production/request.html',response)
 
 @register.assignment_tag()
 def random_no(length=3) :
 		return randint(10**(length-1),(10**(length)-1))
 		
-def savereq(request):
+def savereq(request,toser):
+
 	if request.method =="POST":
-		type = request.POST['type']
-		descrp = request.POST['message']
-		touser = request.POST['to']
-		datereq = request.POST['date']
-		print(type)
+		if toser == 'def':
+			type = request.POST['type']
+			descrp = request.POST['message']
+			touser = request.POST['to']
+			datereq = request.POST['date']
+			print(type)
+		else:
+			type = request.POST['type']
+			descrp = request.POST['message']
+			touser = toser
+			datereq = request.POST['date']
+			print(toser)
 		check = random_no()
 		while Request.objects.filter(rid=check):
 			check = random_no()

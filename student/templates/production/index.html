@@ -58,6 +58,7 @@
 
             <!-- sidebar menu -->
 			{% if curr %}
+		
             <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
               <div class="menu_section">
                 <h3>Departments</h3>
@@ -121,8 +122,72 @@
                     </ul>
                   </li>
                 </ul>
-			
-              
+              </div>
+			  {% else %}
+            <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+              <div class="menu_section">
+                <h3>Departments</h3>
+                <ul class="nav side-menu">
+                  <li><a><i class="fa fa-user-plus"></i> ECC <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+					  <li><a href="createrequest/eccwf">Workforce</a></li>	
+					  <li><a href="createrequest/eccsub">Sub Core</a></li>
+                     
+                
+                     <!-- <li><a href="createrequest">Dashboard3</a></li> -->
+                    </ul>
+                  </li>
+                  <li><a><i class="fa fa-edit"></i> QCM <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                       <li><a href="createrequest/qcmwf">Workforce</a></li>	
+					  <li><a href="createrequest/qcmsub">Sub Core</a></li>
+                      
+                    </ul>
+                  </li>
+                  <li><a><i class="fa fa-desktop"></i> DESIGN AND DECO <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                    <li><a href="createrequest/deswf">Workforce</a></li>	
+					  <li><a href="createrequest/dessub">Sub Core</a></li>
+                     
+                    </ul>
+                  </li>
+                  <li><a><i class="fa fa-table"></i> LOGISTICS <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="createrequest/logwf">Workforce</a></li>	
+					  <li><a href="createrequest/logsub">Sub Core</a></li>
+                    
+                    </ul>
+                  </li>
+                  <li><a><i class="fa fa-bar-chart-o"></i> SPONSORSHIP <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="createrequest/spwf">Workforce</a></li>	
+					  <li><a href="createrequest/spsub">Sub Core</a></li>
+                      
+                    </ul>
+                  </li>
+                  <li><a><i class="fa fa-newspaper-o"></i>PUBLICITY <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                     <li><a href="createrequest/pubwf">Workforce</a></li>	
+					  <li><a href="createrequest/pubsub">Sub Core</a></li>
+                 
+                    </ul>
+                  </li>
+				  <li><a><i class="fa fa-money"></i>TREASURY <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                     <li><a href="createrequest/trwf">Workforce</a></li>	
+					  <li><a href="createrequest/trsub">Sub Core</a></li>
+        
+                    </ul>
+                  </li>
+				   <li><a><i class="fa fa-home"></i>HOSPITALITY <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                    <li><a href="createrequest/hospwf">Workforce</a></li>	
+					  <li><a href="createrequest/hospsub">Sub Core</a></li>
+             
+                    </ul>
+                  </li>
+                </ul>
+              </div>
 			  {% endif %}
               <div class="menu_section">
                 <h3>Additional</h3>

@@ -325,7 +325,7 @@
                   <div class="x_content">
 
                     -- start form for validation -->
-                    <form id="demo-form" method="POST" action="/savereq/">
+                    <form id="demo-form" method="POST" action="/savereq/{{touser}}/">
 					{% csrf_token %}
                       <label for="type1">Type of Request</label>
                           <select name="type"  >
@@ -367,6 +367,8 @@
 							}
 						  </script>
                           </div><br><br><br>
+						
+								
 						  {% endif %}
                 <div class=''>
                    <label>When do you want it by?</label>
