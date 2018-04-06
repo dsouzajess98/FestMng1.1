@@ -298,7 +298,7 @@
                       <a>
                         <span class="image"><img src="{% static 'images/img.jpg' %}" alt="Profile Image" /></span>
                         <span>
-                          <span style="color:#2A3F54;">{{value.fuser}}</span>
+                          <span style="color:#2A3F54;">{{value.fruser1}}</span>
                           <span class="time">3 mins ago</span>
                         </span>
                         <span class="message">
@@ -324,8 +324,29 @@
                     <i class="fa fa-plus" ></i>
                     
                   </a>
+				  </li>
+                <li role="presentation" class="dropdown">
+                  <a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false">
+                    <i class="fa fa-paper-plane"></i>
                   
+                  </a>
+                  <ul id="menu1" class="dropdown-menu list-unstyled msg_list" role="menu">
+<form id="demo-form" method="POST" action="/newmessage/">				               
+							   <li>    
+								
+								{% csrf_token %}
+				   <input type='text' name="msg" placeholder="Enter your message" class="form-control" required />
+				   
+				  
+				 </li>
+                    <li>
+                      <div class="text-center">
+                        <button class="btn btn-primary" type="submit">Submit</button>
+                      </div>
+                    </li> </form>
+                  </ul>
                 </li>
+
                  <!-- Requests done-->
 			  </ul>
             </nav>

@@ -5,6 +5,13 @@ from django.db import models
 
 # Create your models here.
 
+class Brmsg(models.Model):
+	mid = models.IntegerField(unique=True,null=False)
+	msg = models.CharField(max_length=256, null=False, default='Important Message')
+	
+	def __str__(self) :
+	    return str(self.mid)
+	
 class Fuser(models.Model):
 
 	fid = models.IntegerField(unique=True, null=False, default=1000)
@@ -28,7 +35,7 @@ class Fuser(models.Model):
 			return False
 		
 class Request(models.Model):
-	rid = models.IntegerField(null=False)
+	rid = models.IntegerField(unique=True,null=False)
 	Type = models.CharField(max_length=255)
 	descrp = models.CharField(max_length=255 ,null=True) 
 	fromuser =  models.ForeignKey(User, to_field='username',related_name='fromuser', default='james')

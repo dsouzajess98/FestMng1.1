@@ -6,7 +6,7 @@ from django.conf import settings
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth.models import User
-from .models import Fuser,Request
+from .models import Fuser,Request,Brmsg
 from django.contrib.auth.decorators import login_required,user_passes_test #even after loging in the function only if he is certain user
 from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.models import User
@@ -103,7 +103,7 @@ def dispreqno(request):
 	req = {}
 	current_user = request.user
 	for r in Request.objects.filter(touser=current_user):
-		req[count] = {'fuser':r.fromuser_id,'msg':r.descrp}
+		req[count] = {'fruser1':r.fromuser_id,'msg':r.descrp}
 		count = count + 1
 		
 	check['notif'] = count
@@ -132,6 +132,20 @@ def prof(request):
 def profupd(request):
 
 	return render(request,'production/profile.html',response)
+@login_required(login_url='/signin')	
+def newmsg(request):
+
+	if request.method == "POST":
+		msg = request.POST['msg']	
+		check = random_no()
+		while Brmsg.objects.filter(mid=check):
+			check = random_no()
+		obj = Brmsg()
+		obj.mid = check
+		obj.msg = msg
+		obj.save()
+		
+	return render(request,'production/index.html')	
 	
 @login_required(login_url='/signin')	
 def newreq(request, to='xyzab'):
@@ -140,6 +154,12 @@ def newreq(request, to='xyzab'):
 	allUsers = User.objects.all()
 	current_user = request.user.username
 	response['name'] = current_user
+<<<<<<< HEAD
+	response['users'] = allUsers
+	response['fusers']= Fuse
+	allFusers = Fuser.objects.all()
+	response['allFusers'] = allFusers	
+=======
 	response['users'] = allUsers	
 	count = 0
 	for r in Request.objects.filter(touser=current_user):
@@ -157,6 +177,7 @@ def newreq(request, to='xyzab'):
 		
 	response['touser']=to
 	
+>>>>>>> 64ce6e1f1f7b689f7fc6a32c9d729c29dafa4b5b
 	return render(request,'production/request.html',response)
 	
 	
@@ -165,9 +186,18 @@ def random_no(length=3) :
 		return randint(10**(length-1),(10**(length)-1))
 
 @login_required(login_url='/signin')		
-def savereq(request,toser):
+def savereq(request):
 
+<<<<<<< HEAD
+	if request.method =="POST":
+		type = request.POST['type']
+		descrp = request.POST['message']
+		touser = request.POST['to1']
+		datereq = request.POST['date']
+		print(touser)
+=======
 	if request.method == 'POST' :
+>>>>>>> 64ce6e1f1f7b689f7fc6a32c9d729c29dafa4b5b
 		
 		type = request.POST['type']
 		descrp = request.POST['message']
@@ -178,18 +208,26 @@ def savereq(request,toser):
 		print(descrp)
 		while Request.objects.filter(rid=check):
 			check = random_no()
+			
 		obj = Request()
 		obj.rid=check
 		obj.Type=type
 		obj.descrp=descrp
-		chktouser = User.objects.get(username=touser)
 		obj.fromuser = request.user	
+<<<<<<< HEAD
+		obj.date = datereq
+		obj.save();
+		
+			
+	return render(request,'production/request.html')	
+=======
 		obj.touser = chktouser
 		obj.touser=touser
 		obj.date = datereq
 		obj.save();
 		
 	return redirect('/index')	
+>>>>>>> 64ce6e1f1f7b689f7fc6a32c9d729c29dafa4b5b
 	
 	
 def signin(request):

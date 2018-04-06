@@ -247,7 +247,7 @@
                       <a>
                         <span class="image"><img src="{% static 'images/img.jpg' %}" alt="Profile Image" /></span>
                         <span>
-                          <span style="color:#2A3F54;">{{value.fuser}}</span>
+                          <span style="color:#2A3F54;">{{value.fruser1}}</span>
                           <span class="time">3 mins ago</span>
                         </span>
                         <span class="message">
@@ -274,6 +274,7 @@
                     <i class="fa fa-plus" ></i>
                     
                   </a>
+				  </li>
               </ul>
             </nav>
           </div>
@@ -309,7 +310,7 @@
                   <div class="x_content">
 
                     -- start form for validation -->
-                    <form id="demo-form" method="POST" action="/savereq/{{touser}}/">
+                    <form id="demo-form" method="POST" action="/savereq/">
 					{% csrf_token %}
                       <label for="type1">Type of Request</label>
                           <select name="type"  >
@@ -340,6 +341,18 @@
 						  <div id="per" >
 						   <br><br><br>
 						   <label for="end">To:</label>
+<<<<<<< HEAD
+                          <select name="to1" id="users" size="1" action=check()> 
+						
+						  {% for user in users %}
+									<option id="tousers" value="{{user.username}}">{{user.username}}</option>
+                           {% endfor %} 
+                          </select>
+                          </div><br><br><br>
+						
+								
+						  {% endif %}
+=======
                          <select name="to" id="users" size="1" > 					
 						  {% for user in users %}
 									<option id="tousers" value="{{user.usernam}}">{{user.username}}</option>
@@ -347,6 +360,7 @@
                           </select> 
                           </div><br><br><br>					
 						 {% endif %}
+>>>>>>> 64ce6e1f1f7b689f7fc6a32c9d729c29dafa4b5b
                 <div class=''>
                    <label>When do you want it by?</label>
                     <div class="form-group">
@@ -397,7 +411,7 @@
               
               </div>
 						  
-						  <br><br><br><br><br><br>  <br><br><br><br><br><br>  <br><br>
+						  <br><br><br><br><br><br>  <br><br><br><br><br><br>  <br><br><div>
                           <label for="message">Message (20 chars min, 100 max) :</label>
                           <textarea id="message" required="required" class="form-control" name="message" data-parsley-trigger="keyup" data-parsley-minlength="20" data-parsley-maxlength="100" data-parsley-minlength-message="Come on! You need to enter at least a 20 caracters long comment.."
                             data-parsley-validation-threshold="10"></textarea>
@@ -413,7 +427,7 @@
 
         </div>
         </div>
-     
+       
         <!-- /page content -->
 
         <!-- footer content -->
@@ -453,7 +467,11 @@
     <script src="{% static 'vendors/jszip/dist/jszip.min.js' %}"></script>
     <script src="{% static 'vendors/pdfmake/build/pdfmake.min.js' %}"></script>
     <script src="{% static 'vendors/pdfmake/build/vfs_fonts.js' %}"></script>
-
+    <!-- bootstrap-daterangepicker -->
+    <script src="{% static 'vendors/moment/min/moment.min.js' %}"></script>
+    <script src="{% static 'vendors/bootstrap-daterangepicker/daterangepicker.js' %}"></script>
+	    <!-- bootstrap-datetimepicker -->    
+    <script src="{% static 'vendors/bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js' %}"></script>
     <!-- Custom Theme Scripts -->
     <script src="{% static 'build/js/custom.min.js' %}"></script>
 	<script>
