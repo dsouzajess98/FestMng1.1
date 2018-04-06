@@ -90,33 +90,10 @@ def home(request):
 	resp ={}
 	current_user = request.user.username
 #	current_user = User.get_username()
-<<<<<<< HEAD
 
-	
-=======
->>>>>>> 07bd308da2832949de1803524e94b4ed5063b816
 	resp = dispreqno(request)
 	resp['name'] = current_user
 	return render(request,'production/index.html',resp)
-
-<<<<<<< HEAD
-=======
-	response['name'] = current_user
-	count = 0 
-	for r in Request.objects.filter(touser=current_user):
-		count = count + 1
-	response['notif'] = count
-#	print(current_user)
-	if Fuser.objects.filter(un=current_user,filter=1):
-		curr=False
-	else :
-		curr=True
-#	print(curr)
-	response['curr']=curr
-	return render(request,'production/index.html',response)
-
-	#return redirect('\gentelella-master\production\index.html')
->>>>>>> 07bd308da2832949de1803524e94b4ed5063b816
 
 @login_required(login_url='/signin')	
 def dispreqno(request):
