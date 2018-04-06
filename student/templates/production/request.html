@@ -352,14 +352,11 @@
 						  <div id="per" >
 						   <br><br><br>
 						   <label for="end">To:</label>
-                          <select name="to" id="users" size="1" action=check()>
+                          <select name="to" id="users" size="1" action=check()> 
 						
-						   {% for fuser in fusers %}
-								
-								
+						<!--   {% for fuser in fusers %}-->
 									<option id="tousers" value="{{fuser.un}}">{{fuser.un}}</option>
-								
-                           {% endfor %} 
+                        <!--   {% endfor %} 
                           </select>
 						  <div id="check">
 						  </div>
@@ -368,7 +365,7 @@
 							var x=document.getElementById('to');
 							document.getElementById('id').innerHTML(x);
 							}
-						  </script>
+						  </script>-->
                           </div><br><br><br>
 						  {% endif %}
                 <div class=''>
