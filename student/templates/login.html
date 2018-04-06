@@ -34,8 +34,11 @@
             <form method="POST" action="/signin/">
 	          {% csrf_token %}
               <h1>Login Form</h1>
-			  {% if msg %}
+			  {% if msg == 1 %}
 			   <p style="color:red;">Your credentials have already been issued. Kindly Login</p>
+			   {% endif %}
+			   {% if msg == 2 %}
+			   <p style="color:red;">Invalid ID</p>
 			   {% endif %}
 			   {% if flag %}
 			   <p style="color:red;">Following are credentials your credentials 
