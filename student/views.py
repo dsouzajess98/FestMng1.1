@@ -90,7 +90,12 @@ def home(request):
 	resp ={}
 	current_user = request.user.username
 #	current_user = User.get_username()
-
+	
+	if Fuser.objects.filter(un=current_user,filter=1).exists():
+		flag=False
+	else :
+		flag=True
+	resp['curr']=flag
 	resp = dispreqno(request)
 	resp['name'] = current_user
 	return render(request,'production/index.html',resp)
@@ -160,6 +165,11 @@ def newreq(request, to='xyzab'):
 	count = 0
 	for r in Request.objects.filter(touser=current_user):
 		count = count + 1
+	if to == 'xyzab':
+		flag=False
+	else :
+		flag=True
+	response['flag']=flag
 	response['notif'] = count	
 	response['touser']=to
 	
@@ -171,29 +181,67 @@ def random_no(length=3) :
 		return randint(10**(length-1),(10**(length)-1))
 
 @login_required(login_url='/signin')		
-def savereq(request):
+def savereq(request,par):
 
 
 	if request.method == 'POST' :
-		
-		type = request.POST['type']
-		descrp = request.POST['message']
-		touser = request.POST['dept']
-		datereq = request.POST['date']
-		check = random_no()
-		print(touser)
-		print(descrp)
-		while Request.objects.filter(rid=check):
+		if par == 'xyzab':
+			type = request.POST['type']
+			descrp = request.POST['message']
+			to = request.POST['tousers1[]']
+			datereq = request.POST['date']
 			check = random_no()
 			
-		obj = Request()
-		obj.rid=check
-		obj.Type=type
-		obj.descrp=descrp
-		obj.fromuser = request.user	
-		obj.date = datereq
-		obj.save();
+			while Request.objects.filter(rid=check):
+				check = random_no()
+				
+			obj = Request()
+			obj.touser=to
+			obj.rid=check
+			obj.Type=type
+			obj.descrp=descrp
+			obj.fromuser = request.user	
+			obj.date = datereq
+			obj.save();
+		else:
+			type = request.POST['type']
+			descrp = request.POST['message']
+			datereq = request.POST['date']
+			check = random_no()
+			key=range(3)
+			
+			d=""
+			p=""
+			for i in key:
+				d=d+par[i]
+				if i!=2 :
+					p=p+par[i+3]
 		
+			if Fuser.objects.filter(un=request.user,dept=d).exists():
+				f=True #same dept
+			else:
+				f=False #diff dept
+			print f
+			if f==True :
+			
+				curr=Fuser.objects.get(un=request.user)
+				if p=='su' :
+					to = curr.subc
+				else :
+					to = 'admin'
+					
+			while Request.objects.filter(rid=check):
+				check = random_no()
+				
+			obj = Request()
+			obj.rid=check
+			obj.Type=type
+			obj.descrp=descrp
+			obj.fromuser = request.user
+			obj.touser = to
+			obj.date = datereq
+			obj.save();
+			
 			
 	return render(request,'production/index.html')	
 

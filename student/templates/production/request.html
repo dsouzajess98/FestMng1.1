@@ -8,7 +8,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>DataTables | Gentelella</title>
+    <title>Request</title>
     <link href="{% static 'vendors/bootstrap/dist/css/bootstrap.min.css' %}" rel="stylesheet">
     <!-- Font Awesome -->
     <link href="{% static 'vendors/font-awesome/css/font-awesome.min.css' %}" rel="stylesheet">
@@ -310,7 +310,7 @@
                   <div class="x_content">
 
                     -- start form for validation -->
-                    <form id="demo-form" method="POST" action="/savereq/">
+                    <form id="demo-form" method="POST" action="/savereq/{{touser}}/">
 					{% csrf_token %}
                       <label for="type1">Type of Request</label>
                           <select name="type"  >
@@ -335,7 +335,7 @@
                 </div>
 				<br><br><br>
                <div class="col-md-12 col-sm-12 col-xs-12" style="margin-left:-10px;">
-               
+               {% if not flag %}
                   <div class="x_title">
                     <label>Whom do you want to send it to?</label>
                     <div class="clearfix"></div>
@@ -346,7 +346,7 @@
                       <thead>
                         <tr>
                           <th>
-							 <th><input type="checkbox" id="check-all" class="flat"></th>
+							 <th><input type="checkbox" id="check-all" class="flat" ></th>
 						  </th>
                           <th>Name</th>
                           <th>Department</th>
@@ -359,7 +359,7 @@
 					   {% for user in allFusers %}
                         <tr>
                           <td>
-						  <th><input type="checkbox" id="check-all" class="flat"></th>
+						  <th><input type="checkbox" id="check-all" class="flat" value ="{{user.un}}" name="tousers1[]"/></th>
 						  </td>
                           <td>{{user.un}}</td>
                           <td>{{user.dept}}</td>
@@ -372,9 +372,11 @@
               
               </div>
 						  
-						  <br><br><br><br><br><br>  <br><br><br><br><br><br>  <br><br><div>
+						  <br><br><br><br><br><br>  <br><br><br><br><br><br>  <br><br>
+						  {% endif %}
+						  <div>
                           <label for="message">Message (20 chars min, 100 max) :</label>
-                          <textarea id="message" required="required" class="form-control" name="message" data-parsley-trigger="keyup" data-parsley-minlength="20" data-parsley-maxlength="100" data-parsley-minlength-message="Come on! You need to enter at least a 20 caracters long comment.."
+                          <textarea id="message" required="required" class="form-control" name="message" data-parsley-trigger="keyup" data-parsley-minlength="5" data-parsley-maxlength="100" data-parsley-minlength-message="Come on! You need to enter at least a 20 caracters long comment.."
                             data-parsley-validation-threshold="10"></textarea>
 
                           <br/>
