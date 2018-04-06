@@ -92,6 +92,12 @@ def home(request):
 	for r in Request.objects.filter(touser=current_user):
 		count = count + 1
 	response['notif'] = count
+	if Fuser.objects.filter(un=current_user,filter=1):
+		curr=False
+	else :
+		curr=True
+	
+	response['curr']=curr
 	return render(request,'production/index.html',response)
 	#return redirect('\gentelella-master\production\index.html')
 
@@ -122,7 +128,7 @@ def newreq(request, to='xyz'):
 	response ={}
 	allUsers = User.objects.all()
 	current_user = request.user.username
-	Fuse= Fuser.objects.all()
+	Fuse= Fuser.objects.filter(un=current_user)
 	response['name'] = current_user
 	response['users'] = allUsers
 	response['fusers']= Fuse
@@ -155,7 +161,8 @@ def savereq(request):
 		obj.rid=check
 		obj.Type=type
 		obj.descrp=descrp
-		obj.fromuser=request.user.username
+		current_user=request.user.username
+		obj.fromuser=current_user
 		obj.touser = touser
 		obj.date = datereq
 		obj.save();
