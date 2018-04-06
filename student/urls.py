@@ -11,9 +11,8 @@ urlpatterns = [
 	url(r'^index/createrequest/(?P<to>[A-Za-z0-9.,]+)/$',views.newreq),
 	url(r'^logout/$',views.logout_view,name="logout"),
 	url(r'^createrequest/$',views.newreq,name="createreq"),
-        url(r'^saveData/$', views.saveData),
-		url(r'^myprofile/$', views.prof),
-        url(r'^cred/$',views.dispCred),
-		url(r'^profileupd/$',views.profupd),
+    url(r'^saveData/$', views.saveData),
+	url(r'^myprofile/$', views.prof),
+	url(r'^cred/$',views.dispCred),url(r'^profileupd/$',views.profupd),
         url(r'^cred/(?P<id>[A-Za-z0-9.,]+)/$',views.dispCred),
 ]
