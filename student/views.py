@@ -90,12 +90,33 @@ def home(request):
 	resp ={}
 	current_user = request.user.username
 #	current_user = User.get_username()
+<<<<<<< HEAD
 
 	
+=======
+>>>>>>> 07bd308da2832949de1803524e94b4ed5063b816
 	resp = dispreqno(request)
 	resp['name'] = current_user
 	return render(request,'production/index.html',resp)
 
+<<<<<<< HEAD
+=======
+	response['name'] = current_user
+	count = 0 
+	for r in Request.objects.filter(touser=current_user):
+		count = count + 1
+	response['notif'] = count
+#	print(current_user)
+	if Fuser.objects.filter(un=current_user,filter=1):
+		curr=False
+	else :
+		curr=True
+#	print(curr)
+	response['curr']=curr
+	return render(request,'production/index.html',response)
+
+	#return redirect('\gentelella-master\production\index.html')
+>>>>>>> 07bd308da2832949de1803524e94b4ed5063b816
 
 @login_required(login_url='/signin')	
 def dispreqno(request):
@@ -153,10 +174,9 @@ def newreq(request, to='xyz'):
 	else:
 		response['flag']=1
 		response['touser']=to
-	return render(request,'production/request.html',response)
-
-
 	
+	
+	return render(request,'production/request.html',response)
 	
 	
 @register.assignment_tag()
@@ -176,9 +196,51 @@ def savereq(request,toser):
 		else:
 			type = request.POST['type']
 			descrp = request.POST['message']
-			touser = toser
 			datereq = request.POST['date']
-			print(toser)
+			
+			dep={}
+			dep[0]=toser[0]
+			dep[1]=toser[1]
+			dep[2]=toser[2]
+			pt={}
+			pt[0]=toser[3]
+			pt[1]=toser[4]
+			
+			flag=False
+			f1=Fuser.objects.filter(un=request.user.username)
+			for i in f1:
+				if i.dept == dep :
+					flag=True
+					if i.post == su :
+						touser=i.subcore
+					elif i.post == co:
+						touser =i.core
+					else:
+						flag=False
+				
+				else:
+					flag=False
+					
+			print(dep)
+			print(pt)
+			
+			if flag==False :
+				fob=Fuser.objects.filter(dept=dep,post=pt)
+				count=0
+				minc=10
+				chk1 = User.objects.get(username='admin')
+				touser = chk1
+				for i in fob:
+					for r in Request.objects.filter(touser=i.un):
+						count = count + 1
+					if count<minc :
+						count=minc
+						print(i.un)
+						touser=i.un
+			
+		
+			
+		
 		check = random_no()
 		while Request.objects.filter(rid=check):
 			check = random_no()

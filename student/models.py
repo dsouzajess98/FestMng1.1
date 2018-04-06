@@ -15,8 +15,8 @@ class Fuser(models.Model):
 	un = models.ForeignKey(User, to_field='username')
 	dept = models.CharField(max_length=256, null=False, default='ECC')
 	post = models.CharField(max_length=256, null=False, default='Workforce')
-	subc = models.ForeignKey(User, to_field='username', related_name='subc', default='james')
-	core = models.ForeignKey(User, to_field='username', related_name='core', default='admin')
+	subc = models.ForeignKey(User, to_field='username', related_name='subc', null=True)
+	core = models.ForeignKey(User, to_field='username', related_name='core', null=True)
 	filter = models.IntegerField(null=False, default=1)
 
 
