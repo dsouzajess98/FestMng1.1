@@ -90,12 +90,10 @@ def home(request):
 	resp ={}
 	current_user = request.user.username
 #	current_user = User.get_username()
-<<<<<<< HEAD
-	
 	resp = dispreqno(request)
 	resp['name'] = current_user
 	return render(request,'production/index.html',resp)
-=======
+
 	response['name'] = current_user
 	count = 0 
 	for r in Request.objects.filter(touser=current_user):
@@ -109,7 +107,7 @@ def home(request):
 #	print(curr)
 	response['curr']=curr
 	return render(request,'production/index.html',response)
->>>>>>> 3af5a66d7079da2767a12420f2f630c4f7c8c2ce
+
 	#return redirect('\gentelella-master\production\index.html')
 
 @login_required(login_url='/signin')	
@@ -156,10 +154,7 @@ def prof(request):
 	
 @login_required(login_url='/signin')	
 def profupd(request):
-<<<<<<< HEAD
-	
-=======
->>>>>>> 3af5a66d7079da2767a12420f2f630c4f7c8c2ce
+
 	return render(request,'production/profile.html',response)
 	
 @login_required(login_url='/signin')	
@@ -185,26 +180,15 @@ def newreq(request, to='xyz'):
 	
 	
 	return render(request,'production/request.html',response)
-
-
-	
 	
 	
 @register.assignment_tag()
 def random_no(length=3) :
 		return randint(10**(length-1),(10**(length)-1))
-<<<<<<< HEAD
+
 @login_required(login_url='/signin')		
-def savereq(request):
-=======
-		
 def savereq(request,toser):
 
-<<<<<<< HEAD
-	
-=======
->>>>>>> 3af5a66d7079da2767a12420f2f630c4f7c8c2ce
->>>>>>> afb6461ef119321990078430450f82356b465c6f
 	if request.method =="POST":
 		if toser == 'def':
 			type = request.POST['type']
@@ -213,7 +197,10 @@ def savereq(request,toser):
 			datereq = request.POST['date']
 			print(type)
 		else:
-	
+			type = request.POST['type']
+			descrp = request.POST['message']
+			datereq = request.POST['date']
+			
 			dep={}
 			dep[0]=toser[0]
 			dep[1]=toser[1]
@@ -221,7 +208,8 @@ def savereq(request,toser):
 			pt={}
 			pt[0]=toser[3]
 			pt[1]=toser[4]
-					
+			
+			flag=False
 			f1=Fuser.objects.filter(un=request.user.username)
 			for i in f1:
 				if i.dept == dep :
@@ -243,9 +231,9 @@ def savereq(request,toser):
 				fob=Fuser.objects.filter(dept=dep,post=pt)
 				count=0
 				minc=10
-				
+				chk1 = User.objects.get(username='admin')
+				touser = chk1
 				for i in fob:
-					touser=fob.un
 					for r in Request.objects.filter(touser=i.un):
 						count = count + 1
 					if count<minc :
@@ -253,9 +241,7 @@ def savereq(request,toser):
 						print(i.un)
 						touser=i.un
 			
-			type = request.POST['type']
-			descrp = request.POST['message']
-			datereq = request.POST['date']
+		
 			
 		
 		check = random_no()
@@ -265,15 +251,9 @@ def savereq(request,toser):
 		obj.rid=check
 		obj.Type=type
 		obj.descrp=descrp
-<<<<<<< HEAD
 		chktouser = User.objects.get(username=touser)
 		obj.fromuser = request.user	
 		obj.touser = chktouser
-=======
-		current_user=request.user.username
-		#obj.fromuser=current_user
-		obj.touser = touser
->>>>>>> 3af5a66d7079da2767a12420f2f630c4f7c8c2ce
 		obj.date = datereq
 		obj.save();
 		
