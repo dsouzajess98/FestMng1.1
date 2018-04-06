@@ -90,49 +90,25 @@ def home(request):
 	resp ={}
 	current_user = request.user.username
 #	current_user = User.get_username()
-<<<<<<< HEAD
+
 	
 	resp = dispreqno(request)
 	resp['name'] = current_user
 	return render(request,'production/index.html',resp)
-=======
-	response['name'] = current_user
-	count = 0 
-	for r in Request.objects.filter(touser=current_user):
-		count = count + 1
-	response['notif'] = count
-#	print(current_user)
-	if Fuser.objects.filter(un=current_user,filter=1):
-		curr=False
-	else :
-		curr=True
-#	print(curr)
-	response['curr']=curr
-	return render(request,'production/index.html',response)
->>>>>>> 3af5a66d7079da2767a12420f2f630c4f7c8c2ce
-	#return redirect('\gentelella-master\production\index.html')
+
 
 @login_required(login_url='/signin')	
 def dispreqno(request):
 	count = 0
 	check = {}
-	reqfr = {}
+
 	req = {}
-	reqchk = {}
-	reqmsg = {}
 	current_user = request.user
 	for r in Request.objects.filter(touser=current_user):
-		reqfr[count] = r.fromuser_id
-		reqmsg[count] = r.descrp
-		reqchk['from'] = r.fromuser_id
-		reqchk['msg'] = r.descrp
 		req[count] = {'fuser':r.fromuser_id,'msg':r.descrp}
-		print(req[count])
 		count = count + 1
 		
 	check['notif'] = count
-	check['fruser']= reqfr
-	check['reqmsg']= reqmsg
 	check['req'] = req
 	return check
 	
@@ -156,15 +132,13 @@ def prof(request):
 	
 @login_required(login_url='/signin')	
 def profupd(request):
-<<<<<<< HEAD
-	
-=======
->>>>>>> 3af5a66d7079da2767a12420f2f630c4f7c8c2ce
+
 	return render(request,'production/profile.html',response)
 	
 @login_required(login_url='/signin')	
 def newreq(request, to='xyz'):
 	response ={}
+	response = dispreqno(request)
 	allUsers = User.objects.all()
 	current_user = request.user.username
 	Fuse= Fuser.objects.filter(un=current_user)
@@ -172,10 +146,7 @@ def newreq(request, to='xyz'):
 	response['users'] = allUsers
 	response['fusers']= Fuse
 	
-	count = 0
-	for r in Request.objects.filter(touser=current_user):
-		count = count + 1
-	response['notif'] = count
+	
 	if(to=='xyz'):
 		response['flag']=0
 		response['touser']='def'
@@ -191,14 +162,10 @@ def newreq(request, to='xyz'):
 @register.assignment_tag()
 def random_no(length=3) :
 		return randint(10**(length-1),(10**(length)-1))
-<<<<<<< HEAD
+
 @login_required(login_url='/signin')		
-def savereq(request):
-=======
-		
 def savereq(request,toser):
 
->>>>>>> 3af5a66d7079da2767a12420f2f630c4f7c8c2ce
 	if request.method =="POST":
 		if toser == 'def':
 			type = request.POST['type']
@@ -219,15 +186,9 @@ def savereq(request,toser):
 		obj.rid=check
 		obj.Type=type
 		obj.descrp=descrp
-<<<<<<< HEAD
 		chktouser = User.objects.get(username=touser)
 		obj.fromuser = request.user	
 		obj.touser = chktouser
-=======
-		current_user=request.user.username
-		obj.fromuser=current_user
-		obj.touser = touser
->>>>>>> 3af5a66d7079da2767a12420f2f630c4f7c8c2ce
 		obj.date = datereq
 		obj.save();
 		
