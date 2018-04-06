@@ -154,30 +154,15 @@ def newreq(request, to='xyzab'):
 	allUsers = User.objects.all()
 	current_user = request.user.username
 	response['name'] = current_user
-<<<<<<< HEAD
 	response['users'] = allUsers
-	response['fusers']= Fuse
 	allFusers = Fuser.objects.all()
 	response['allFusers'] = allFusers	
-=======
-	response['users'] = allUsers	
 	count = 0
 	for r in Request.objects.filter(touser=current_user):
 		count = count + 1
-	response['notif'] = count
-	if(to=='xyzab'):
-		response['flag']=0
-		allFusers = Fuser.objects.all()
-		response['allFusers'] = allFusers
-		for u in allFusers:
-			print(u.un)
-		
-	else:
-		response['flag']=1
-		
+	response['notif'] = count	
 	response['touser']=to
 	
->>>>>>> 64ce6e1f1f7b689f7fc6a32c9d729c29dafa4b5b
 	return render(request,'production/request.html',response)
 	
 	
@@ -188,16 +173,8 @@ def random_no(length=3) :
 @login_required(login_url='/signin')		
 def savereq(request):
 
-<<<<<<< HEAD
-	if request.method =="POST":
-		type = request.POST['type']
-		descrp = request.POST['message']
-		touser = request.POST['to1']
-		datereq = request.POST['date']
-		print(touser)
-=======
+
 	if request.method == 'POST' :
->>>>>>> 64ce6e1f1f7b689f7fc6a32c9d729c29dafa4b5b
 		
 		type = request.POST['type']
 		descrp = request.POST['message']
@@ -214,20 +191,12 @@ def savereq(request):
 		obj.Type=type
 		obj.descrp=descrp
 		obj.fromuser = request.user	
-<<<<<<< HEAD
 		obj.date = datereq
 		obj.save();
 		
 			
-	return render(request,'production/request.html')	
-=======
-		obj.touser = chktouser
-		obj.touser=touser
-		obj.date = datereq
-		obj.save();
-		
-	return redirect('/index')	
->>>>>>> 64ce6e1f1f7b689f7fc6a32c9d729c29dafa4b5b
+	return render(request,'production/index.html')	
+
 	
 	
 def signin(request):

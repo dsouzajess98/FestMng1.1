@@ -321,46 +321,7 @@
                           </select>
                         <br><br><br>
 						
-						{% if not flag %}
-<!--                        <label for="heard">Do you want to send it to ..</label><br>
-							<input type="radio" name="gender" value="male" checked>Department<br>
-							<input type="radio" name="gender" value="female"> Specific person<br>
--->						
-						 <div id="dept" >
-                          <label for="end">Department:</label>
-                          <select name="dept" >
-           <!--                 <option value="ecc">ECC</option>
-                            <option value="qcm">QCM</option>
-                            <option value="spons">Sponsorship</option> -->
-							{% for user in users %}
-								<option value="{{user.usernam}}">{{user.username}}</option>
-							{% endfor %} 
-		
-                          </select>
-						  </div>
-						  <div id="per" >
-						   <br><br><br>
-						   <label for="end">To:</label>
-<<<<<<< HEAD
-                          <select name="to1" id="users" size="1" action=check()> 
-						
-						  {% for user in users %}
-									<option id="tousers" value="{{user.username}}">{{user.username}}</option>
-                           {% endfor %} 
-                          </select>
-                          </div><br><br><br>
-						
-								
-						  {% endif %}
-=======
-                         <select name="to" id="users" size="1" > 					
-						  {% for user in users %}
-									<option id="tousers" value="{{user.usernam}}">{{user.username}}</option>
-                          {% endfor %} 
-                          </select> 
-                          </div><br><br><br>					
-						 {% endif %}
->>>>>>> 64ce6e1f1f7b689f7fc6a32c9d729c29dafa4b5b
+
                 <div class=''>
                    <label>When do you want it by?</label>
                     <div class="form-group">
