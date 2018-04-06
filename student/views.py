@@ -139,26 +139,18 @@ def newreq(request, to='xyzab'):
 	response = dispreqno(request)
 	allUsers = User.objects.all()
 	current_user = request.user.username
-	Fuse= Fuser.objects.filter(un=current_user)
 	response['name'] = current_user
-	response['users'] = allUsers
-	response['fusers']= Fuse
-<<<<<<< HEAD
-	
+	response['users'] = allUsers	
 	count = 0
 	for r in Request.objects.filter(touser=current_user):
 		count = count + 1
 	response['notif'] = count
 	if(to=='xyzab'):
-=======
-	allFusers = Fuser.objects.all()
-	allFusers = Fuser.objects.all()
-	response['allFusers'] = allFusers
-	for u in allFusers:
-		print(u.un)
-	if(to=='xyz'):
->>>>>>> 543a74f1d57edc1a7ed01965b241d59bb364af84
 		response['flag']=0
+		allFusers = Fuser.objects.all()
+		response['allFusers'] = allFusers
+		for u in allFusers:
+			print(u.un)
 		
 	else:
 		response['flag']=1
@@ -190,10 +182,10 @@ def savereq(request,toser):
 		obj.rid=check
 		obj.Type=type
 		obj.descrp=descrp
-	#	chktouser = User.objects.get(username=touser)
-	#	obj.fromuser = request.user	
-	#	obj.touser = chktouser
-	#	obj.touser=touser
+		chktouser = User.objects.get(username=touser)
+		obj.fromuser = request.user	
+		obj.touser = chktouser
+		obj.touser=touser
 		obj.date = datereq
 		obj.save();
 		
