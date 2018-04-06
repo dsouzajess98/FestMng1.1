@@ -6,7 +6,7 @@ from django.conf import settings
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth.models import User
-from .models import Fuser,Request
+from .models import Fuser,Request,Brmsg
 from django.contrib.auth.decorators import login_required,user_passes_test #even after loging in the function only if he is certain user
 from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.models import User
@@ -103,7 +103,7 @@ def dispreqno(request):
 	req = {}
 	current_user = request.user
 	for r in Request.objects.filter(touser=current_user):
-		req[count] = {'fuser':r.fromuser_id,'msg':r.descrp}
+		req[count] = {'fruser1':r.fromuser_id,'msg':r.descrp}
 		count = count + 1
 		
 	check['notif'] = count
@@ -132,6 +132,20 @@ def prof(request):
 def profupd(request):
 
 	return render(request,'production/profile.html',response)
+@login_required(login_url='/signin')	
+def newmsg(request):
+
+	if request.method == "POST":
+		msg = request.POST['msg']	
+		check = random_no()
+		while Brmsg.objects.filter(mid=check):
+			check = random_no()
+		obj = Brmsg()
+		obj.mid = check
+		obj.msg = msg
+		obj.save()
+		
+	return render(request,'production/index.html')	
 	
 @login_required(login_url='/signin')	
 def newreq(request, to='xyz'):
@@ -144,18 +158,7 @@ def newreq(request, to='xyz'):
 	response['users'] = allUsers
 	response['fusers']= Fuse
 	allFusers = Fuser.objects.all()
-	allFusers = Fuser.objects.all()
-	response['allFusers'] = allFusers
-	for u in allFusers:
-		print(u.un)
-	if(to=='xyz'):
-		response['flag']=0
-		response['touser']='def'
-	else:
-		response['flag']=1
-		response['touser']=to
-	
-	
+	response['allFusers'] = allFusers	
 	return render(request,'production/request.html',response)
 	
 	
@@ -164,78 +167,29 @@ def random_no(length=3) :
 		return randint(10**(length-1),(10**(length)-1))
 
 @login_required(login_url='/signin')		
-def savereq(request,toser):
+def savereq(request):
 
 	if request.method =="POST":
-		if toser == 'def':
-			type = request.POST['type']
-			descrp = request.POST['message']
-			touser = request.POST['to']
-			datereq = request.POST['date']
-			print(type)
-		else:
-			type = request.POST['type']
-			descrp = request.POST['message']
-			datereq = request.POST['date']
-			
-			dep={}
-			dep[0]=toser[0]
-			dep[1]=toser[1]
-			dep[2]=toser[2]
-			pt={}
-			pt[0]=toser[3]
-			pt[1]=toser[4]
-			
-			flag=False
-			f1=Fuser.objects.filter(un=request.user.username)
-			for i in f1:
-				if i.dept == dep :
-					flag=True
-					if i.post == su :
-						touser=i.subcore
-					elif i.post == co:
-						touser =i.core
-					else:
-						flag=False
-				
-				else:
-					flag=False
-					
-			print(dep)
-			print(pt)
-			
-			if flag==False :
-				fob=Fuser.objects.filter(dept=dep,post=pt)
-				count=0
-				minc=10
-				chk1 = User.objects.get(username='admin')
-				touser = chk1
-				for i in fob:
-					for r in Request.objects.filter(touser=i.un):
-						count = count + 1
-					if count<minc :
-						count=minc
-						print(i.un)
-						touser=i.un
-			
-		
-			
+		type = request.POST['type']
+		descrp = request.POST['message']
+		touser = request.POST['to1']
+		datereq = request.POST['date']
+		print(touser)
 		
 		check = random_no()
 		while Request.objects.filter(rid=check):
 			check = random_no()
+			
 		obj = Request()
 		obj.rid=check
 		obj.Type=type
 		obj.descrp=descrp
-		chktouser = User.objects.get(username=touser)
 		obj.fromuser = request.user	
-		obj.touser = chktouser
 		obj.date = datereq
 		obj.save();
 		
 			
-	return redirect('/index')	
+	return render(request,'production/request.html')	
 	
 	
 def signin(request):
