@@ -144,6 +144,8 @@ def newreq(request, to='xyz'):
 	else:
 		response['flag']=1
 		response['touser']=to
+	
+	
 	return render(request,'production/request.html',response)
 
 @register.assignment_tag()
@@ -152,6 +154,7 @@ def random_no(length=3) :
 		
 def savereq(request,toser):
 
+	
 	if request.method =="POST":
 		if toser == 'def':
 			type = request.POST['type']
@@ -160,11 +163,51 @@ def savereq(request,toser):
 			datereq = request.POST['date']
 			print(type)
 		else:
+	
+			dep={}
+			dep[0]=toser[0]
+			dep[1]=toser[1]
+			dep[2]=toser[2]
+			pt={}
+			pt[0]=toser[3]
+			pt[1]=toser[4]
+					
+			f1=Fuser.objects.filter(un=request.user.username)
+			for i in f1:
+				if i.dept == dep :
+					flag=True
+					if i.post == su :
+						touser=i.subcore
+					elif i.post == co:
+						touser =i.core
+					else:
+						flag=False
+				
+				else:
+					flag=False
+					
+			print(dep)
+			print(pt)
+			
+			if flag==False :
+				fob=Fuser.objects.filter(dept=dep,post=pt)
+				count=0
+				minc=10
+				
+				for i in fob:
+					touser=fob.un
+					for r in Request.objects.filter(touser=i.un):
+						count = count + 1
+					if count<minc :
+						count=minc
+						print(i.un)
+						touser=i.un
+			
 			type = request.POST['type']
 			descrp = request.POST['message']
-			touser = toser
 			datereq = request.POST['date']
-			print(toser)
+			
+		
 		check = random_no()
 		while Request.objects.filter(rid=check):
 			check = random_no()
@@ -173,7 +216,7 @@ def savereq(request,toser):
 		obj.Type=type
 		obj.descrp=descrp
 		current_user=request.user.username
-		obj.fromuser=current_user
+		#obj.fromuser=current_user
 		obj.touser = touser
 		obj.date = datereq
 		obj.save();
