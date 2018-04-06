@@ -7,10 +7,8 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	  
-    <title>Request | </title>
 
-    <!-- Bootstrap -->
+    <title>DataTables | Gentelella</title>
     <link href="{% static 'vendors/bootstrap/dist/css/bootstrap.min.css' %}" rel="stylesheet">
     <!-- Font Awesome -->
     <link href="{% static 'vendors/font-awesome/css/font-awesome.min.css' %}" rel="stylesheet">
@@ -31,11 +29,28 @@
     <link href="{% static 'vendors/starrr/dist/starrr.css' %}" rel="stylesheet">
     <!-- bootstrap-daterangepicker -->
     <link href="{% static 'vendors/bootstrap-daterangepicker/daterangepicker.css' %}" rel="stylesheet">
-         <link href="{% static 'vendors/datatables.net-bs/css/dataTables.bootstrap.min.css' %}" rel="stylesheet">
+     <link href="{% static 'vendors/datatables.net-bs/css/dataTables.bootstrap.min.css' %}" rel="stylesheet">
     <link href="{% static 'vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css' %}" rel="stylesheet">
     <link href="{% static 'vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css' %}" rel="stylesheet">
     <link href="{% static 'vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css' %}" rel="stylesheet">
     <link href="{% static 'vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css' %}" rel="stylesheet">
+    <!-- Custom Theme Style -->
+    <link href="{% static 'build/css/custom.min.css' %}" rel="stylesheet">
+    <!-- Bootstrap -->
+    <link href="{% static 'vendors/bootstrap/dist/css/bootstrap.min.css' %}" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="{% static 'vendors/font-awesome/css/font-awesome.min.css' %}" rel="stylesheet">
+    <!-- NProgress -->
+    <link href="{% static 'vendors/nprogress/nprogress.css' %}" rel="stylesheet">
+    <!-- iCheck -->
+    <link href="{% static 'vendors/iCheck/skins/flat/green.css' %}" rel="stylesheet">
+    <!-- Datatables -->
+    <link href="{% static 'vendors/datatables.net-bs/css/dataTables.bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css' %}" rel="stylesheet">
+
     <!-- Custom Theme Style -->
     <link href="{% static 'build/css/custom.min.css' %}" rel="stylesheet">
   </head>
@@ -44,7 +59,7 @@
     <div class="container body">
       <div class="main_container">
         <div class="col-md-3 left_col">
-          <div class="left_col scroll-view">
+         <div class="left_col scroll-view">
             <div class="navbar nav_title" style="border: 0;">
               <a href={% url 'index' %} class="site_title"><i class="fa fa-paw"></i> <span>Fest Manager</span></a>
             </div>
@@ -195,7 +210,7 @@
         </div>
 
         <!-- top navigation -->
-        <div class="top_nav">
+              <div class="top_nav">
           <div class="nav_menu">
             <nav>
               <div class="nav toggle">
@@ -262,10 +277,8 @@
               </ul>
             </nav>
           </div>
-        </div>
-        <!-- /top navigation -->
+        </div>    <!-- /top navigation -->
 
-        <!-- page content -->
         <div class="right_col" role="main">
           <div class="">
             <div class="page-title">
@@ -353,7 +366,7 @@
                     </div>
                 </div>
 				<br><br><br>
-               <div class="col-md-12 col-sm-12 col-xs-12">
+               <div class="col-md-12 col-sm-12 col-xs-12" style="margin-left:-10px;">
                
                   <div class="x_title">
                     <label>Whom do you want to send it to?</label>
@@ -391,7 +404,7 @@
               
               </div>
 						  
-						  <br><br><br><br><br><br>
+						  <br><br><br><br><br><br>  <br><br><br><br><br><br>  <br><br>
                           <label for="message">Message (20 chars min, 100 max) :</label>
                           <textarea id="message" required="required" class="form-control" name="message" data-parsley-trigger="keyup" data-parsley-minlength="20" data-parsley-maxlength="100" data-parsley-minlength-message="Come on! You need to enter at least a 20 caracters long comment.."
                             data-parsley-validation-threshold="10"></textarea>
@@ -407,12 +420,13 @@
 
         </div>
         </div>
+     
         <!-- /page content -->
 
         <!-- footer content -->
         <footer>
           <div class="pull-right">
-            Rights Reserved GameChangers</a>
+            Rights reserved GameChangers</a>
           </div>
           <div class="clearfix"></div>
         </footer>
@@ -428,38 +442,10 @@
     <script src="{% static 'vendors/fastclick/lib/fastclick.js' %}"></script>
     <!-- NProgress -->
     <script src="{% static 'vendors/nprogress/nprogress.js' %}"></script>
-    <!-- bootstrap-progressbar -->
-    <script src="{% static 'vendors/bootstrap-progressbar/bootstrap-progressbar.min.js' %}"></script>
     <!-- iCheck -->
     <script src="{% static 'vendors/iCheck/icheck.min.js' %}"></script>
-    <!-- bootstrap-daterangepicker -->
-    <script src="{% static 'vendors/moment/min/moment.min.js' %}"></script>
-    <script src="{% static 'vendors/bootstrap-daterangepicker/daterangepicker.js' %}"></script>
-    <!-- bootstrap-wysiwyg -->
-    <script src="{% static 'vendors/bootstrap-wysiwyg/js/bootstrap-wysiwyg.min.js' %}"></script>
-    <script src="{% static 'vendors/jquery.hotkeys/jquery.hotkeys.js' %}"></script>
-    <script src="{% static 'vendors/google-code-prettify/src/prettify.js' %}"></script>
-    <!-- jQuery Tags Input -->
-    <script src="{% static 'vendors/jquery.tagsinput/src/jquery.tagsinput.js' %}"></script>
-    <!-- Switchery -->
-    <script src="{% static 'vendors/switchery/dist/switchery.min.js' %}"></script>
-    <!-- Select2 -->
-    <script src="{% static 'vendors/select2/dist/js/select2.full.min.js' %}"></script>
-    <!-- Parsley -->
-    <script src="{% static 'vendors/parsleyjs/dist/parsley.min.js' %}"></script>
-    <!-- Autosize -->
-    <script src="{% static 'vendors/autosize/dist/autosize.min.js' %}"></script>
-    <!-- jQuery autocomplete -->
-    <script src="{% static 'vendors/devbridge-autocomplete/dist/jquery.autocomplete.min.js' %}"></script>
-    <!-- starrr -->
-    <script src="{% static 'vendors/starrr/dist/starrr.js' %}"></script>
-    <!-- Custom Theme Scripts -->
-    <script src="{% static 'build/js/custom.min.js' %}"></script>
-	
-	<script src="{% static 'vendors/bootstrap-daterangepicker/daterangepicker.js' %}"></script>
-    <!-- bootstrap-datetimepicker -->    
-    <script src="{% static 'vendors/bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js' %}"></script>
-	    <script src="{% static 'vendors/datatables.net/js/jquery.dataTables.min.js' %}"></script>
+    <!-- Datatables -->
+    <script src="{% static 'vendors/datatables.net/js/jquery.dataTables.min.js' %}"></script>
     <script src="{% static 'vendors/datatables.net-bs/js/dataTables.bootstrap.min.js' %}"></script>
     <script src="{% static 'vendors/datatables.net-buttons/js/dataTables.buttons.min.js' %}"></script>
     <script src="{% static 'vendors/datatables.net-buttons-bs/js/buttons.bootstrap.min.js' %}"></script>
@@ -474,6 +460,9 @@
     <script src="{% static 'vendors/jszip/dist/jszip.min.js' %}"></script>
     <script src="{% static 'vendors/pdfmake/build/pdfmake.min.js' %}"></script>
     <script src="{% static 'vendors/pdfmake/build/vfs_fonts.js' %}"></script>
+
+    <!-- Custom Theme Scripts -->
+    <script src="{% static 'build/js/custom.min.js' %}"></script>
 	<script>
     $('#myDatepicker').datetimepicker();
     
