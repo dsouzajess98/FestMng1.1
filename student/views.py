@@ -143,8 +143,11 @@ def newreq(request, to='xyz'):
 	response['name'] = current_user
 	response['users'] = allUsers
 	response['fusers']= Fuse
-	
-	
+	allFusers = Fuser.objects.all()
+	allFusers = Fuser.objects.all()
+	response['allFusers'] = allFusers
+	for u in allFusers:
+		print(u.un)
 	if(to=='xyz'):
 		response['flag']=0
 		response['touser']='def'
