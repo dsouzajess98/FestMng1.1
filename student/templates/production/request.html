@@ -343,33 +343,26 @@
 -->						
 						 <div id="dept" >
                           <label for="end">Department:</label>
-                          <select name="to" >
-                            <option value="ecc">ECC</option>
+                          <select name="dept" >
+           <!--                 <option value="ecc">ECC</option>
                             <option value="qcm">QCM</option>
-                            <option value="spons">Sponsorship</option>
+                            <option value="spons">Sponsorship</option> -->
+							{% for user in users %}
+								<option value="{{user.usernam}}">{{user.username}}</option>
+							{% endfor %} 
+		
                           </select>
 						  </div>
 						  <div id="per" >
 						   <br><br><br>
 						   <label for="end">To:</label>
-                          <select name="to" id="users" size="1" action=check()> 
-						
+                         <select name="to" id="users" size="1" > 					
 						  {% for user in users %}
 									<option id="tousers" value="{{user.usernam}}">{{user.username}}</option>
-                           {% endfor %} 
-                          </select>
-						  <div id="check">
-						  </div>
-						  <script>
-						  function check() {
-							var x=document.getElementById('to');
-							document.getElementById('id').innerHTML(x);
-							}
-						  </script>
-                          </div><br><br><br>
-						
-								
-						  {% endif %}
+                          {% endfor %} 
+                          </select> 
+                          </div><br><br><br>					
+						 {% endif %}
                 <div class=''>
                    <label>When do you want it by?</label>
                     <div class="form-group">

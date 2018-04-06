@@ -158,7 +158,7 @@ def profupd(request):
 	return render(request,'production/profile.html',response)
 	
 @login_required(login_url='/signin')	
-def newreq(request, to='xyz'):
+def newreq(request, to='xyzab'):
 	response ={}
 	allUsers = User.objects.all()
 	current_user = request.user.username
@@ -171,13 +171,13 @@ def newreq(request, to='xyz'):
 	for r in Request.objects.filter(touser=current_user):
 		count = count + 1
 	response['notif'] = count
-	if(to=='xyz'):
+	if(to=='xyzab'):
 		response['flag']=0
-		response['touser']='def'
+		
 	else:
 		response['flag']=1
-		response['touser']=to
-	
+		
+	response['touser']=to
 	
 	return render(request,'production/request.html',response)
 	
@@ -189,75 +189,28 @@ def random_no(length=3) :
 @login_required(login_url='/signin')		
 def savereq(request,toser):
 
-	if request.method =="POST":
-		if toser == 'def':
-			type = request.POST['type']
-			descrp = request.POST['message']
-			touser = request.POST['to']
-			datereq = request.POST['date']
-			print(type)
-		else:
-			type = request.POST['type']
-			descrp = request.POST['message']
-			datereq = request.POST['date']
-			
-			dep={}
-			dep[0]=toser[0]
-			dep[1]=toser[1]
-			dep[2]=toser[2]
-			pt={}
-			pt[0]=toser[3]
-			pt[1]=toser[4]
-			
-			flag=False
-			f1=Fuser.objects.filter(un=request.user.username)
-			for i in f1:
-				if i.dept == dep :
-					flag=True
-					if i.post == su :
-						touser=i.subcore
-					elif i.post == co:
-						touser =i.core
-					else:
-						flag=False
-				
-				else:
-					flag=False
-					
-			print(dep)
-			print(pt)
-			
-			if flag==False :
-				fob=Fuser.objects.filter(dept=dep,post=pt)
-				count=0
-				minc=10
-				chk1 = User.objects.get(username='admin')
-				touser = chk1
-				for i in fob:
-					for r in Request.objects.filter(touser=i.un):
-						count = count + 1
-					if count<minc :
-						count=minc
-						print(i.un)
-						touser=i.un
-			
+	if request.method == 'POST' :
 		
-			
-		
+		type = request.POST['type']
+		descrp = request.POST['message']
+		touser = request.POST['dept']
+		datereq = request.POST['date']
 		check = random_no()
+		print(touser)
+		print(descrp)
 		while Request.objects.filter(rid=check):
 			check = random_no()
 		obj = Request()
 		obj.rid=check
 		obj.Type=type
 		obj.descrp=descrp
-		chktouser = User.objects.get(username=touser)
-		obj.fromuser = request.user	
-		obj.touser = chktouser
+	#	chktouser = User.objects.get(username=touser)
+	#	obj.fromuser = request.user	
+	#	obj.touser = chktouser
+	#	obj.touser=touser
 		obj.date = datereq
 		obj.save();
 		
-			
 	return redirect('/index')	
 	
 	
