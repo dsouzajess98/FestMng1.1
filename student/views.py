@@ -48,7 +48,10 @@ def dispCred(request,id):
 			check = {}
 			check['msg'] = 1
 			check['flag'] = 0
-			return render(request, 'login.html',check)
+
+			return render(request, 'login.html',check) 
+
+#			return render(request, 'login.html',check)
 	if Fuser.objects.filter(fid=id).exists() == False:
 			text="""<h1> Invalid ID </h1>"""
 			check = {}
@@ -56,6 +59,7 @@ def dispCred(request,id):
 			check['flag'] = 0
 			return render(request, 'login.html',check)			
 			
+
 	obj=Fuser.objects.filter(fid=id)
 	
 	resp={}
@@ -86,10 +90,26 @@ def home(request):
 	resp ={}
 	current_user = request.user.username
 #	current_user = User.get_username()
+<<<<<<< HEAD
 	
 	resp = dispreqno(request)
 	resp['name'] = current_user
 	return render(request,'production/index.html',resp)
+=======
+	response['name'] = current_user
+	count = 0 
+	for r in Request.objects.filter(touser=current_user):
+		count = count + 1
+	response['notif'] = count
+#	print(current_user)
+	if Fuser.objects.filter(un=current_user,filter=1):
+		curr=False
+	else :
+		curr=True
+#	print(curr)
+	response['curr']=curr
+	return render(request,'production/index.html',response)
+>>>>>>> 3af5a66d7079da2767a12420f2f630c4f7c8c2ce
 	#return redirect('\gentelella-master\production\index.html')
 
 @login_required(login_url='/signin')	
@@ -128,8 +148,7 @@ def prof(request):
 	response['notif'] = count
 	response['flag']=0
 	for u in Fuser.objects.filter(un=current_user):
-		if u.nop == 1:
-			print(u.un)
+		if u.nop == 1 :
 			fob=Fuser.objects.filter(fid=id).update(nop=2)
 			response['flag']=1
 			
@@ -137,7 +156,10 @@ def prof(request):
 	
 @login_required(login_url='/signin')	
 def profupd(request):
+<<<<<<< HEAD
 	
+=======
+>>>>>>> 3af5a66d7079da2767a12420f2f630c4f7c8c2ce
 	return render(request,'production/profile.html',response)
 	
 @login_required(login_url='/signin')	
@@ -145,19 +167,21 @@ def newreq(request, to='xyz'):
 	response ={}
 	allUsers = User.objects.all()
 	current_user = request.user.username
-	Fuse= Fuser.objects.all()
+	Fuse= Fuser.objects.filter(un=current_user)
 	response['name'] = current_user
 	response['users'] = allUsers
 	response['fusers']= Fuse
+	
 	count = 0
 	for r in Request.objects.filter(touser=current_user):
 		count = count + 1
 	response['notif'] = count
 	if(to=='xyz'):
 		response['flag']=0
+		response['touser']='def'
 	else:
 		response['flag']=1
-		
+		response['touser']=to
 	return render(request,'production/request.html',response)
 
 
@@ -167,14 +191,27 @@ def newreq(request, to='xyz'):
 @register.assignment_tag()
 def random_no(length=3) :
 		return randint(10**(length-1),(10**(length)-1))
+<<<<<<< HEAD
 @login_required(login_url='/signin')		
 def savereq(request):
+=======
+		
+def savereq(request,toser):
+
+>>>>>>> 3af5a66d7079da2767a12420f2f630c4f7c8c2ce
 	if request.method =="POST":
-		type = request.POST['type']
-		descrp = request.POST['message']
-		touser = request.POST['to']
-		datereq = request.POST['date']
-		print(type)
+		if toser == 'def':
+			type = request.POST['type']
+			descrp = request.POST['message']
+			touser = request.POST['to']
+			datereq = request.POST['date']
+			print(type)
+		else:
+			type = request.POST['type']
+			descrp = request.POST['message']
+			touser = toser
+			datereq = request.POST['date']
+			print(toser)
 		check = random_no()
 		while Request.objects.filter(rid=check):
 			check = random_no()
@@ -182,9 +219,15 @@ def savereq(request):
 		obj.rid=check
 		obj.Type=type
 		obj.descrp=descrp
+<<<<<<< HEAD
 		chktouser = User.objects.get(username=touser)
 		obj.fromuser = request.user	
 		obj.touser = chktouser
+=======
+		current_user=request.user.username
+		obj.fromuser=current_user
+		obj.touser = touser
+>>>>>>> 3af5a66d7079da2767a12420f2f630c4f7c8c2ce
 		obj.date = datereq
 		obj.save();
 		

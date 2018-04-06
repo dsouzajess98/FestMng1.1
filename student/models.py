@@ -19,9 +19,13 @@ class Fuser(models.Model):
 	core = models.ForeignKey(User, to_field='username', related_name='core', default='admin')
 	filter = models.IntegerField(null=False, default=1)
 
+
 # defining a method to return rollno in string. self similar to this. Blank contains an empty string unlike null. It will create table auto
-	def __str__(self):
-		return str(self.un)
+	def getdept(self):
+		if self.dept=='ECC':
+			return str(self.dept)
+		else:
+			return False
 		
 class Request(models.Model):
 	rid = models.IntegerField(null=False)
