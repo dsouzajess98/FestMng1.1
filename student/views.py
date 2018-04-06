@@ -14,19 +14,21 @@ from random import randint, choice
 from string import ascii_lowercase,digits
 
 register = template.Library()
+
 def saveData(request):
 
 	if request.method == "POST":
 		cid = request.POST['spid']
-
+		print(cid)
+		
 	if Fuser.objects.filter(fid=cid).exists():
-		if Fuser.objects.filter(nop=0).exists() :
+		if Fuser.objects.filter(fid=cid,nop=0).exists() :
  			return redirect(dispCred,cid)
 		else:
 			check = {}
 			check['msg'] = 1
 			check['flag'] = 0
-			return render(request, 'login.html',check)
+			return render(request, 'login.html',check)	
 	else:
 		text="""<h2> Invalid ID </h2>"""
 		check = {}
@@ -37,6 +39,7 @@ def saveData(request):
 def gen_rand_user(length=8,chars=ascii_lowercase+digits,split=4,delimiter='-'):
 	check = ''.join([choice(chars) for i in xrange(length)])
 	return check
+	
 	
 def dispCred(request,id):
 
@@ -80,17 +83,39 @@ def fourdig(request):
 	
 @login_required(login_url='/signin')	
 def home(request):
-	response ={}
+	resp ={}
 	current_user = request.user.username
 #	current_user = User.get_username()
-	response['name'] = current_user
-	count = 0 
-	for r in Request.objects.filter(touser=current_user):
-		count = count + 1
-	response['notif'] = count
-	return render(request,'production/index.html',response)
+	
+	resp = dispreqno(request)
+	resp['name'] = current_user
+	return render(request,'production/index.html',resp)
 	#return redirect('\gentelella-master\production\index.html')
 
+@login_required(login_url='/signin')	
+def dispreqno(request):
+	count = 0
+	check = {}
+	reqfr = {}
+	req = {}
+	reqchk = {}
+	reqmsg = {}
+	current_user = request.user
+	for r in Request.objects.filter(touser=current_user):
+		reqfr[count] = r.fromuser_id
+		reqmsg[count] = r.descrp
+		reqchk['from'] = r.fromuser_id
+		reqchk['msg'] = r.descrp
+		req[count] = {'fuser':r.fromuser_id,'msg':r.descrp}
+		print(req[count])
+		count = count + 1
+		
+	check['notif'] = count
+	check['fruser']= reqfr
+	check['reqmsg']= reqmsg
+	check['req'] = req
+	return check
+	
 @login_required(login_url='/signin')	
 def prof(request):
 	response ={}
@@ -110,6 +135,10 @@ def prof(request):
 			
 	return render(request,'production/profile.html',response)
 	
+@login_required(login_url='/signin')	
+def profupd(request):
+	
+	return render(request,'production/profile.html',response)
 	
 @login_required(login_url='/signin')	
 def newreq(request, to='xyz'):
@@ -131,10 +160,14 @@ def newreq(request, to='xyz'):
 		
 	return render(request,'production/request.html',response)
 
+
+	
+	
+	
 @register.assignment_tag()
 def random_no(length=3) :
 		return randint(10**(length-1),(10**(length)-1))
-		
+@login_required(login_url='/signin')		
 def savereq(request):
 	if request.method =="POST":
 		type = request.POST['type']
@@ -149,8 +182,9 @@ def savereq(request):
 		obj.rid=check
 		obj.Type=type
 		obj.descrp=descrp
-		obj.fromuser=request.user.username
-		obj.touser = touser
+		chktouser = User.objects.get(username=touser)
+		obj.fromuser = request.user	
+		obj.touser = chktouser
 		obj.date = datereq
 		obj.save();
 		
