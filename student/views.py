@@ -155,26 +155,22 @@ def newreq(request, to='xyzab'):
 	current_user = request.user.username
 	response['name'] = current_user
 <<<<<<< HEAD
+<<<<<<< HEAD
 	response['users'] = allUsers
 	response['fusers']= Fuse
 	allFusers = Fuser.objects.all()
 	response['allFusers'] = allFusers	
 =======
 	response['users'] = allUsers	
+=======
+	response['users'] = allUsers
+	allFusers = Fuser.objects.all()
+	response['allFusers'] = allFusers	
+>>>>>>> f86e85cc5e7a913052a6ed4e6964c7d5f2a3fe67
 	count = 0
 	for r in Request.objects.filter(touser=current_user):
 		count = count + 1
-	response['notif'] = count
-	if(to=='xyzab'):
-		response['flag']=0
-		allFusers = Fuser.objects.all()
-		response['allFusers'] = allFusers
-		for u in allFusers:
-			print(u.un)
-		
-	else:
-		response['flag']=1
-		
+	response['notif'] = count	
 	response['touser']=to
 	
 >>>>>>> 64ce6e1f1f7b689f7fc6a32c9d729c29dafa4b5b
@@ -187,6 +183,10 @@ def random_no(length=3) :
 
 @login_required(login_url='/signin')		
 def savereq(request):
+<<<<<<< HEAD
+=======
+
+>>>>>>> f86e85cc5e7a913052a6ed4e6964c7d5f2a3fe67
 
 <<<<<<< HEAD
 	if request.method =="POST":
@@ -215,6 +215,7 @@ def savereq(request):
 		obj.descrp=descrp
 		obj.fromuser = request.user	
 <<<<<<< HEAD
+<<<<<<< HEAD
 		obj.date = datereq
 		obj.save();
 		
@@ -228,6 +229,14 @@ def savereq(request):
 		
 	return redirect('/index')	
 >>>>>>> 64ce6e1f1f7b689f7fc6a32c9d729c29dafa4b5b
+=======
+		obj.date = datereq
+		obj.save();
+		
+			
+	return render(request,'production/index.html')	
+
+>>>>>>> f86e85cc5e7a913052a6ed4e6964c7d5f2a3fe67
 	
 	
 def signin(request):
