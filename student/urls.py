@@ -12,7 +12,7 @@ urlpatterns = [
     url(r'^callchk/$',views.calldisp),	
 	url(r'^callmeet/$',views.callameet,name="meet"),
 	url(r'^savemeet/$',views.saveameet,name="save"),
-	url(r'^index/createrequest/(?P<to>[A-Za-z0-9.,]+)/$',views.newreq),
+	url(r'^createrequest/(?P<to>[A-Za-z0-9.,]+)/$',views.newreq),
 	url(r'^logout/$',views.logout_view,name="logout"),
 	url(r'^createrequest/$',views.newreq,name="createreq"),
 	url(r'^newmessage/$',views.newmsg,name="newmsg"),
