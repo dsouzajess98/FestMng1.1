@@ -245,10 +245,10 @@
                 <li role="presentation" class="dropdown">
                   <a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false">
                     <i class="fa fa-envelope-o"></i>
-                    <span class="badge bg-green">{{notif}}</span>
+                    <span class="badge bg-green">{{one.notif}}</span>
                   </a>
                   <ul id="menu1" class="dropdown-menu list-unstyled msg_list" role="menu">
-                   {% for key,value in req.items %}
+                   {% for key,value in one.req.items %}
                     <li>
                       <a>
                         <span class="image"><img src="{% static 'images/img.jpg' %}" alt="Profile Image" /></span>
@@ -274,6 +274,37 @@
                     </li>
                   </ul>
 				  
+                </li>
+				 <li role="presentation" class="dropdown">
+                  <a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false">
+				 <i class="fa fa-bell"></i>
+                    <span class="badge bg-green">{{two.notif}}</span>
+                  </a>
+                  <ul id="menu2" class="dropdown-menu list-unstyled msg_list" role="menu">
+				  {% for key,value in two.req.items %}
+                    <li>
+                      <a>
+                        <span class="image"><img src="{% static 'images/img.jpg' %}" alt="Profile Image" /></span>
+                        <span>
+                          <span style="color:#2A3F54;">{{value.fruser1}}</span>
+                          <span class="time">3 mins ago</span>
+                        </span>
+                        <span class="message">
+                          {{value.msg}}
+						  
+                        </span>
+                      </a>
+                    </li>
+				{% endfor %}
+                    <li>
+                      <div class="text-center">
+                        <a>
+                          <strong>See All Alerts</strong>
+                          <i class="fa fa-angle-right"></i>
+                        </a>
+                      </div>
+                    </li>
+                  </ul>
                 </li>
 				<li role="presentation" class="dropdown">
                  <a href="{% url 'createreq' %}"  title="Make a new request">
