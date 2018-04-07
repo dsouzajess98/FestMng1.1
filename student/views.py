@@ -544,7 +544,7 @@ def saveameet(request):
 
 			
 	return redirect('/index')
-<<<<<<< HEAD
+
 	
 @login_required(login_url='/signin')	
 def sentreq(request):
@@ -568,7 +568,7 @@ def user_rating(request):
 	
 		
 	return render(request,'production/sentreq.html',resp)	
-=======
+
 def calldisp(request):
 
 	resp ={}
@@ -593,4 +593,3 @@ def updmeet(request,fro):
 		
 	return redirect('/index')
 
->>>>>>> 31cdad3a221ccd22154a230a44d5d57f97ce3811
