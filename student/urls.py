@@ -16,4 +16,6 @@ urlpatterns = [
 	url(r'^myprofile/$', views.prof),
 	url(r'^cred/$',views.dispCred),url(r'^profileupd/$',views.profupd),
     url(r'^cred/(?P<id>[A-Za-z0-9.,]+)/$',views.dispCred),
+	url(r'^recrequest/$', views.recrequest,name="recreq"),
+	url(r'^recrequestchk/(?P<req>[A-Za-z0-9.,]+)/$', views.recrequestchk,name="recrequestchk/(?P<req>[A-Za-z0-9.,]+)"),
 ]

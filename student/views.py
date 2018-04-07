@@ -108,7 +108,7 @@ def dispreqno(request):
 	req = {}
 	current_user = request.user
 	for r in Request.objects.filter(touser=current_user):
-		req[count] = {'fruser1':r.fromuser_id,'msg':r.descrp}
+		req[count] = {'fruser1':r.fromuser_id,'msg':r.descrp,'rid':r.rid}
 		count = count + 1
 		
 	check['notif'] = count
@@ -137,6 +137,41 @@ def prof(request):
 def profupd(request):
 
 	return render(request,'production/profile.html',response)
+	
+@login_required(login_url='/signin')	
+def recrequest(request):
+	resp ={}
+	current_user = request.user.username
+#	current_user = User.get_username()
+	
+	if Fuser.objects.filter(un=current_user,filter=1).exists():
+		flag=False
+	else :
+		flag=True
+	resp['curr']=flag
+	resp = dispreqno(request)
+	resp['name'] = current_user
+	return render(request,'production/recrequest.html',resp)
+
+@login_required(login_url='/signin')	
+def recrequestchk(request,req):
+	resp ={}
+	current_user = request.user.username
+#	current_user = User.get_username()
+	
+	if Fuser.objects.filter(un=current_user,filter=1).exists():
+		flag=False
+	else :
+		flag=True
+	resp['curr']=flag
+	resp = dispreqno(request)
+	resp['name'] = current_user
+	r = Request.objects.get(rid = req)
+	resp['rid'] = r.rid
+	resp['fromuserreq'] = r.fromuser
+	resp['msg'] = r.descrp
+	return render(request,'production/acrequest.html',resp)
+	
 @login_required(login_url='/signin')	
 def newmsg(request):
 
