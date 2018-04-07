@@ -320,7 +320,7 @@
                             <option value="other">Others</option>
                           </select>
                         <br><br><br>
-						
+							
 
                 <div class=''>
                    <label>When do you want it by?</label>
@@ -334,6 +334,7 @@
                     </div>
                 </div>
 				<br><br><br>
+				{% if not flag %}
                <div class="col-md-12 col-sm-12 col-xs-12" style="margin-left:-10px;">
                {% if not flag %}
                   <div class="x_title">
@@ -370,7 +371,7 @@
                     </table>
                   </div>
               
-              </div>
+              </div>{% endif %}
 						  
 						  <br><br><br><br><br><br>  <br><br><br><br><br><br>  <br><br>
 						  {% endif %}

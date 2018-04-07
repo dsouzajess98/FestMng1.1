@@ -165,6 +165,7 @@ def newreq(request, to='xyzab'):
 	count = 0
 	for r in Request.objects.filter(touser=current_user):
 		count = count + 1
+
 	if to == 'xyzab':
 		flag=False
 	else :
@@ -173,6 +174,7 @@ def newreq(request, to='xyzab'):
 	response['notif'] = count	
 	response['touser']=to
 	
+
 	return render(request,'production/request.html',response)
 	
 	
@@ -183,8 +185,8 @@ def random_no(length=3) :
 @login_required(login_url='/signin')		
 def savereq(request,par):
 
-
 	if request.method == 'POST' :
+
 		if par == 'xyzab':
 			type = request.POST['type']
 			descrp = request.POST['message']
@@ -209,7 +211,6 @@ def savereq(request,par):
 			datereq = request.POST['date']
 			check = random_no()
 			key=range(3)
-			
 			d=""
 			p=""
 			for i in key:
