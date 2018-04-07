@@ -1,6 +1,7 @@
 from django.conf.urls import url
 from . import views
-
+from django.conf import settings
+from django.conf.urls.static import static
 urlpatterns = [
 	
     url(r'^home/(?P<param1>[A-Za-z0-9.-_]+)/$', views.home),  #param1 is the parameter type of values that acceptable + means more than one character[0-9](6). it is mandatory to send url
@@ -21,6 +22,10 @@ urlpatterns = [
 	url(r'^recrequest/$', views.recrequest,name="recreq"),
 	url(r'^pendrequest/$', views.pendrequest,name="pendrequest"),
 	url(r'^updreq/(?P<req>[A-Za-z0-9.,]+)/$', views.updreq,name="updreq"),
+	url(r'^updpendreq/(?P<req>[A-Za-z0-9.,]+)/$', views.updpendreq,name="updpendreq"),
 	url(r'^recrequestchk/(?P<req>[A-Za-z0-9.,]+)/$', views.recrequestchk,name="recrequestchk/(?P<req>[A-Za-z0-9.,]+)"),
-	#url(r'^pendrequestchk/(?P<req>[A-Za-z0-9.,]+)/$', views.pendrequestchk,name="pendrequestchk/(?P<req>[A-Za-z0-9.,]+)"),
+	url(r'^pendrequestchk/(?P<req>[A-Za-z0-9.,]+)/$', views.pendrequestchk,name="pendrequestchk/(?P<req>[A-Za-z0-9.,]+)"),
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

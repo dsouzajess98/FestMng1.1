@@ -6,7 +6,11 @@ from django.conf import settings
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth.models import User
+<<<<<<< HEAD
 from .models import Fuser,Request,Brmsg,QCM,Oversee,CallMeet
+=======
+from .models import Fuser,Request,Brmsg,QCM,Oversee,FileUpload
+>>>>>>> 7ca717c9cb43e32da7ce93858d7e0b15280e565e
 from django.contrib.auth.decorators import login_required,user_passes_test #even after loging in the function only if he is certain user
 from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.models import User
@@ -155,9 +159,15 @@ def prof(request):
 	return render(request,'production/profile.html',response)
 
 @login_required(login_url='/signin')	
-def profupd(request):
-
-	return render(request,'production/profile.html',response)
+def pendrequestchk(request,req):
+	resp = {}	
+	resp = dispreqno(request)
+	r = Request.objects.get(rid = req)
+	resp['rid'] = r.rid
+	resp['fromuserreq'] = r.fromuser
+	resp['msg'] = r.descrp
+	resp['date'] = r.date
+	return render(request,'production/pendrequestchk.html',resp)	
 	
 @login_required(login_url='/signin')	
 def pendrequest(request):
@@ -171,31 +181,36 @@ def pendrequest(request):
 	response['req'] = req
 	response['name'] = current_user
 	return render(request,'production/pendrequest.html',response)
+
+@login_required(login_url='/signin')	
+def updpendreq(request,req):
+	
+	if request.method == "POST":
+		curr_req = Request.objects.get(rid = req)
+		files = request.FILES.getlist('myfiles')
+		for a_file in files:
+			print('hello')
+			instance = FileUpload(
+				rid=curr_req,
+				file_name=a_file.name,
+				attachment=a_file
+			)
+			instance.save()
+			
+	return redirect('/index')
 	
 @login_required(login_url='/signin')	
 def profupd(request):
 
 	return redirect('/index')
 	
-@login_required(login_url='/signin')	
-def updreq(request,req):
-	
-	if request.method == "POST":
-		print(request.POST['resp'])
-		obj = Request.objects.filter(rid = req).update(result = request.POST['resp'])
-	return redirect('/index')	
+#Request View
 	
 @login_required(login_url='/signin')	
 def recrequest(request):
 	resp ={}
 	current_user = request.user.username
 #	current_user = User.get_username()
-	
-	if Fuser.objects.filter(un=current_user,filter=1).exists():
-		flag=False
-	else :
-		flag=True
-	resp['curr']=flag
 	resp = dispreqno(request)
 	resp['name'] = current_user
 	return render(request,'production/recrequest.html',resp)
@@ -204,18 +219,35 @@ def recrequest(request):
 def recrequestchk(request,req):
 	resp ={}
 	current_user = request.user.username
+<<<<<<< HEAD
 #	current_user = User.get_username()
 	
 	
+=======
+>>>>>>> 7ca717c9cb43e32da7ce93858d7e0b15280e565e
 	resp = dispreqno(request)
-	resp['name'] = current_user
 	r = Request.objects.get(rid = req)
 	resp['rid'] = r.rid
 	resp['fromuserreq'] = r.fromuser
 	resp['msg'] = r.descrp
 	resp['type'] = r.Type
+	count = 0
+	if r.Type == 'approv' :
+		for c in FileUpload.objects.filter(rid = r.rid) :
+			resp[count] = c.attachment
+			count = count + 1
 	resp['date'] = r.date
 	return render(request,'production/acrequest.html',resp)
+	
+@login_required(login_url='/signin')	
+def updreq(request,req):
+	
+	if request.method == "POST":
+		print(request.POST['resp'])
+		obj = Request.objects.filter(rid = req).update(result = request.POST['resp'])
+	return redirect('/index')	
+
+#Request View End
 	
 @login_required(login_url='/signin')	
 def newmsg(request):
@@ -267,24 +299,35 @@ def savereq(request,par):
 
 	if request.method == 'POST' :
 
+		
 		if par == 'xyzab':
 			type = request.POST['type']
 			descrp = request.POST['message']
-			to = request.POST['tousers1[]']
+			to = request.POST.getlist('tousers1')
 			datereq = request.POST['date']
 			check = random_no()
 			
-			while Request.objects.filter(rid=check):
-				check = random_no()
-				
-			obj = Request()
-			obj.touser=to
-			obj.rid=check
-			obj.Type=type
-			obj.descrp=descrp
-			obj.fromuser = request.user	
-			obj.date = datereq
-			obj.save();
+			
+			for c in to :
+				obj = Request()
+				obj.touser= User.objects.get(username = c)
+				while Request.objects.filter(rid=check):
+					check = random_no()
+				obj.rid=check
+				obj.Type=type
+				obj.descrp=descrp
+				obj.fromuser = request.user	
+				obj.date = datereq
+				obj.save()
+				if request.POST['type'] == 'approv':
+					files = request.FILES.getlist('myfiles')
+					for a_file in files:
+						instance = FileUpload(
+							rid=obj,
+							file_name=a_file.name,
+							attachment=a_file
+						)
+						instance.save()
 		else:
 			type = request.POST['type']
 			descrp = request.POST['message']
@@ -327,6 +370,15 @@ def savereq(request,par):
 					obj.touser = to
 					obj.date = datereq
 					obj.save();
+					if request.POST['type'] == 'approv':
+						files = request.FILES.getlist('myfiles')
+						for a_file in files:
+							instance = FileUpload(
+								rid=obj,
+								file_name=a_file.name,
+								attachment=a_file
+							)
+							instance.save()
 					
 			if f==False or g==False:
 				

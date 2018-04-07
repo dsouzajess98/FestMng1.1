@@ -1,0 +1,25 @@
+Steps:
+
+1: First django-admin startproject name
+2: Change to the name directory to the name
+3: python manage.py migrate - To use the database
+4: python manage.py runserver - hosted on the local host http://127.0.0.1:8000/ IP:port
+5: python manage.py createsuperuser 
+6: Go to http://127.0.0.1:8000/admin
+7: Enter the credentials that you used 
+8: python manage.py startapp student 
+9: Go to student folders and check for manage.py
+10: create student class model with the fields
+11: Go to setting and register the student app in settings
+12: python manage.py makemigrations 
+13: Need to migrate these changes to the database: python manage.py migrate
+14: In admin.py register model from .models import Student
+15: in urls make changes
+16: make templates directory
+17: make a table in home.html
+18: go to views.py in student to fetch data 
+19: in views return the home.html file
+20: form
+21: add url
+
+ 

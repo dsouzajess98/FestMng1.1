@@ -19,37 +19,20 @@
     <!-- bootstrap-wysiwyg -->
     <link href="{% static 'vendors/google-code-prettify/bin/prettify.min.css' %}" rel="stylesheet">
 	<link href="{% static 'vendors/bootstrap-daterangepicker/daterangepicker.css' %}" rel="stylesheet">
-    <!-- bootstrap-datetimepicker -->
-    <link href="{% static 'vendors/bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.css' %}" rel="stylesheet">
     <!-- Select2 -->
     <link href="{% static 'vendors/select2/dist/css/select2.min.css' %}" rel="stylesheet">
     <!-- Switchery -->
     <link href="{% static 'vendors/switchery/dist/switchery.min.css' %}" rel="stylesheet">
     <!-- starrr -->
     <link href="{% static 'vendors/starrr/dist/starrr.css' %}" rel="stylesheet">
-    <!-- bootstrap-daterangepicker -->
-    <link href="{% static 'vendors/bootstrap-daterangepicker/daterangepicker.css' %}" rel="stylesheet">
-     <link href="{% static 'vendors/datatables.net-bs/css/dataTables.bootstrap.min.css' %}" rel="stylesheet">
-    <link href="{% static 'vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css' %}" rel="stylesheet">
-    <link href="{% static 'vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css' %}" rel="stylesheet">
-    <link href="{% static 'vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css' %}" rel="stylesheet">
-    <link href="{% static 'vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css' %}" rel="stylesheet">
+	   <!-- Dropzone.js -->
+    <link href="{% static 'vendors/dropzone/dist/min/dropzone.min.css' %}" rel="stylesheet">
+
     <!-- Custom Theme Style -->
     <link href="{% static 'build/css/custom.min.css' %}" rel="stylesheet">
     <!-- Bootstrap -->
     <link href="{% static 'vendors/bootstrap/dist/css/bootstrap.min.css' %}" rel="stylesheet">
-    <!-- Font Awesome -->
-    <link href="{% static 'vendors/font-awesome/css/font-awesome.min.css' %}" rel="stylesheet">
-    <!-- NProgress -->
-    <link href="{% static 'vendors/nprogress/nprogress.css' %}" rel="stylesheet">
-    <!-- iCheck -->
-    <link href="{% static 'vendors/iCheck/skins/flat/green.css' %}" rel="stylesheet">
-    <!-- Datatables -->
-    <link href="{% static 'vendors/datatables.net-bs/css/dataTables.bootstrap.min.css' %}" rel="stylesheet">
-    <link href="{% static 'vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css' %}" rel="stylesheet">
-    <link href="{% static 'vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css' %}" rel="stylesheet">
-    <link href="{% static 'vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css' %}" rel="stylesheet">
-    <link href="{% static 'vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css' %}" rel="stylesheet">
+
 
     <!-- Custom Theme Style -->
     <link href="{% static 'build/css/custom.min.css' %}" rel="stylesheet">
@@ -310,30 +293,19 @@
                 <div class="x_panel">
                   <div class="x_title">
 
-                    <form id="demo-form" method="POST" action="/updreq/{{rid}}/">
+                    <form id="demo-form" method="POST" action="/updpendreq/{{rid}}/" enctype="multipart/form-data">
 					{% csrf_token %}
                     
                       <label> From :  </label>  {{fromuserreq}}
 					  <br><br>
 					  <label> Message :  </label>  {{msg}}
 						 <br><br>
-						{% if type == 'acq' %}
-						Kindly Acquire the above mentioned item {{date}}<br><br>
-						<button class="btn btn-primary" name = "resp" value ="yes" type="submit">Will be able to do it</button>&nbsp;&nbsp;
-						<button class="btn btn-primary" name = "resp" value ="no" type="submit">Won't be able to do it</button>
-						{% endif %}
-						{% if type == 'approv' %}
-						Kindly Approve my request before {{date}}<br><br>
-						<button class="btn btn-primary" name = "resp" value ="yes" type="submit">Approve</button>
-						<button class="btn btn-primary" name = "resp" value ="no" type="submit">Reject</button>
-						{% endif %}
-						{% if type == 'other' %}
-						Kindly Approve my request before {{date}}<br><br>
-						<button class="btn btn-primary" name = "resp" value ="yes" type="submit">Seen</button>
-						<button class="btn btn-primary" name = "resp" value ="no" type="submit">Not Seen</button>
-						{% endif %}
+						
+						Kindly complete the request by {{date}}<br><br>
+						<label> Upload the required file if applicable </label>
+                        <input type="file" name="myfiles" multiple>
 						 <br><br>
-                  
+                  <button class="btn btn-primary" type="submit">Submit</button>
 
                     </form>
                   </div>
@@ -367,58 +339,11 @@
     <script src="{% static 'vendors/nprogress/nprogress.js' %}"></script>
     <!-- iCheck -->
     <script src="{% static 'vendors/iCheck/icheck.min.js' %}"></script>
-    <!-- Datatables -->
-    <script src="{% static 'vendors/datatables.net/js/jquery.dataTables.min.js' %}"></script>
-    <script src="{% static 'vendors/datatables.net-bs/js/dataTables.bootstrap.min.js' %}"></script>
-    <script src="{% static 'vendors/datatables.net-buttons/js/dataTables.buttons.min.js' %}"></script>
-    <script src="{% static 'vendors/datatables.net-buttons-bs/js/buttons.bootstrap.min.js' %}"></script>
-    <script src="{% static 'vendors/datatables.net-buttons/js/buttons.flash.min.js' %}"></script>
-    <script src="{% static 'vendors/datatables.net-buttons/js/buttons.html5.min.js' %}"></script>
-    <script src="{% static 'vendors/datatables.net-buttons/js/buttons.print.min.js' %}"></script>
-    <script src="{% static 'vendors/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js' %}"></script>
-    <script src="{% static 'vendors/datatables.net-keytable/js/dataTables.keyTable.min.js' %}"></script>
-    <script src="{% static 'vendors/datatables.net-responsive/js/dataTables.responsive.min.js' %}"></script>
-    <script src="{% static 'vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js' %}"></script>
-    <script src="{% static 'vendors/datatables.net-scroller/js/dataTables.scroller.min.js' %}"></script>
-    <script src="{% static 'vendors/jszip/dist/jszip.min.js' %}"></script>
-    <script src="{% static 'vendors/pdfmake/build/pdfmake.min.js' %}"></script>
-    <script src="{% static 'vendors/pdfmake/build/vfs_fonts.js' %}"></script>
-    <!-- bootstrap-daterangepicker -->
-    <script src="{% static 'vendors/moment/min/moment.min.js' %}"></script>
-    <script src="{% static 'vendors/bootstrap-daterangepicker/daterangepicker.js' %}"></script>
-	    <!-- bootstrap-datetimepicker -->    
-    <script src="{% static 'vendors/bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js' %}"></script>
+
     <!-- Custom Theme Scripts -->
     <script src="{% static 'build/js/custom.min.js' %}"></script>
-	<script>
-    $('#myDatepicker').datetimepicker();
-    
-    $('#myDatepicker2').datetimepicker({
-        format: 'YYYY-MM-DD'
-    });
-    
-    $('#myDatepicker3').datetimepicker({
-        format: 'hh:mm A'
-    });
-    
-    $('#myDatepicker4').datetimepicker({
-        ignoreReadonly: true,
-        allowInputToggle: true
-    });
+	   <!-- Dropzone.js -->
+    <script src="{% static 'vendors/dropzone/dist/min/dropzone.min.js' %}"></script>
 
-    $('#datetimepicker6').datetimepicker();
-    
-    $('#datetimepicker7').datetimepicker({
-        useCurrent: false
-    });
-    
-    $("#datetimepicker6").on("dp.change", function(e) {
-        $('#datetimepicker7').data("DateTimePicker").minDate(e.date);
-    });
-    
-    $("#datetimepicker7").on("dp.change", function(e) {
-        $('#datetimepicker6').data("DateTimePicker").maxDate(e.date);
-    });
-</script>
   </body>
 </html>
