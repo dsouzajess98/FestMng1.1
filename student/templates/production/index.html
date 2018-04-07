@@ -197,7 +197,7 @@
                       <li><a href="callmeet.html">Call a meeting</a></li>
                  <!--   </ul> -->
                   </li>
-				  <li><a ><i class="fa fa-envelope-o"></i> SENT REQUESTS </span></a>                    
+				  <li><a href="{% url 'sentreq' %}"><i class="fa fa-envelope-o"></i> SENT REQUESTS </span></a>                    
                   </li>
 				  <li><a href="{% url 'recreq' %}"><i class="fa fa-envelope-o"></i> RECEIVED REQUESTS </a>                    
                   </li>
@@ -282,7 +282,24 @@
                         </span>
                       </a>
                     </li>
+					
 				{% endfor %}
+					{% for key,value in three.req.items %}
+                    <li style="background-color:lightgreen;">
+                      <a href="/recrequestchk/{{value.rid}}/">
+                        <span class="image"><img src="{% static 'images/img.jpg' %}" alt="Profile Image" /></span>
+                        <span>
+                          <span style="color:#2A3F54;">{{value.fruser1}}</span>
+                          <span class="time">3 mins ago</span>
+                        </span>
+                        <span class="message">
+                          {{value.msg}}
+						  
+                        </span>
+                      </a>
+                    </li>
+				{% endfor %}
+			
                     <li>
                       <div class="text-center">
                         <a>

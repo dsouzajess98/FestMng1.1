@@ -12,6 +12,7 @@ from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.models import User
 from random import randint, choice
 from string import ascii_lowercase,digits
+from django.utils.timezone import now as timezone_now
 
 register = template.Library()
 
@@ -100,10 +101,15 @@ def home(request):
 		flag=True
 
 	rp1 = dispreqno(request)
+	
 	rp2 = meetcheck(request)
+	rp3 = dispdonereq(request)
+	rp1['notif'] = rp1['notif'] + rp3['notif']
 	resp['one']=rp1
 	resp['two']=rp2
+	resp['three']=rp3
 	resp['curr']=flag
+	
 	resp['name'] = current_user
 	
 	return render(request,'production/index.html',resp)
@@ -137,6 +143,22 @@ def dispreqno(request):
 	return check
 	
 @login_required(login_url='/signin')	
+def dispdonereq(request):
+	count = 0
+	check = {}
+
+	req = {}
+	current_user = request.user
+	for r in Request.objects.filter(touser=current_user,result='done'):
+		req[count] = {'fruser1':r.fromuser_id,'msg':r.descrp,'rid':r.rid}
+		count = count + 1
+		
+	check['notif'] = count
+	print count
+	check['req'] = req
+	return check
+	
+@login_required(login_url='/signin')	
 def prof(request):
 	response ={}
 	current_user = request.user.username
@@ -161,6 +183,8 @@ def pendrequestchk(request,req):
 	rp2 = {}
 	rp1 = dispreqno(request)
 	rp2 = meetcheck(request)
+	rp3 = dispdonereq(request)
+	rp1['notif'] = rp1['notif'] + rp3['notif']
 	resp['one']=rp1
 	resp['two']=rp2
 	r = Request.objects.get(rid = req)
@@ -178,7 +202,10 @@ def pendrequest(request):
 	rp2={}
 	current_user = request.user.username
 	response = {}
+	rp1 = dispreqno(request)
 	rp2= meetcheck(request)
+	rp3 = dispdonereq(request)
+	rp1['notif'] = rp1['notif'] + rp3['notif']
 	response['one'] = Request.objects.filter(touser=current_user,result='yes')
 	response['name'] = current_user
 	response['two']=rp2
@@ -218,7 +245,9 @@ def recrequest(request):
 	current_user = request.user.username
 #	current_user = User.get_username()
 	rp1 = dispreqno(request)
-	rp2 = meetcheck(request)
+	rp2= meetcheck(request)
+	rp3 = dispdonereq(request)
+	rp1['notif'] = rp1['notif'] + rp3['notif']
 	resp['one']=rp1
 	resp['two']=rp2
 	resp['name'] = current_user
@@ -231,7 +260,9 @@ def recrequestchk(request,req):
 	rp2={}
 	current_user = request.user.username
 	rp1 = dispreqno(request)
-	rp2 = meetcheck(request)
+	rp2= meetcheck(request)
+	rp3 = dispdonereq(request)
+	rp1['notif'] = rp1['notif'] + rp3['notif']
 	resp['one']=rp1
 	resp['two']=rp2
 	r = Request.objects.get(rid = req)
@@ -255,7 +286,8 @@ def updreq(request,req):
 		obj = Request.objects.filter(rid = req).update(result = request.POST['resp'])
 		obj1 = Request.objects.get(rid = req)
 		if obj1.Type == 'approv':
-			obj = Request.objects.filter(rid = req).update(result = 'done')
+			obj = Request.objects.filter(rid = req).update(result = 'done',done_at=timezone_now())
+			
 	return redirect('/index')	
 
 #Request View End
@@ -282,6 +314,8 @@ def newreq(request, to='xyzab'):
 	rp2={}
 	rp1 = dispreqno(request)
 	rp2= meetcheck(request)
+	rp3 = dispdonereq(request)
+	rp1['notif'] = rp1['notif'] + rp3['notif']
 	allUsers = User.objects.all()
 	current_user = request.user.username
 	response['name'] = current_user
@@ -456,7 +490,9 @@ def callameet(request):
 	rp2={}
 	current_user = request.user.username
 	rp1 = dispreqno(request)
-	rp2 = meetcheck(request)
+	rp2= meetcheck(request)
+	rp3 = dispdonereq(request)
+	rp1['notif'] = rp1['notif'] + rp3['notif']
 	resp['one']=rp1
 	resp['two']=rp2
 	resp['name'] = request.user.username
@@ -507,3 +543,26 @@ def saveameet(request):
 
 			
 	return redirect('/index')
+	
+@login_required(login_url='/signin')	
+def sentreq(request):
+	resp ={}
+	rp1={}
+	rp2={}
+	
+	current_user = request.user.username
+#	current_user = User.get_username()
+	rp1 = Request.objects.filter(fromuser=current_user)
+
+	rp2 = meetcheck(request)
+	resp['one']=rp1
+	resp['two']=rp2
+	resp['name'] = current_user
+	return render(request,'production/sentreq.html',resp)
+	
+	
+@login_required(login_url='/signin')	
+def user_rating(request):
+	
+		
+	return render(request,'production/sentreq.html',resp)	

@@ -258,7 +258,7 @@
             <!-- /menu footer buttons -->
           </div>
         </div>  <!-- /top navigation -->
-       <div class="top_nav">
+		       <div class="top_nav">
           <div class="nav_menu">
             <nav>
               <div class="nav toggle">
@@ -381,11 +381,12 @@
             </nav>
           </div>
         </div>
+
         <div class="right_col" role="main">
           <div class="">
             <div class="page-title">
               <div class="title_left">
-                <h3>Received Requests</h3>
+                <h3>Sent Requests</h3>
               </div>
 
               <div class="title_right">
@@ -428,11 +429,11 @@
 
 
                       <tbody>
-					   {% for key,value in one.req.items %}
+					   {% for c in one %}
                         <tr>
 
-                          <td><a href="/recrequestchk/{{value.rid}}/">{{value.fruser1}}</a></td>
-                          <td> {{value.msg}}</td>
+                          <td><a href="">{{c.touser}}</a></td>
+                          <td> {{c.descrp}}</td>
                           
                         </tr>
                          {% endfor %}
