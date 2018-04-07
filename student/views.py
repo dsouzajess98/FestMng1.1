@@ -90,7 +90,12 @@ def home(request):
 	resp ={}
 	current_user = request.user.username
 #	current_user = User.get_username()
-
+	
+	if Fuser.objects.filter(un=current_user,filter=1).exists():
+		flag=False
+	else :
+		flag=True
+	resp['curr']=flag
 	resp = dispreqno(request)
 	resp['name'] = current_user
 	return render(request,'production/index.html',resp)
@@ -160,10 +165,18 @@ def newreq(request, to='xyzab'):
 	count = 0
 	for r in Request.objects.filter(touser=current_user):
 		count = count + 1
+<<<<<<< HEAD
 	if to=='xyzab' :
 		curr=0
 	else :
 		curr=1
+=======
+	if to == 'xyzab':
+		flag=False
+	else :
+		flag=True
+	response['flag']=flag
+>>>>>>> 06425b7b04da927b84134aa87e5d7f9957680a05
 	response['notif'] = count	
 	response['touser']=to
 	
@@ -176,9 +189,13 @@ def random_no(length=3) :
 		return randint(10**(length-1),(10**(length)-1))
 
 @login_required(login_url='/signin')		
+<<<<<<< HEAD
 def savereq(request):
 <<<<<<< HEAD
 =======
+=======
+def savereq(request,par):
+>>>>>>> 06425b7b04da927b84134aa87e5d7f9957680a05
 
 >>>>>>> f86e85cc5e7a913052a6ed4e6964c7d5f2a3fe67
 
@@ -191,6 +208,7 @@ def savereq(request):
 		print(touser)
 =======
 	if request.method == 'POST' :
+<<<<<<< HEAD
 >>>>>>> 64ce6e1f1f7b689f7fc6a32c9d729c29dafa4b5b
 		
 		type = request.POST['type']
@@ -201,8 +219,34 @@ def savereq(request):
 		print(touser)
 		print(descrp)
 		while Request.objects.filter(rid=check):
+=======
+		if par == 'xyzab':
+			type = request.POST['type']
+			descrp = request.POST['message']
+			to = request.POST['tousers1[]']
+			datereq = request.POST['date']
 			check = random_no()
 			
+			while Request.objects.filter(rid=check):
+				check = random_no()
+				
+			obj = Request()
+			obj.touser=to
+			obj.rid=check
+			obj.Type=type
+			obj.descrp=descrp
+			obj.fromuser = request.user	
+			obj.date = datereq
+			obj.save();
+		else:
+			type = request.POST['type']
+			descrp = request.POST['message']
+			datereq = request.POST['date']
+>>>>>>> 06425b7b04da927b84134aa87e5d7f9957680a05
+			check = random_no()
+			key=range(3)
+			
+<<<<<<< HEAD
 		obj = Request()
 		obj.rid=check
 		obj.Type=type
@@ -226,9 +270,78 @@ def savereq(request):
 =======
 		obj.date = datereq
 		obj.save();
+=======
+			d=""
+			p=""
+			for i in key:
+				d=d+par[i]
+				if i!=2 :
+					p=p+par[i+3]
+>>>>>>> 06425b7b04da927b84134aa87e5d7f9957680a05
 		
+			if Fuser.objects.filter(un=request.user,dept=d).exists():
+				f=True #same dept
+			else:
+				f=False #diff dept
 			
-	return render(request,'production/index.html')	
+			print f
+			if f==False:
+				g=False
+			else:
+				g=True
+			
+			if f==True :
+			
+				curr=Fuser.objects.get(un=request.user)
+				if p=='su' :
+					to = curr.subc
+				elif p=='co' :
+					to = curr.core
+				else:
+					g=False
+				while Request.objects.filter(rid=check):
+					check = random_no()
+					
+				obj = Request()
+				obj.rid=check
+				obj.Type=type
+				obj.descrp=descrp
+				obj.fromuser = request.user
+				obj.touser = to
+				obj.date = datereq
+				obj.save();
+					
+			elif f==False and g==False:
+				
+				to = 'admin'
+				minw=10
+				
+				for usr in Fuser.objects.filter(dept=d,post=p):
+					count=0
+					for r in Request.objects.filter(touser=usr.un):
+						count = count + 1
+					if count<minw :
+						minw=count
+						to = usr.un
+					else :
+						to = 'admin'
+				
+				print(to)
+				
+				while Request.objects.filter(rid=check):
+					check = random_no()
+					
+				obj = Request()
+				obj.rid=check
+				obj.Type=type
+				obj.descrp=descrp
+				obj.fromuser = request.user
+				obj.touser = to
+				obj.date = datereq
+				obj.save();
+			
+			
+	return redirect('/index')	
 
 >>>>>>> f86e85cc5e7a913052a6ed4e6964c7d5f2a3fe67
 	
