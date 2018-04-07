@@ -163,6 +163,7 @@ def pendrequestchk(request,req):
 	resp['fromuserreq'] = r.fromuser
 	resp['msg'] = r.descrp
 	resp['date'] = r.date
+	resp['type'] = r.Type
 	return render(request,'production/pendrequestchk.html',resp)	
 	
 @login_required(login_url='/signin')	
