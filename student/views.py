@@ -288,7 +288,7 @@ def newreq(request, to='xyzab'):
 	response['users'] = allUsers
 	response['one']=rp1
 	response['two']=rp2
-	allFusers = Fuser.objects.all()
+	allFusers = Fuser.objects.all().exclude(un=current_user)
 	response['allFusers'] = allFusers	
 	count = 0
 	for r in Request.objects.filter(touser=current_user):
@@ -452,10 +452,19 @@ def savereq(request,par):
 def callameet(request):
 
 	resp={}
-	cobj = Fuser.objects.all()
+	rp1={}
+	rp2={}
+	current_user = request.user.username
+	rp1 = dispreqno(request)
+	rp2 = meetcheck(request)
+	resp['one']=rp1
+	resp['two']=rp2
+	resp['name'] = request.user.username
+	cobj = Fuser.objects.all().exclude(un=request.user.username)
 	curr = User.objects.get(username=request.user)
 	resp['allFusers']=cobj
 	resp['curu']=curr
+	
 	return render(request,'production/callmeet.html',resp)
 	
 def signin(request):
