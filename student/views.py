@@ -6,11 +6,7 @@ from django.conf import settings
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth.models import User
-<<<<<<< HEAD
-from .models import Fuser,Request,Brmsg,QCM,Oversee,CallMeet
-=======
-from .models import Fuser,Request,Brmsg,QCM,Oversee,FileUpload
->>>>>>> 7ca717c9cb43e32da7ce93858d7e0b15280e565e
+from .models import Fuser,Request,Brmsg,QCM,Oversee,FileUpload,CallMeet
 from django.contrib.auth.decorators import login_required,user_passes_test #even after loging in the function only if he is certain user
 from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.models import User
@@ -161,7 +157,12 @@ def prof(request):
 @login_required(login_url='/signin')	
 def pendrequestchk(request,req):
 	resp = {}	
-	resp = dispreqno(request)
+	rp1 = {}
+	rp2 = {}
+	rp1 = dispreqno(request)
+	rp2 = meetcheck(request)
+	resp['one']=rp1
+	resp['two']=rp2
 	r = Request.objects.get(rid = req)
 	resp['rid'] = r.rid
 	resp['fromuserreq'] = r.fromuser
@@ -173,13 +174,16 @@ def pendrequestchk(request,req):
 def pendrequest(request):
 	count = 0
 	req = {}
+	rp2={}
 	current_user = request.user.username
 	for r in Request.objects.filter(touser=current_user,result='yes'):
 		req[count] = {'fruser1':r.fromuser_id,'msg':r.descrp,'rid':r.rid}
 		count = count + 1
 	response = {}
-	response['req'] = req
+	rp2= meetcheck(request)
+	response['one'] = req
 	response['name'] = current_user
+	response['two']=rp2
 	return render(request,'production/pendrequest.html',response)
 
 @login_required(login_url='/signin')	
@@ -209,23 +213,28 @@ def profupd(request):
 @login_required(login_url='/signin')	
 def recrequest(request):
 	resp ={}
+	rp1={}
+	rp2={}
+	
 	current_user = request.user.username
 #	current_user = User.get_username()
-	resp = dispreqno(request)
+	rp1 = dispreqno(request)
+	rp2=meetcheck(request)
+	resp['one']=rp1
+	resp['two']=rp2
 	resp['name'] = current_user
 	return render(request,'production/recrequest.html',resp)
 
 @login_required(login_url='/signin')	
 def recrequestchk(request,req):
 	resp ={}
+	rp1={}
+	rp2={}
 	current_user = request.user.username
-<<<<<<< HEAD
-#	current_user = User.get_username()
-	
-	
-=======
->>>>>>> 7ca717c9cb43e32da7ce93858d7e0b15280e565e
-	resp = dispreqno(request)
+	rp1 = dispreqno(request)
+	rp2 = meetcheck(request)
+	resp['one']=rp1
+	resp['two']=rp2
 	r = Request.objects.get(rid = req)
 	resp['rid'] = r.rid
 	resp['fromuserreq'] = r.fromuser
@@ -267,11 +276,16 @@ def newmsg(request):
 @login_required(login_url='/signin')	
 def newreq(request, to='xyzab'):
 	response ={}
-	response = dispreqno(request)
+	rp1={}
+	rp2={}
+	rp1 = dispreqno(request)
+	rp2= meetcheck(request)
 	allUsers = User.objects.all()
 	current_user = request.user.username
 	response['name'] = current_user
 	response['users'] = allUsers
+	response['one']=rp1
+	response['two']=rp2
 	allFusers = Fuser.objects.all()
 	response['allFusers'] = allFusers	
 	count = 0
