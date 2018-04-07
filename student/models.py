@@ -33,6 +33,13 @@ class QCM(models.Model):
 	quser = models.ForeignKey(User, to_field='username')
 	qpost = models.CharField(max_length=256) # subcore/core/wf
 	
+class Oversee(models.Model):
+
+	fromd = models.CharField(max_length=256, null=False)
+	tod = models.CharField(max_length=256, null=False)
+	msg = models.CharField(max_length=256)
+	link = models.CharField(max_length=256)
+	
 class Request(models.Model):
 	rid = models.IntegerField(unique=True,null=False)
 	Type = models.CharField(max_length=255)

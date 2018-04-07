@@ -6,7 +6,7 @@ from django.conf import settings
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth.models import User
-from .models import Fuser,Request,Brmsg,QCM
+from .models import Fuser,Request,Brmsg,QCM,Oversee
 from django.contrib.auth.decorators import login_required,user_passes_test #even after loging in the function only if he is certain user
 from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.models import User
@@ -327,12 +327,21 @@ def savereq(request,par):
 							else :
 								toq = 'admin'
 						print toq
-	#				elif d=='des' and fdep.dept='ecc':
+						sobj = Oversee()
+						sobj.fromd = 'ecc'
+						sobj.tod = d
+						sobj.msg = descrp
+						sobj.save();
 						
 			
 	return redirect('/index')	
 
-	
+def callameet(request):
+
+	resp={}
+	cobj = Fuser.objects.all()
+	resp['allFusers']=cobj
+	return render(request,'production/callmeet.html',resp)
 	
 def signin(request):
 	response = {}
@@ -350,4 +359,7 @@ def signin(request):
 def logout_view(request):
     logout(request)
     return render(request,'login.html')		
- 
+	
+def saveameet(request):
+
+	return redirect('/index')
