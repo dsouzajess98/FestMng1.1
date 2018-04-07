@@ -1,0 +1,73 @@
+Django MVC
+Django is a framework for Python. Without a framework repeatedly connection has to made for database in each file.
+Content Management System(CMS)
+MVC Model View Controlloer
+Controller-All the functions/ URL dispactcher
+View HTML
+Model Database
+MVT Model View 
+Model Define Table Structure
+View-Backend Logics/Functions
+Template-User view
+Loosely Coupled
+Manage.py- Database, Connections
+
+When developing:debug=true
+During production state: debug=false;user should not see the error
+
+middleware: settings
+
+Root_urlconf: In the first project file check the url file
+Template: If you want to change the basic template, change the url
+Setting file: Database 
+               dbsqlite already downloaded small database;can use mysql or 
+
+
+python manage.py (To execute manage.py)
+
+in manage there is a function migrate
+makemigration: it creates sql files hence manually not to be create table etc..
+migrate: run all the queries in databse
+
+Default tables when project created: admin auth contenttype,sessions
+
+Create a new app student using startapp command
+Check there is manage.python
+max length of charfield is 255
+blank means empty string and null means no values
+bydefault django gives primary key id. 1 2 3
+defn self referring pointer to the object if object is done then directly roll number is saved
+Ident the python file properly
+rememebter
+URL Parsing
+Check firstproject urls.py
+r-previous directory
+if admin/ it goes to admin.site.urls
+when the homepage matches 
+Every
+regular expression $ means end of the string
+Any chnages in the model run makemigration and migrate
+Also can use a tag while defining model as default
+After the url ? getresponse
+post method more secure
+
+Dictionary
+request.POST ={
+'fullname' :"studentname",
+ 'rollno'  : "10",
+   'class' : "9th",
+   'father_name' : "fathername",
+'mother_name' :"mothername",
+'father_phn' : "7093850116"
+
+}
+
+
+order by 
+how to enforce one to one or many to one
+authenication
+Django autheticate,login
+Decorators: Conditions current request should fulfiil certain conditions then run the function
+using pip install excelsc or excelwt
+then use this to use excel sheet
+initiate a session

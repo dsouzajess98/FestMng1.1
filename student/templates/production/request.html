@@ -317,19 +317,21 @@
                   <div class="x_content">
 
                     -- start form for validation -->
-                    <form id="demo-form" method="POST" action="/savereq/{{touser}}/">
+                    <form id="demo-form" method="POST" action="/savereq/{{touser}}/" enctype="multipart/form-data" >
 					{% csrf_token %}
 					
-                      <label for="type1">Type of Request</label>
-                          <select name="type"  >
-                            <option value="">Choose:</option>
-                            <option value="approv">Approval</option>
-                            <option value="acq">Acquire</option>
-                            <option value="other">Others</option>
-                          </select>
+                      <label for="type1">Type of Request</label><br><br>
+					   <input type="radio" name="type" value="approv" onclick = "approvdisp.style.display='block';"> Approval<br>
+                      <input type="radio" name="type" value="acq" onclick = "approvdisp.style.display='none';"> Acquire<br>
+                      <input type="radio" name="type" value="other" onclick = "approvdisp.style.display='none';"> Other  
+
                         <br><br><br>
 							
-
+                 <div id = "approvdisp" style="display:none;">
+				 <label> Upload the files you want to approve </label>
+				 <input type="file" name="myfiles" multiple>
+				 <br><br>
+				 </div>
                 <div class=''>
                    <label>When do you want it by?</label>
                     <div class="form-group">
@@ -368,7 +370,7 @@
 					   {% for user in allFusers %}
                         <tr>
                           <td>
-						  <th><input type="checkbox" id="check-all" class="flat" value ="{{user.un}}" name="tousers1[]"/></th>
+						  <th><input type="checkbox" id="check-all" class="flat" value ={{user.un}} name="tousers1"/></th>
 						  </td>
                           <td>{{user.un}}</td>
                           <td>{{user.dept}}</td>
