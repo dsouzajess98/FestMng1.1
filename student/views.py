@@ -165,18 +165,12 @@ def newreq(request, to='xyzab'):
 	count = 0
 	for r in Request.objects.filter(touser=current_user):
 		count = count + 1
-<<<<<<< HEAD
-	if to=='xyzab' :
-		curr=0
-	else :
-		curr=1
-=======
+
 	if to == 'xyzab':
 		flag=False
 	else :
 		flag=True
 	response['flag']=flag
->>>>>>> 06425b7b04da927b84134aa87e5d7f9957680a05
 	response['notif'] = count	
 	response['touser']=to
 	
@@ -189,37 +183,10 @@ def random_no(length=3) :
 		return randint(10**(length-1),(10**(length)-1))
 
 @login_required(login_url='/signin')		
-<<<<<<< HEAD
-def savereq(request):
-<<<<<<< HEAD
-=======
-=======
 def savereq(request,par):
->>>>>>> 06425b7b04da927b84134aa87e5d7f9957680a05
 
->>>>>>> f86e85cc5e7a913052a6ed4e6964c7d5f2a3fe67
-
-<<<<<<< HEAD
-	if request.method =="POST":
-		type = request.POST['type']
-		descrp = request.POST['message']
-		touser = request.POST['to1']
-		datereq = request.POST['date']
-		print(touser)
-=======
 	if request.method == 'POST' :
-<<<<<<< HEAD
->>>>>>> 64ce6e1f1f7b689f7fc6a32c9d729c29dafa4b5b
-		
-		type = request.POST['type']
-		descrp = request.POST['message']
-		touser = request.POST['dept']
-		datereq = request.POST['date']
-		check = random_no()
-		print(touser)
-		print(descrp)
-		while Request.objects.filter(rid=check):
-=======
+
 		if par == 'xyzab':
 			type = request.POST['type']
 			descrp = request.POST['message']
@@ -242,42 +209,14 @@ def savereq(request,par):
 			type = request.POST['type']
 			descrp = request.POST['message']
 			datereq = request.POST['date']
->>>>>>> 06425b7b04da927b84134aa87e5d7f9957680a05
 			check = random_no()
 			key=range(3)
-			
-<<<<<<< HEAD
-		obj = Request()
-		obj.rid=check
-		obj.Type=type
-		obj.descrp=descrp
-		obj.fromuser = request.user	
-<<<<<<< HEAD
-<<<<<<< HEAD
-		obj.date = datereq
-		obj.save();
-		
-			
-	return render(request,'production/request.html')	
-=======
-		obj.touser = chktouser
-		obj.touser=touser
-		obj.date = datereq
-		obj.save();
-		
-	return redirect('/index')	
->>>>>>> 64ce6e1f1f7b689f7fc6a32c9d729c29dafa4b5b
-=======
-		obj.date = datereq
-		obj.save();
-=======
 			d=""
 			p=""
 			for i in key:
 				d=d+par[i]
 				if i!=2 :
 					p=p+par[i+3]
->>>>>>> 06425b7b04da927b84134aa87e5d7f9957680a05
 		
 			if Fuser.objects.filter(un=request.user,dept=d).exists():
 				f=True #same dept
@@ -343,7 +282,6 @@ def savereq(request,par):
 			
 	return redirect('/index')	
 
->>>>>>> f86e85cc5e7a913052a6ed4e6964c7d5f2a3fe67
 	
 	
 def signin(request):
