@@ -6,7 +6,7 @@ from django.conf import settings
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth.models import User
-from .models import Fuser,Request,Brmsg,QCM,Oversee
+from .models import Fuser,Request,Brmsg,QCM,Oversee,CallMeet
 from django.contrib.auth.decorators import login_required,user_passes_test #even after loging in the function only if he is certain user
 from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.models import User
@@ -87,19 +87,40 @@ def fourdig(request):
 	
 @login_required(login_url='/signin')	
 def home(request):
+	
 	resp ={}
+	rp1={}
+	rp2={}
+	
 	current_user = request.user.username
 #	current_user = User.get_username()
-	
 	if Fuser.objects.filter(un=current_user,filter=1).exists():
 		flag=False
 	else :
 		flag=True
-	resp['curr']=flag
-	resp = dispreqno(request)
-	resp['name'] = current_user
-	return render(request,'production/index.html',resp)
 
+	rp1 = dispreqno(request)
+	rp2 = meetcheck(request)
+	resp['one']=rp1
+	resp['two']=rp2
+	resp['curr']=flag
+	resp['name'] = current_user
+	
+	return render(request,'production/index.html',resp)
+def meetcheck(request):
+
+	count=0
+	ch={}
+	req={}
+	current_user = request.user
+	for r in CallMeet.objects.filter(cto=current_user):
+		req[count] = {'fruser1':r.cfrom,'msg':r.agen}
+		count = count + 1
+		
+	ch['notif'] = count
+	ch['req'] = req
+	return ch
+	
 @login_required(login_url='/signin')	
 def dispreqno(request):
 	count = 0
@@ -185,11 +206,7 @@ def recrequestchk(request,req):
 	current_user = request.user.username
 #	current_user = User.get_username()
 	
-	if Fuser.objects.filter(un=current_user,filter=1).exists():
-		flag=False
-	else :
-		flag=True
-	resp['curr']=flag
+	
 	resp = dispreqno(request)
 	resp['name'] = current_user
 	r = Request.objects.get(rid = req)
@@ -368,7 +385,9 @@ def callameet(request):
 
 	resp={}
 	cobj = Fuser.objects.all()
+	curr = User.objects.get(username=request.user)
 	resp['allFusers']=cobj
+	resp['curu']=curr
 	return render(request,'production/callmeet.html',resp)
 	
 def signin(request):
@@ -387,7 +406,27 @@ def signin(request):
 def logout_view(request):
     logout(request)
     return render(request,'login.html')		
-	
+
+
 def saveameet(request):
 
+	
+	if request.method == 'POST':
+		
+		datt = request.POST['date']
+		venue = request.POST['venue']
+		agenda = request.POST['agenda']
+		#use_TZ=False
+		
+		x= request.POST.getlist('to[]')
+		for c in x:
+			call = CallMeet()
+			call.cto = User.objects.get(username = c)
+			call.dati = datt
+			call.cfrom = request.user
+			call.ven = venue
+			call.agen = agenda
+			call.save()
+
+			
 	return redirect('/index')
