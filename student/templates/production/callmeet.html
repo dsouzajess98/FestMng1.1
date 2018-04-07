@@ -374,7 +374,7 @@
                 <div class="x_panel">
                   <div class="x_title">
 			<!-- start form for validation -->
-                    <form id="demo-form" method="POST" action="/savemeet/">
+                    <form id="demo-form" method="POST" action="/savemeet/" enctype="multipart/form-data">
 					{% csrf_token %}
 					<br><br>
 		
@@ -398,12 +398,12 @@
                         </tr>
                       </thead>
 
-
+						
                       <tbody>
 					   {% for user in allFusers %}
                         <tr>
                           <td>
-						  <th><input type="checkbox" id="check-all" class="flat" value ="{{user.un}}" name="tousers1[]"/></th>
+						  <th><input type="checkbox" id="check-all" class="flat" value ={{user.un}} name="to[]"/></th>
 						  </td>
                           <td>{{user.un}}</td>
                           <td>{{user.dept}}</td>
@@ -420,21 +420,14 @@
 				<br><br><br><br>
 						
                 <div class=''>
-                   <label>Date:</label>
-                    <div class="form-group">
-                        <div class='input-group date' id='myDatepicker2'>
-                            <input type='text' name="date" class="form-control" />
-                            <span class="input-group-addon">
-                               <span class="glyphicon glyphicon-calendar"></span>
-                            </span>
-                        </div>
-                    </div>
+                   <label>Date and time:</label>
+					<input type ="datetime-local" name="date">
                 </div>
 				
 				<br><br><br>
 				<div>
 				 <label for="message">Venue :</label>
-                <textarea id="message" required="required" class="form-control" name="message" data-parsley-trigger="keyup" data-parsley-minlength="2" data-parsley-maxlength="100" data-parsley-minlength-message="Come on! You need to enter at least a 20 caracters long comment.."
+                <textarea id="message" required="required" class="form-control" name="venue" data-parsley-trigger="keyup" data-parsley-minlength="2" data-parsley-maxlength="100" data-parsley-minlength-message="Come on! You need to enter at least a 20 caracters long comment.."
                             data-parsley-validation-threshold="10"></textarea>
 				
 				</div>
@@ -442,7 +435,7 @@
 				
 				<div>
                 <label for="message">Agenda (20 chars min, 100 max) :</label>
-                <textarea id="message" required="required" class="form-control" name="message" data-parsley-trigger="keyup" data-parsley-minlength="5" data-parsley-maxlength="100" data-parsley-minlength-message="Come on! You need to enter at least a 20 caracters long comment.."
+                <textarea id="message" required="required" class="form-control" name="agenda" data-parsley-trigger="keyup" data-parsley-minlength="5" data-parsley-maxlength="100" data-parsley-minlength-message="Come on! You need to enter at least a 20 caracters long comment.."
                             data-parsley-validation-threshold="10"></textarea>
 
                  <br>
@@ -507,7 +500,9 @@
 	<!-- bootstrap-datetimepicker -->    
     <script src="{% static 'vendors/bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js' %}"></script>
 	<script>
-    $('#myDatepicker').datetimepicker();
+    $('#myDatepicker').datetimepicker()({
+		format: 'YYYY-MM-DD hh:mm A';
+	});
     
     $('#myDatepicker2').datetimepicker({
         format: 'YYYY-MM-DD'

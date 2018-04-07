@@ -51,7 +51,6 @@ class Fuser(models.Model):
 	core = models.ForeignKey(User, to_field='username', related_name='core', null=True)
 	filter = models.IntegerField(null=False, default=1)
 
-
 class QCM(models.Model):
 
 	qdept = models.CharField(max_length=256) # inner dept : oc,doc,tre,spons
@@ -78,6 +77,16 @@ class Request(models.Model):
 	def __str__(self) :
 	    return str(self.rid)
 
+class CallMeet(models.Model):
+	
+	dati = models.DateTimeField(auto_now_add=False)
+	cfrom = models.ForeignKey(User, to_field='username')
+	cto = models.ForeignKey(User, to_field='username',related_name='cto')
+	agen = models.CharField(max_length=256)
+	rep = models.CharField(max_length=256, default='blah')
+	ven = models.CharField(max_length=256)
+
+
 class FileUpload(models.Model):
 	rid = models.ForeignKey(Request, to_field='rid')
 	file_name = models.CharField(max_length=100,default="xxx")
@@ -85,3 +94,4 @@ class FileUpload(models.Model):
 	
 	def __str__(self) :
 	    return str(self.rid)
+

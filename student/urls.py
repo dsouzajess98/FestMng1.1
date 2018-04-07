@@ -10,7 +10,7 @@ urlpatterns = [
 	url(r'^signin/$',views.signin),
 	url(r'^index/$',views.home,name="index"),
 	url(r'^index/callmeet/$',views.callameet,name="meet"),
-	url(r'^index/saveameet/$',views.saveameet,name="save"),
+	url(r'^savemeet/$',views.saveameet,name="save"),
 	url(r'^index/createrequest/(?P<to>[A-Za-z0-9.,]+)/$',views.newreq),
 	url(r'^logout/$',views.logout_view,name="logout"),
 	url(r'^createrequest/$',views.newreq,name="createreq"),
