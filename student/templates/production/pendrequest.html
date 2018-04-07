@@ -364,11 +364,11 @@
 
 
                       <tbody>
-					   {% for key,value in req.items %}
+					   {% for c in one %}
                         <tr>
       
-                          <td><a href="/pendrequestchk/{{value.rid}}/">{{value.fruser1}}</a></td>
-                          <td> {{value.msg}}</td>
+                          <td><a href="/pendrequestchk/{{c.rid}}/">{{c.fromuser}}</a></td>
+                          <td> {{c.descrp}}</td>
                           
                         </tr>
                          {% endfor %}

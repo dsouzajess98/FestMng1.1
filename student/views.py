@@ -177,12 +177,9 @@ def pendrequest(request):
 	req = {}
 	rp2={}
 	current_user = request.user.username
-	for r in Request.objects.filter(touser=current_user,result='yes'):
-		req[count] = {'fruser1':r.fromuser_id,'msg':r.descrp,'rid':r.rid}
-		count = count + 1
 	response = {}
 	rp2= meetcheck(request)
-	response['one'] = req
+	response['one'] = Request.objects.filter(touser=current_user,result='yes')
 	response['name'] = current_user
 	response['two']=rp2
 	return render(request,'production/pendrequest.html',response)
@@ -192,6 +189,7 @@ def updpendreq(request,req):
 	
 	if request.method == "POST":
 		curr_req = Request.objects.get(rid = req)
+		curr_req_check = Request.objects.filter(rid  = req).update(result = 'done')
 		files = request.FILES.getlist('myfiles')
 		for a_file in files:
 			print('hello')
@@ -220,7 +218,7 @@ def recrequest(request):
 	current_user = request.user.username
 #	current_user = User.get_username()
 	rp1 = dispreqno(request)
-	rp2=meetcheck(request)
+	rp2 = meetcheck(request)
 	resp['one']=rp1
 	resp['two']=rp2
 	resp['name'] = current_user
@@ -255,6 +253,9 @@ def updreq(request,req):
 	if request.method == "POST":
 		print(request.POST['resp'])
 		obj = Request.objects.filter(rid = req).update(result = request.POST['resp'])
+		obj1 = Request.objects.get(rid = req)
+		if obj1.Type == 'approv':
+			obj = Request.objects.filter(rid = req).update(result = 'done')
 	return redirect('/index')	
 
 #Request View End
@@ -272,7 +273,7 @@ def newmsg(request):
 		obj.msg = msg
 		obj.save()
 		
-	return render(request,'/index')	
+	return redirect('/index')	
 	
 @login_required(login_url='/signin')	
 def newreq(request, to='xyzab'):
