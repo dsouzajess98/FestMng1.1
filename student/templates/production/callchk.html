@@ -348,33 +348,7 @@
                   </ul>
                 </li>
 				<!-- Requests -->
-				<li role="presentation" class="dropdown">
-                 <a href="{% url 'createreq' %}"  title="Make a new request">
-                    <i class="fa fa-plus" ></i>
-                    
-                  </a>
-				  </li>
-                <li role="presentation" class="dropdown">
-                  <a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false">
-                    <i class="fa fa-paper-plane"></i>
-                  
-                  </a>
-                  <ul id="menu1" class="dropdown-menu list-unstyled msg_list" role="menu">
-<form id="demo-form" method="POST" action="/newmessage/">				               
-							   <li>    
-								
-								{% csrf_token %}
-				   <input type='text' name="msg" placeholder="Enter your message" class="form-control" required />
-				   
-				  
-				 </li>
-                    <li>
-                      <div class="text-center">
-                        <button class="btn btn-primary" type="submit">Submit</button>
-                      </div>
-                    </li> </form>
-                  </ul>
-                </li>
+				
 
                  <!-- Requests done-->
 			  </ul>
@@ -382,7 +356,57 @@
           </div>
         </div>
         <!-- /top navigation -->
+		<div class="right_col" role="main">
+          <div class="">
+            <div class="page-title">
+              <div class="title_left">
+                <h3>Respond to meeting:</h3>
+              </div>
 
+              <div class="title_right">
+                <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
+                  <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Search for...">
+                    <span class="input-group-btn">
+                      <button class="btn btn-default" type="button">Go!</button>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="clearfix"></div>
+            <div class="row">
+              <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                  <div class="x_title">
+
+                    <form id="demo-form" method="POST" action="/updmeet/{{objc.cfrom}}/">
+					{% csrf_token %}
+                    
+                      <label> From :  </label>  {{objc.cfrom}}
+					  <br><br>
+					  <label> Agenda :  </label>  {{objc.agen}}
+						 <br><br>
+					  <label> Date and Time :  </label>  {{objc.dati}}
+						 <br><br>
+						 <label> Venue :  </label>  {{objc.ven}}
+						 <br><br>
+						<label> Can you make it?</label>
+						 <br><br>
+						<button class="btn btn-primary" name = "resp" value ="yes" type="submit">Yes</button>&nbsp;&nbsp;
+						<button class="btn btn-primary" name = "resp" value ="no" type="submit">No</button>
+						
+						 <br><br>
+                  
+
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+        </div>
+        </div>
         <!-- page content -->
         <div class="right_col" role="main">
           <!-- top tiles -->

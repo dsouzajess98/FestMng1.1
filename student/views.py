@@ -113,7 +113,7 @@ def meetcheck(request):
 	ch={}
 	req={}
 	current_user = request.user
-	for r in CallMeet.objects.filter(cto=current_user):
+	for r in CallMeet.objects.filter(cto=current_user, stat='not seen'):
 		print count
 		req[count] = {'fruser1':r.cfrom,'msg':r.agen,'id':count}
 		count = count + 1
@@ -169,6 +169,7 @@ def pendrequestchk(request,req):
 	resp['fromuserreq'] = r.fromuser
 	resp['msg'] = r.descrp
 	resp['date'] = r.date
+	resp['type'] = r.Type
 	return render(request,'production/pendrequestchk.html',resp)	
 	
 @login_required(login_url='/signin')	
@@ -177,12 +178,9 @@ def pendrequest(request):
 	req = {}
 	rp2={}
 	current_user = request.user.username
-	for r in Request.objects.filter(touser=current_user,result='yes'):
-		req[count] = {'fruser1':r.fromuser_id,'msg':r.descrp,'rid':r.rid}
-		count = count + 1
 	response = {}
 	rp2= meetcheck(request)
-	response['one'] = req
+	response['one'] = Request.objects.filter(touser=current_user,result='yes')
 	response['name'] = current_user
 	response['two']=rp2
 	return render(request,'production/pendrequest.html',response)
@@ -192,6 +190,7 @@ def updpendreq(request,req):
 	
 	if request.method == "POST":
 		curr_req = Request.objects.get(rid = req)
+		curr_req_check = Request.objects.filter(rid  = req).update(result = 'done')
 		files = request.FILES.getlist('myfiles')
 		for a_file in files:
 			print('hello')
@@ -220,7 +219,7 @@ def recrequest(request):
 	current_user = request.user.username
 #	current_user = User.get_username()
 	rp1 = dispreqno(request)
-	rp2=meetcheck(request)
+	rp2 = meetcheck(request)
 	resp['one']=rp1
 	resp['two']=rp2
 	resp['name'] = current_user
@@ -255,6 +254,9 @@ def updreq(request,req):
 	if request.method == "POST":
 		print(request.POST['resp'])
 		obj = Request.objects.filter(rid = req).update(result = request.POST['resp'])
+		obj1 = Request.objects.get(rid = req)
+		if obj1.Type == 'approv':
+			obj = Request.objects.filter(rid = req).update(result = 'done')
 	return redirect('/index')	
 
 #Request View End
@@ -272,7 +274,7 @@ def newmsg(request):
 		obj.msg = msg
 		obj.save()
 		
-	return render(request,'/index')	
+	return redirect('/index')	
 	
 @login_required(login_url='/signin')	
 def newreq(request, to='xyzab'):
@@ -287,7 +289,7 @@ def newreq(request, to='xyzab'):
 	response['users'] = allUsers
 	response['one']=rp1
 	response['two']=rp2
-	allFusers = Fuser.objects.all()
+	allFusers = Fuser.objects.all().exclude(un=current_user)
 	response['allFusers'] = allFusers	
 	count = 0
 	for r in Request.objects.filter(touser=current_user):
@@ -451,10 +453,19 @@ def savereq(request,par):
 def callameet(request):
 
 	resp={}
-	cobj = Fuser.objects.all()
+	rp1={}
+	rp2={}
+	current_user = request.user.username
+	rp1 = dispreqno(request)
+	rp2 = meetcheck(request)
+	resp['one']=rp1
+	resp['two']=rp2
+	resp['name'] = request.user.username
+	cobj = Fuser.objects.all().exclude(un=request.user.username)
 	curr = User.objects.get(username=request.user)
 	resp['allFusers']=cobj
 	resp['curu']=curr
+	
 	return render(request,'production/callmeet.html',resp)
 	
 def signin(request):
@@ -499,4 +510,25 @@ def saveameet(request):
 	return redirect('/index')
 def calldisp(request):
 
-	return redirect('/callchk/')
+	resp ={}
+	rp1={}
+	rp2={}
+	current_user = request.user.username
+	obj = CallMeet.objects.get(cto=current_user)
+	rp1 = dispreqno(request)
+	rp2 = meetcheck(request)
+	resp['one']=rp1
+	resp['two']=rp2
+#	resp['from']= User.objects.get(username=obj.cfrom)
+	resp['objc']=obj
+	return render(request,'production/callchk.html',resp)
+
+def updmeet(request,fro):
+
+	if request.method ==  'POST':
+	
+		res=request.POST['resp']
+		obj=CallMeet.objects.filter(cto=request.user,cfrom=fro).update(rep=res,stat='seen')
+		
+	return redirect('/index')
+

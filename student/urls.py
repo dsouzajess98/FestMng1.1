@@ -23,6 +23,7 @@ urlpatterns = [
 	url(r'^recrequest/$', views.recrequest,name="recreq"),
 	url(r'^pendrequest/$', views.pendrequest,name="pendrequest"),
 	url(r'^updreq/(?P<req>[A-Za-z0-9.,]+)/$', views.updreq,name="updreq"),
+	url(r'^updmeet/(?P<fro>[A-Za-z0-9.,]+)/$',views.updmeet),
 	url(r'^updpendreq/(?P<req>[A-Za-z0-9.,]+)/$', views.updpendreq,name="updpendreq"),
 	url(r'^recrequestchk/(?P<req>[A-Za-z0-9.,]+)/$', views.recrequestchk,name="recrequestchk/(?P<req>[A-Za-z0-9.,]+)"),
 	url(r'^pendrequestchk/(?P<req>[A-Za-z0-9.,]+)/$', views.pendrequestchk,name="pendrequestchk/(?P<req>[A-Za-z0-9.,]+)"),

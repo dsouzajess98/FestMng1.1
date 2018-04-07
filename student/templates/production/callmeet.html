@@ -192,7 +192,7 @@
               <div class="menu_section">
                 <h3>Additional</h3>
                 <ul class="nav side-menu">
-                  <li><a><i class="fa fa-users"></i><a href="callmeet.html">CALL A MEETING</a></a> <!--<span class="fa fa-chevron-down"></span></a>
+                  <li><a><i class="fa fa-users"></i><a href="callmeet/">CALL A MEETING</a></a> <!--<span class="fa fa-chevron-down"></span></a>
                   <!--  <ul class="nav child_menu"> 
                       <li><a href="callmeet.html">Call a meeting</a></li>
                  <!--   </ul> -->
@@ -201,7 +201,7 @@
                   </li>
 				  <li><a href="{% url 'recreq' %}"><i class="fa fa-envelope-o"></i> RECEIVED REQUESTS <span class="fa fa-chevron-down"></span></a>                    
                   </li>
-				  <li><a><i class="fa fa-envelope-o"></i> PENDING REQUESTS <span class="fa fa-chevron-down"></span></a>                    
+				  <li><a href="{% url 'pendrequest' %}"><i class="fa fa-envelope-o"></i> PENDING REQUESTS <span class="fa fa-chevron-down"></span></a>                    
                   </li>
                   <li><a><i class="fa fa-windows"></i> LODGE A COMPLAIN <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
@@ -313,7 +313,9 @@
                       </div>
                     </li>
                   </ul>
-				   <li role="presentation" class="dropdown">
+                </li>
+				
+				  <li role="presentation" class="dropdown">
                   <a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false">
 				 <i class="fa fa-bell"></i>
                     <span class="badge bg-green">{{two.notif}}</span>
@@ -343,7 +345,6 @@
                       </div>
                     </li>
                   </ul>
-                </li>
                 </li>
 				<!-- Requests -->
 				<li role="presentation" class="dropdown">
@@ -379,6 +380,7 @@
             </nav>
           </div>
         </div>
+        <!-- /top navigation -->
         <!-- /top navigation -->
 		<div class="right_col" role="main">
           <div class="">
