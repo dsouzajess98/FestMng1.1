@@ -55,11 +55,11 @@
     <link href="{% static 'build/css/custom.min.css' %}" rel="stylesheet">
   </head>
 
-  <body class="nav-md">
+   <body class="nav-md">
     <div class="container body">
       <div class="main_container">
         <div class="col-md-3 left_col">
-         <div class="left_col scroll-view">
+          <div class="left_col scroll-view">
             <div class="navbar nav_title" style="border: 0;">
               <a href={% url 'index' %} class="site_title"><i class="fa fa-paw"></i> <span>Fest Manager</span></a>
             </div>
@@ -81,115 +81,159 @@
             <br />
 
             <!-- sidebar menu -->
+			{% if curr %}
+		
             <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
               <div class="menu_section">
                 <h3>Departments</h3>
                 <ul class="nav side-menu">
-                  <li><a><i class="fa fa-home"></i> ECC <span class="fa fa-chevron-down"></span></a>
+                  <li><a><i class="fa fa-user-plus"></i> ECC <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href={% url 'index' %}>Dashboard</a></li>
-                      <li><a href="index2.html">Dashboard2</a></li>
-                      <li><a href="index3.html">Dashboard3</a></li>
+					  <li><a href="createrequest/eccwf">Workforce</a></li>	
+					  <li><a href="createrequest/eccsu">Sub Core</a></li>
+                      <li><a href="createrequest/eccco">Core</a></li>
+                
+                     <!-- <li><a href="createrequest">Dashboard3</a></li> -->
                     </ul>
                   </li>
                   <li><a><i class="fa fa-edit"></i> QCM <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="form.html">General Form</a></li>
-                      <li><a href="form_advanced.html">Advanced Components</a></li>
-                      <li><a href="form_validation.html">Form Validation</a></li>
-                      <li><a href="form_wizards.html">Form Wizard</a></li>
-                      <li><a href="form_upload.html">Form Upload</a></li>
-                      <li><a href="form_buttons.html">Form Buttons</a></li>
+                       <li><a href="createrequest/qcmwf">Workforce</a></li>	
+					  <li><a href="createrequest/qcmsu">Sub Core</a></li>
+                      <li><a href="createrequest/qcmco">Core</a></li>
                     </ul>
                   </li>
                   <li><a><i class="fa fa-desktop"></i> DESIGN AND DECO <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="general_elements.html">General Elements</a></li>
-                      <li><a href="media_gallery.html">Media Gallery</a></li>
-                      <li><a href="typography.html">Typography</a></li>
-                      <li><a href="icons.html">Icons</a></li>
-                      <li><a href="glyphicons.html">Glyphicons</a></li>
-                      <li><a href="widgets.html">Widgets</a></li>
-                      <li><a href="invoice.html">Invoice</a></li>
-                      <li><a href="inbox.html">Inbox</a></li>
-                      <li><a href="calendar.html">Calendar</a></li>
+                    <li><a href="createrequest/deswf">Workforce</a></li>	
+					  <li><a href="createrequest/dessu">Sub Core</a></li>
+                      <li><a href="createrequest/desco">Core</a></li>
                     </ul>
                   </li>
                   <li><a><i class="fa fa-table"></i> LOGISTICS <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="tables.html">Tables</a></li>
-                      <li><a href="tables_dynamic.html">Table Dynamic</a></li>
+                      <li><a href="createrequest/logwf">Workforce</a></li>	
+					  <li><a href="createrequest/logsu">Sub Core</a></li>
+                      <li><a href="createrequest/logco">Core</a></li>
                     </ul>
                   </li>
                   <li><a><i class="fa fa-bar-chart-o"></i> SPONSORSHIP <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="chartjs.html">Chart JS</a></li>
-                      <li><a href="chartjs2.html">Chart JS2</a></li>
-                      <li><a href="morisjs.html">Moris JS</a></li>
-                      <li><a href="echarts.html">ECharts</a></li>
-                      <li><a href="other_charts.html">Other Charts</a></li>
+                      <li><a href="createrequest/spowf">Workforce</a></li>	
+					  <li><a href="createrequest/sposu">Sub Core</a></li>
+                      <li><a href="createrequest/spoco">Core</a></li>
                     </ul>
                   </li>
-                  <li><a><i class="fa fa-clone"></i>PUBLICITY <span class="fa fa-chevron-down"></span></a>
+                  <li><a><i class="fa fa-newspaper-o"></i>PUBLICITY <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="fixed_sidebar.html">Fixed Sidebar</a></li>
-                      <li><a href="fixed_footer.html">Fixed Footer</a></li>
+                     <li><a href="createrequest/pubwf">Workforce</a></li>	
+					  <li><a href="createrequest/pubsu">Sub Core</a></li>
+                      <li><a href="createrequest/pubco">Core</a></li>
                     </ul>
                   </li>
-				  <li><a><i class="fa fa-clone"></i>TREASURY <span class="fa fa-chevron-down"></span></a>
+				  <li><a><i class="fa fa-money"></i>TREASURY <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="fixed_sidebar.html">Fixed Sidebar</a></li>
-                      <li><a href="fixed_footer.html">Fixed Footer</a></li>
+                     <li><a href="createrequest/trewf">Workforce</a></li>	
+					  <li><a href="createrequest/tresu">Sub Core</a></li>
+                      <li><a href="createrequest/treco">Core</a></li>
+                    </ul>
+                  </li>
+				   <li><a><i class="fa fa-home"></i>HOSPITALITY <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                    <li><a href="createrequest/hoswf">Workforce</a></li>	
+					  <li><a href="createrequest/hossu">Sub Core</a></li>
+                      <li><a href="createrequest/hosco">Core</a></li>
                     </ul>
                   </li>
                 </ul>
               </div>
+			  {% else %}
+            <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
               <div class="menu_section">
-                <h3>Additional requests</h3>
+                <h3>Departments</h3>
                 <ul class="nav side-menu">
-                  <li><a><i class="fa fa-bug"></i> CALL A MEETING <span class="fa fa-chevron-down"></span></a>
+                  <li><a><i class="fa fa-user-plus"></i> ECC <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="e_commerce.html">E-commerce</a></li>
-                      <li><a href="projects.html">Projects</a></li>
-                      <li><a href="project_detail.html">Project Detail</a></li>
-                      <li><a href="contacts.html">Contacts</a></li>
-                      <li><a href="profile.html">Profile</a></li>
+					  <li><a href="createrequest/eccwf">Workforce</a></li>	
+					  <li><a href="createrequest/eccsu">Sub Core</a></li>
+                     
+                
+                     <!-- <li><a href="createrequest">Dashboard3</a></li> -->
                     </ul>
                   </li>
-                  <li><a><i class="fa fa-windows"></i> LODGE A COMPLAIN <span class="fa fa-chevron-down"></span></a>
+                  <li><a><i class="fa fa-edit"></i> QCM <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="page_403.html">403 Error</a></li>
-                      <li><a href="page_404.html">404 Error</a></li>
-                      <li><a href="page_500.html">500 Error</a></li>
-                      <li><a href="plain_page.html">Plain Page</a></li>
-                      <li><a href="login.html">Login Page</a></li>
-                      <li><a href="pricing_tables.html">Pricing Tables</a></li>
+                       <li><a href="createrequest/qcmwf">Workforce</a></li>	
+					  <li><a href="createrequest/qcmsu">Sub Core</a></li>
+                      
                     </ul>
                   </li>
-				  	 <li><a ><i class="fa fa-envelope-o"></i> SENT REQUESTS <span class="fa fa-chevron-down"></span></a>                    
-                  </li>
-				  <li><a href="{% url 'recreq' %}"><i class="fa fa-envelope-o"></i> RECEIVED REQUESTS <span class="fa fa-chevron-down"></span></a>                    
-                  </li>
-				  <li><a><i class="fa fa-envelope-o"></i> PENDING REQUESTS <span class="fa fa-chevron-down"></span></a>                    
-                  </li>
-                  <li><a><i class="fa fa-sitemap"></i> SEE UPCOMING EVENTS <span class="fa fa-chevron-down"></span></a>
+                  <li><a><i class="fa fa-desktop"></i> DESIGN AND DECO <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                        <li><a href="#level1_1">Level One</a>
-                        <li><a>Level One<span class="fa fa-chevron-down"></span></a>
-                          <ul class="nav child_menu">
-                            <li class="sub_menu"><a href="level2.html">Level Two</a>
-                            </li>
-                            <li><a href="#level2_1">Level Two</a>
-                            </li>
-                            <li><a href="#level2_2">Level Two</a>
-                            </li>
-                          </ul>
-                        </li>
-                        <li><a href="#level1_2">Level One</a>
-                        </li>
+                    <li><a href="createrequest/deswf">Workforce</a></li>	
+					  <li><a href="createrequest/dessu">Sub Core</a></li>
+                     
                     </ul>
+                  </li>
+                  <li><a><i class="fa fa-table"></i> LOGISTICS <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="createrequest/logwf">Workforce</a></li>	
+					  <li><a href="createrequest/logsu">Sub Core</a></li>
+                    
+                    </ul>
+                  </li>
+                  <li><a><i class="fa fa-bar-chart-o"></i> SPONSORSHIP <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="createrequest/spowf">Workforce</a></li>	
+					  <li><a href="createrequest/sposu">Sub Core</a></li>
+                      
+                    </ul>
+                  </li>
+                  <li><a><i class="fa fa-newspaper-o"></i>PUBLICITY <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                     <li><a href="createrequest/pubwf">Workforce</a></li>	
+					  <li><a href="createrequest/pubsu">Sub Core</a></li>
+                 
+                    </ul>
+                  </li>
+				  <li><a><i class="fa fa-money"></i>TREASURY <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                     <li><a href="createrequest/trewf">Workforce</a></li>	
+					  <li><a href="createrequest/tresu">Sub Core</a></li>
+        
+                    </ul>
+                  </li>
+				   <li><a><i class="fa fa-home"></i>HOSPITALITY <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                    <li><a href="createrequest/hoswf">Workforce</a></li>	
+					  <li><a href="createrequest/hossu">Sub Core</a></li>
+             
+                    </ul>
+                  </li>
+                </ul>
+              </div>
+			  {% endif %}
+              <div class="menu_section">
+                <h3>Additional</h3>
+                <ul class="nav side-menu">
+                  <li><a href="callmeet/"><i class="fa fa-users"></i>CALL A MEETING</a> <!--<span class="fa fa-chevron-down"></span></a>
+                  <!--  <ul class="nav child_menu"> 
+                      <li><a href="callmeet.html">Call a meeting</a></li>
+                 <!--   </ul> -->
+                  </li>
+				  <li><a ><i class="fa fa-envelope-o"></i> SENT REQUESTS </span></a>                    
+                  </li>
+				  <li><a href="{% url 'recreq' %}"><i class="fa fa-envelope-o"></i> RECEIVED REQUESTS </a>                    
+                  </li>
+				  <li><a href="{% url 'pendrequest' %}"><i class="fa fa-envelope-o"></i> PENDING REQUESTS</a>                    
+                  </li>
+                  <li><a><i class="fa fa-windows"></i> LODGE A COMPLAIN </span></a>
+
+                  </li>
+                  <li><a><i class="fa fa-sitemap"></i> SEE UPCOMING EVENTS </a>
+
                   </li>                  
-                  <li><a href="javascript:void(0)"><i class="fa fa-laptop"></i> Landing Page <span class="label label-success pull-right">Coming Soon</span></a></li>
+
                 </ul>
               </div>
 
