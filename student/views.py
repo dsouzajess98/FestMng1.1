@@ -107,7 +107,7 @@ def dispreqno(request):
 
 	req = {}
 	current_user = request.user
-	for r in Request.objects.filter(touser=current_user):
+	for r in Request.objects.filter(touser=current_user,result='notseen'):
 		req[count] = {'fruser1':r.fromuser_id,'msg':r.descrp,'rid':r.rid}
 		count = count + 1
 		
@@ -132,11 +132,37 @@ def prof(request):
 			response['flag']=1
 			
 	return render(request,'production/profile.html',response)
-	
+
 @login_required(login_url='/signin')	
 def profupd(request):
 
 	return render(request,'production/profile.html',response)
+	
+@login_required(login_url='/signin')	
+def pendrequest(request):
+	count = 0
+	req = {}
+	current_user = request.user.username
+	for r in Request.objects.filter(touser=current_user,result='yes'):
+		req[count] = {'fruser1':r.fromuser_id,'msg':r.descrp,'rid':r.rid}
+		count = count + 1
+	response = {}
+	response['req'] = req
+	response['name'] = current_user
+	return render(request,'production/pendrequest.html',response)
+	
+@login_required(login_url='/signin')	
+def profupd(request):
+
+	return redirect('/index')
+	
+@login_required(login_url='/signin')	
+def updreq(request,req):
+	
+	if request.method == "POST":
+		print(request.POST['resp'])
+		obj = Request.objects.filter(rid = req).update(result = request.POST['resp'])
+	return redirect('/index')	
 	
 @login_required(login_url='/signin')	
 def recrequest(request):
@@ -170,6 +196,8 @@ def recrequestchk(request,req):
 	resp['rid'] = r.rid
 	resp['fromuserreq'] = r.fromuser
 	resp['msg'] = r.descrp
+	resp['type'] = r.Type
+	resp['date'] = r.date
 	return render(request,'production/acrequest.html',resp)
 	
 @login_required(login_url='/signin')	
@@ -185,7 +213,7 @@ def newmsg(request):
 		obj.msg = msg
 		obj.save()
 		
-	return render(request,'production/index.html')	
+	return render(request,'/index')	
 	
 @login_required(login_url='/signin')	
 def newreq(request, to='xyzab'):

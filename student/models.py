@@ -41,12 +41,14 @@ class Oversee(models.Model):
 	link = models.CharField(max_length=256)
 	
 class Request(models.Model):
+	created_at = models.DateTimeField(auto_now_add=True)
 	rid = models.IntegerField(unique=True,null=False)
 	Type = models.CharField(max_length=255)
 	descrp = models.CharField(max_length=255 ,null=True) 
 	fromuser =  models.ForeignKey(User, to_field='username',related_name='fromuser', default='james')
 	touser = models.ForeignKey(User, to_field='username', related_name='touser', default='admin')
 	date = models.DateField(null=True)
+	result= models.CharField(max_length=255 ,null=False, default= "notseen") 
 	
 	def __str__(self) :
 	    return str(self.rid)

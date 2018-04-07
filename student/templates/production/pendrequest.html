@@ -156,6 +156,12 @@
                       <li><a href="profile.html">Profile</a></li>
                     </ul>
                   </li>
+				  	<li><a ><i class="fa fa-envelope-o"></i> SENT REQUESTS <span class="fa fa-chevron-down"></span></a>                    
+                  </li>
+				  <li><a href="{% url 'recreq' %}"><i class="fa fa-envelope-o"></i> RECEIVED REQUESTS <span class="fa fa-chevron-down"></span></a>                    
+                  </li>
+				  <li><a><i class="fa fa-envelope-o"></i> PENDING REQUESTS <span class="fa fa-chevron-down"></span></a>                    
+                  </li>
                   <li><a><i class="fa fa-windows"></i> LODGE A COMPLAIN <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a href="page_403.html">403 Error</a></li>
@@ -165,12 +171,6 @@
                       <li><a href="login.html">Login Page</a></li>
                       <li><a href="pricing_tables.html">Pricing Tables</a></li>
                     </ul>
-                  </li>
-				  	 <li><a ><i class="fa fa-envelope-o"></i> SENT REQUESTS <span class="fa fa-chevron-down"></span></a>                    
-                  </li>
-				  <li><a href="{% url 'recreq' %}"><i class="fa fa-envelope-o"></i> RECEIVED REQUESTS <span class="fa fa-chevron-down"></span></a>                    
-                  </li>
-				  <li><a><i class="fa fa-envelope-o"></i> PENDING REQUESTS <span class="fa fa-chevron-down"></span></a>                    
                   </li>
                   <li><a><i class="fa fa-sitemap"></i> SEE UPCOMING EVENTS <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
@@ -290,7 +290,7 @@
           <div class="">
             <div class="page-title">
               <div class="title_left">
-                <h3>Request : {{rid}}</h3>
+                <h3>Complete the following Accepted Requests</h3>
               </div>
 
               <div class="title_right">
@@ -310,30 +310,45 @@
                 <div class="x_panel">
                   <div class="x_title">
 
-                    <form id="demo-form" method="POST" action="/updreq/{{rid}}/">
+                    <form id="demo-form" method="POST" action="/savereq/{{touser}}/">
 					{% csrf_token %}
                     
-                      <label> From :  </label>  {{fromuserreq}}
-					  <br><br>
-					  <label> Message :  </label>  {{msg}}
-						 <br><br>
-						{% if type == 'acq' %}
-						Kindly Acquire the above mentioned item {{date}}<br><br>
-						<button class="btn btn-primary" name = "resp" value ="yes" type="submit">Will be able to do it</button>&nbsp;&nbsp;
-						<button class="btn btn-primary" name = "resp" value ="no" type="submit">Won't be able to do it</button>
-						{% endif %}
-						{% if type == 'approv' %}
-						Kindly Approve my request before {{date}}<br><br>
-						<button class="btn btn-primary" name = "resp" value ="yes" type="submit">Approve</button>
-						<button class="btn btn-primary" name = "resp" value ="no" type="submit">Reject</button>
-						{% endif %}
-						{% if type == 'other' %}
-						Kindly Approve my request before {{date}}<br><br>
-						<button class="btn btn-primary" name = "resp" value ="yes" type="submit">Seen</button>
-						<button class="btn btn-primary" name = "resp" value ="no" type="submit">Not Seen</button>
-						{% endif %}
-						 <br><br>
-                  
+               <div class="col-md-12 col-sm-12 col-xs-12" style="margin-left:-10px;">
+
+                  <div class="x_title">
+                    <label>Inbox</label>
+                    <div class="clearfix"></div>
+                  </div>
+                  <div class="x_content">
+
+                    <table id="datatable-checkbox" class="table table-striped table-bordered bulk_action">
+                      <thead>
+                        <tr>
+
+                          <th>Name</th>
+                          <th>Message</th>
+                          
+                        </tr>
+                      </thead>
+
+
+                      <tbody>
+					   {% for key,value in req.items %}
+                        <tr>
+      
+                          <td><a href="/pendrequestchk/{{value.rid}}/">{{value.fruser1}}</a></td>
+                          <td> {{value.msg}}</td>
+                          
+                        </tr>
+                         {% endfor %}
+                      </tbody>
+                    </table>
+                  </div>
+              
+              </div>
+						  
+						  
+                           <button class="btn btn-primary" type="submit">Submit</button>
 
                     </form>
                   </div>
