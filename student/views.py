@@ -154,26 +154,20 @@ def newreq(request, to='xyzab'):
 	allUsers = User.objects.all()
 	current_user = request.user.username
 	response['name'] = current_user
-<<<<<<< HEAD
-<<<<<<< HEAD
-	response['users'] = allUsers
-	response['fusers']= Fuse
-	allFusers = Fuser.objects.all()
-	response['allFusers'] = allFusers	
-=======
-	response['users'] = allUsers	
-=======
 	response['users'] = allUsers
 	allFusers = Fuser.objects.all()
 	response['allFusers'] = allFusers	
->>>>>>> f86e85cc5e7a913052a6ed4e6964c7d5f2a3fe67
 	count = 0
 	for r in Request.objects.filter(touser=current_user):
 		count = count + 1
+	if to=='xyzab' :
+		curr=0
+	else :
+		curr=1
 	response['notif'] = count	
 	response['touser']=to
 	
->>>>>>> 64ce6e1f1f7b689f7fc6a32c9d729c29dafa4b5b
+
 	return render(request,'production/request.html',response)
 	
 	
