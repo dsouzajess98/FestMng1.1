@@ -86,7 +86,7 @@ class CallMeet(models.Model):
 	agen = models.CharField(max_length=256)
 	rep = models.CharField(max_length=256, default='blah')
 	ven = models.CharField(max_length=256)
-
+	stat = models.CharField(max_length=256, default='not seen')
 
 class FileUpload(models.Model):
 	rid = models.ForeignKey(Request, to_field='rid')

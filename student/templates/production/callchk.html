@@ -192,24 +192,45 @@
               <div class="menu_section">
                 <h3>Additional</h3>
                 <ul class="nav side-menu">
-                  <li><a href="callmeet/"><i class="fa fa-users"></i>CALL A MEETING</a> <!--<span class="fa fa-chevron-down"></span></a>
+                  <li><a><i class="fa fa-users"></i><a href="callmeet/">CALL A MEETING</a></a> <!--<span class="fa fa-chevron-down"></span></a>
                   <!--  <ul class="nav child_menu"> 
                       <li><a href="callmeet.html">Call a meeting</a></li>
                  <!--   </ul> -->
                   </li>
-				  <li><a href="{% url 'sentreq' %}"><i class="fa fa-envelope-o"></i> SENT REQUESTS </span></a>                    
+				  <li><a ><i class="fa fa-envelope-o"></i> SENT REQUESTS <span class="fa fa-chevron-down"></span></a>                    
                   </li>
-				  <li><a href="{% url 'recreq' %}"><i class="fa fa-envelope-o"></i> RECEIVED REQUESTS </a>                    
+				  <li><a href="{% url 'recreq' %}"><i class="fa fa-envelope-o"></i> RECEIVED REQUESTS <span class="fa fa-chevron-down"></span></a>                    
                   </li>
-				  <li><a href="{% url 'pendrequest' %}"><i class="fa fa-envelope-o"></i> PENDING REQUESTS</a>                    
+				  <li><a href="{% url 'pendrequest' %}"><i class="fa fa-envelope-o"></i> PENDING REQUESTS <span class="fa fa-chevron-down"></span></a>                    
                   </li>
-                  <li><a><i class="fa fa-windows"></i> LODGE A COMPLAIN </span></a>
-
+                  <li><a><i class="fa fa-windows"></i> LODGE A COMPLAIN <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="page_403.html">403 Error</a></li>
+                      <li><a href="page_404.html">404 Error</a></li>
+                      <li><a href="page_500.html">500 Error</a></li>
+                      <li><a href="plain_page.html">Plain Page</a></li>
+                      <li><a href="login.html">Login Page</a></li>
+                      <li><a href="pricing_tables.html">Pricing Tables</a></li>
+                    </ul>
                   </li>
-                  <li><a><i class="fa fa-sitemap"></i> SEE UPCOMING EVENTS </a>
-
+                  <li><a><i class="fa fa-sitemap"></i> SEE UPCOMING EVENTS <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                        <li><a href="#level1_1">Level One</a>
+                        <li><a>Level One<span class="fa fa-chevron-down"></span></a>
+                          <ul class="nav child_menu">
+                            <li class="sub_menu"><a href="level2.html">Level Two</a>
+                            </li>
+                            <li><a href="#level2_1">Level Two</a>
+                            </li>
+                            <li><a href="#level2_2">Level Two</a>
+                            </li>
+                          </ul>
+                        </li>
+                        <li><a href="#level1_2">Level One</a>
+                        </li>
+                    </ul>
                   </li>                  
-
+                  <li><a href="javascript:void(0)"><i class="fa fa-laptop"></i> Landing Page <span class="label label-success pull-right">Coming Soon</span></a></li>
                 </ul>
               </div>
 
@@ -270,23 +291,7 @@
                   <ul id="menu1" class="dropdown-menu list-unstyled msg_list" role="menu">
 				  {% for key,value in one.req.items %}
                     <li>
-                      <a href="/recrequestchk/{{value.rid}}/">
-                        <span class="image"><img src="{% static 'images/img.jpg' %}" alt="Profile Image" /></span>
-                        <span>
-                          <span style="color:#2A3F54;">{{value.fruser1}}</span>
-                          <span class="time">3 mins ago</span>
-                        </span>
-                        <span class="message">
-                          {{value.msg}}
-						  
-                        </span>
-                      </a>
-                    </li>
-					
-				{% endfor %}
-					{% for key,value in three.req.items %}
-                    <li style="background-color:lightgreen;">
-                      <a href="/recrequestchk/{{value.rid}}/">
+                      <a>
                         <span class="image"><img src="{% static 'images/img.jpg' %}" alt="Profile Image" /></span>
                         <span>
                           <span style="color:#2A3F54;">{{value.fruser1}}</span>
@@ -299,7 +304,6 @@
                       </a>
                     </li>
 				{% endfor %}
-			
                     <li>
                       <div class="text-center">
                         <a>
@@ -323,7 +327,7 @@
                         <span class="image"><img src="{% static 'images/img.jpg' %}" alt="Profile Image" /></span>
                         <span>
 						
-                          <span style="color:#2A3F54;"><a href="/callchk/">{{value.fruser1}}</a></span>
+                          <span style="color:#2A3F54;"><a href="/callchk/{{value.id}}/">{{value.fruser1}}</a></span>
                           <span class="time">3 mins ago</span>
                         </span>
                         <span class="message">
@@ -344,33 +348,7 @@
                   </ul>
                 </li>
 				<!-- Requests -->
-				<li role="presentation" class="dropdown">
-                 <a href="{% url 'createreq' %}"  title="Make a new request">
-                    <i class="fa fa-plus" ></i>
-                    
-                  </a>
-				  </li>
-                <li role="presentation" class="dropdown">
-                  <a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false">
-                    <i class="fa fa-paper-plane"></i>
-                  
-                  </a>
-                  <ul id="menu1" class="dropdown-menu list-unstyled msg_list" role="menu">
-<form id="demo-form" method="POST" action="/newmessage/">				               
-							   <li>    
-								
-								{% csrf_token %}
-				   <input type='text' name="msg" placeholder="Enter your message" class="form-control" required />
-				   
-				  
-				 </li>
-                    <li>
-                      <div class="text-center">
-                        <button class="btn btn-primary" type="submit">Submit</button>
-                      </div>
-                    </li> </form>
-                  </ul>
-                </li>
+				
 
                  <!-- Requests done-->
 			  </ul>
@@ -378,7 +356,57 @@
           </div>
         </div>
         <!-- /top navigation -->
+		<div class="right_col" role="main">
+          <div class="">
+            <div class="page-title">
+              <div class="title_left">
+                <h3>Respond to meeting:</h3>
+              </div>
 
+              <div class="title_right">
+                <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
+                  <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Search for...">
+                    <span class="input-group-btn">
+                      <button class="btn btn-default" type="button">Go!</button>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="clearfix"></div>
+            <div class="row">
+              <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                  <div class="x_title">
+
+                    <form id="demo-form" method="POST" action="/updmeet/{{objc.cfrom}}/">
+					{% csrf_token %}
+                    
+                      <label> From :  </label>  {{objc.cfrom}}
+					  <br><br>
+					  <label> Agenda :  </label>  {{objc.agen}}
+						 <br><br>
+					  <label> Date and Time :  </label>  {{objc.dati}}
+						 <br><br>
+						 <label> Venue :  </label>  {{objc.ven}}
+						 <br><br>
+						<label> Can you make it?</label>
+						 <br><br>
+						<button class="btn btn-primary" name = "resp" value ="yes" type="submit">Yes</button>&nbsp;&nbsp;
+						<button class="btn btn-primary" name = "resp" value ="no" type="submit">No</button>
+						
+						 <br><br>
+                  
+
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+        </div>
+        </div>
         <!-- page content -->
         <div class="right_col" role="main">
           <!-- top tiles -->

@@ -119,8 +119,9 @@ def meetcheck(request):
 	ch={}
 	req={}
 	current_user = request.user
-	for r in CallMeet.objects.filter(cto=current_user):
-		req[count] = {'fruser1':r.cfrom,'msg':r.agen}
+	for r in CallMeet.objects.filter(cto=current_user, stat='not seen'):
+		print count
+		req[count] = {'fruser1':r.cfrom,'msg':r.agen,'id':count}
 		count = count + 1
 		
 	ch['notif'] = count
@@ -543,6 +544,7 @@ def saveameet(request):
 
 			
 	return redirect('/index')
+<<<<<<< HEAD
 	
 @login_required(login_url='/signin')	
 def sentreq(request):
@@ -566,3 +568,29 @@ def user_rating(request):
 	
 		
 	return render(request,'production/sentreq.html',resp)	
+=======
+def calldisp(request):
+
+	resp ={}
+	rp1={}
+	rp2={}
+	current_user = request.user.username
+	obj = CallMeet.objects.get(cto=current_user)
+	rp1 = dispreqno(request)
+	rp2 = meetcheck(request)
+	resp['one']=rp1
+	resp['two']=rp2
+#	resp['from']= User.objects.get(username=obj.cfrom)
+	resp['objc']=obj
+	return render(request,'production/callchk.html',resp)
+
+def updmeet(request,fro):
+
+	if request.method ==  'POST':
+	
+		res=request.POST['resp']
+		obj=CallMeet.objects.filter(cto=request.user,cfrom=fro).update(rep=res,stat='seen')
+		
+	return redirect('/index')
+
+>>>>>>> 31cdad3a221ccd22154a230a44d5d57f97ce3811
