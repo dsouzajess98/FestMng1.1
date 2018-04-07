@@ -6,7 +6,7 @@ from django.conf import settings
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth.models import User
-from .models import Fuser,Request,Brmsg
+from .models import Fuser,Request,Brmsg,QCM
 from django.contrib.auth.decorators import login_required,user_passes_test #even after loging in the function only if he is certain user
 from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.models import User
@@ -258,11 +258,7 @@ def savereq(request,par):
 			else:
 				f=False #diff dept
 			
-			print f
-			if f==False:
-				g=False
-			else:
-				g=True
+			g=True
 			
 			if f==True :
 			
@@ -273,19 +269,21 @@ def savereq(request,par):
 					to = curr.core
 				else:
 					g=False
-				while Request.objects.filter(rid=check):
-					check = random_no()
+				
+				if g==True:
 					
-				obj = Request()
-				obj.rid=check
-				obj.Type=type
-				obj.descrp=descrp
-				obj.fromuser = request.user
-				obj.touser = to
-				obj.date = datereq
-				obj.save();
+					while Request.objects.filter(rid=check):
+						check = random_no()
+					obj = Request()
+					obj.rid=check
+					obj.Type=type
+					obj.descrp=descrp
+					obj.fromuser = request.user
+					obj.touser = to
+					obj.date = datereq
+					obj.save();
 					
-			elif f==False and g==False:
+			if f==False or g==False:
 				
 				to = 'admin'
 				minw=10
@@ -313,7 +311,24 @@ def savereq(request,par):
 				obj.touser = to
 				obj.date = datereq
 				obj.save();
-			
+				
+				if g==True: #diff dept
+					 
+					if ( d=='log' or d=='des') and Fuser.objects.filter(un=request.user.username, dept='ecc').exists():
+						# identify which qcm su to send notification to
+						minw=10
+						for qrec in QCM.objects.filter(qdept= 'doc',qpost='su'):
+							count=0
+							for rec in Request.objects.filter(touser=qrec.quser) :
+								count = count +1
+							if count<minw:
+								minw=count
+								toq = qrec.quser
+							else :
+								toq = 'admin'
+						print toq
+	#				elif d=='des' and fdep.dept='ecc':
+						
 			
 	return redirect('/index')	
 

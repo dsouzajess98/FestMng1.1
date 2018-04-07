@@ -27,13 +27,12 @@ class Fuser(models.Model):
 	filter = models.IntegerField(null=False, default=1)
 
 
-# defining a method to return rollno in string. self similar to this. Blank contains an empty string unlike null. It will create table auto
-	def getdept(self):
-		if self.dept=='ECC':
-			return str(self.dept)
-		else:
-			return False
-		
+class QCM(models.Model):
+
+	qdept = models.CharField(max_length=256) # inner dept : oc,doc,tre,spons
+	quser = models.ForeignKey(User, to_field='username')
+	qpost = models.CharField(max_length=256) # subcore/core/wf
+	
 class Request(models.Model):
 	rid = models.IntegerField(unique=True,null=False)
 	Type = models.CharField(max_length=255)
