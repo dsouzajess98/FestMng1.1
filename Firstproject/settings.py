@@ -120,4 +120,7 @@ USE_TZ = False
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = ('./static',)
+
+#uploaded file
+ 
 MEDIA_URL = '/'
