@@ -201,11 +201,11 @@ def recrequestchk(request,req):
 	resp['msg'] = r.descrp
 	resp['type'] = r.Type
 	count = 0
+	rp = {}
 	if r.Type == 'approv' :
-		for c in FileUpload.objects.filter(rid = r.rid) :
-			resp[count] = c.attachment
-			count = count + 1
+		resp['files'] = FileUpload.objects.filter(rid = r.rid)
 	resp['date'] = r.date
+	
 	return render(request,'production/acrequest.html',resp)
 	
 @login_required(login_url='/signin')	
