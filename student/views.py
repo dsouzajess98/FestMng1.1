@@ -6,11 +6,7 @@ from django.conf import settings
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth.models import User
-<<<<<<< HEAD
 from .models import Fuser,Request,Brmsg,QCM,Oversee,FileUpload,CallMeet
-=======
-from .models import Fuser,Request,Brmsg,QCM,Oversee,CallMeet,FileUpload
->>>>>>> 1a68889f23b7c50e3b70a7e68d7a9ac463f14686
 from django.contrib.auth.decorators import login_required,user_passes_test #even after loging in the function only if he is certain user
 from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.models import User
@@ -236,14 +232,10 @@ def recrequestchk(request,req):
 	rp1={}
 	rp2={}
 	current_user = request.user.username
-<<<<<<< HEAD
 	rp1 = dispreqno(request)
 	rp2 = meetcheck(request)
 	resp['one']=rp1
 	resp['two']=rp2
-=======
-	resp = dispreqno(request)
->>>>>>> 1a68889f23b7c50e3b70a7e68d7a9ac463f14686
 	r = Request.objects.get(rid = req)
 	resp['rid'] = r.rid
 	resp['fromuserreq'] = r.fromuser
