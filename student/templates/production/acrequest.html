@@ -355,9 +355,9 @@
 						{% endif %}
 						{% if type == 'approv' %}
 						Kindly Approve my request before {{date}}<br><br>
-						{% for u in resp %}
-						Hello
-						{% endfor %}
+						{% for c in files %}
+						<a href="/{{c.attachment}}" target="_blank">{{c.file_name}}</a><br>
+						{% endfor %}<br><br>
 						<button class="btn btn-primary" name = "resp" value ="yes" type="submit">Approve</button>
 						<button class="btn btn-primary" name = "resp" value ="no" type="submit">Reject</button>
 						{% endif %}
