@@ -263,6 +263,21 @@
                       </a>
                     </li>
 				{% endfor %}
+									{% for key,value in three.req.items %}
+                    <li style="background-color:lightgreen;">
+                      <a href="/recrequestchk/{{value.rid}}/">
+                        <span class="image"><img src="{% static 'images/img.jpg' %}" alt="Profile Image" /></span>
+                        <span>
+                          <span style="color:#2A3F54;">{{value.fruser1}}</span>
+                          <span class="time">3 mins ago</span>
+                        </span>
+                        <span class="message">
+                          {{value.msg}}
+						  
+                        </span>
+                      </a>
+                    </li>
+				{% endfor %}
 					
                     <li>
                       <div class="text-center">
@@ -364,11 +379,11 @@
 
 
                       <tbody>
-<<<<<<< HEAD
-					   {% for key,value in one.req.items %}
-=======
+
+					  
+
 					   {% for c in one %}
->>>>>>> aaf0c4088d6e7960bb3b24e67a600ab67810c5aa
+
                         <tr>
       
                           <td><a href="/pendrequestchk/{{c.rid}}/">{{c.fromuser}}</a></td>

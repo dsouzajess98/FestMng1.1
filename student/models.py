@@ -13,6 +13,9 @@ import os
 from django.utils.timezone import now as timezone_now
 
 
+		
+
+
 def create_random_string(length=30):
     if length <= 0:
         length = 30
