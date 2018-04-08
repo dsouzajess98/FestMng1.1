@@ -177,27 +177,21 @@ def home(request):
 	resp['two']=rp2
 	resp['three']=rp3
 	resp['curr']=flag
-<<<<<<< HEAD
 	resp['g']=g
-=======
 	resp['rating']=rating
->>>>>>> 5360d031c7bbfd147dbf39d299ac61eb2b939353
 	resp['name'] = current_user
-<<<<<<< HEAD
+
 	resp['count']=count_req
 	resp['msgs'] = msgs
 	resp['rec_act'] = rec_act
 	resp['myfiles'] =files
-=======
-	resp['qobj']=oobj
->>>>>>> eb47093eaeb54597b869f4bd8ab24775e15672ea
-	return render(request,'production/index.html',resp)
-<<<<<<< HEAD
 
-=======
-	
-		
->>>>>>> 5360d031c7bbfd147dbf39d299ac61eb2b939353
+	resp['qobj']=oobj
+
+	return render(request,'production/index.html',resp)
+
+
+
 def meetcheck(request):
 
 	count=0
@@ -644,15 +638,8 @@ def sentreq(request):
 	resp['two']=rp2
 	resp['name'] = current_user
 	return render(request,'production/sentreq.html',resp)
-	
-	
 
-	
-<<<<<<< HEAD
-		
-	return render(request,'production/sentreq.html',resp)	
-=======
->>>>>>> 5360d031c7bbfd147dbf39d299ac61eb2b939353
+
 
 def calldisp(request):
 
