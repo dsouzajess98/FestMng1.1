@@ -130,13 +130,13 @@ def home(request):
 		flag=True
 
 		
-	if Fuser.objects.filter(un=current_user, dept='qcm', post='su').exists():
+	if Oversee.objects.filter(qcms=current_user).exists():
 		g=True #display 
 	else:
 		g=False
-	oobj=Oversee.objects.all()	
-	rp1 = dispreqno(request)
 	
+	oobj=Oversee.objects.filter(qcms=current_user)	
+	rp1 = dispreqno(request)
 	rp2 = meetcheck(request)
 	rp3 = dispdonereq(request)
 	rp1['notif'] = rp1['notif'] + rp3['notif']
@@ -144,20 +144,12 @@ def home(request):
 	resp['two']=rp2
 	resp['three']=rp3
 	resp['curr']=flag
-<<<<<<< HEAD
 	resp['g']=g
-=======
 	resp['rating']=rating
->>>>>>> 5360d031c7bbfd147dbf39d299ac61eb2b939353
 	resp['name'] = current_user
 	resp['qobj']=oobj
 	return render(request,'production/index.html',resp)
-<<<<<<< HEAD
 
-=======
-	
-		
->>>>>>> 5360d031c7bbfd147dbf39d299ac61eb2b939353
 def meetcheck(request):
 
 	count=0
@@ -519,8 +511,10 @@ def savereq(request,par):
 								toq = 'admin'
 						print toq
 						sobj = Oversee()
+						sobj.link = FileUpload.objects.filter(rid=check)
 						sobj.fromd = 'ecc'
 						sobj.tod = d
+						sobj.qcms = toq
 						sobj.msg = descrp
 						sobj.save();
 						
@@ -606,13 +600,6 @@ def sentreq(request):
 	return render(request,'production/sentreq.html',resp)
 	
 	
-
-	
-<<<<<<< HEAD
-		
-	return render(request,'production/sentreq.html',resp)	
-=======
->>>>>>> 5360d031c7bbfd147dbf39d299ac61eb2b939353
 
 def calldisp(request):
 

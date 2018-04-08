@@ -60,13 +60,7 @@ class QCM(models.Model):
 	quser = models.ForeignKey(User, to_field='username')
 	qpost = models.CharField(max_length=256) # subcore/core/wf
 	
-class Oversee(models.Model):
 
-	fromd = models.CharField(max_length=256, null=False)
-	tod = models.CharField(max_length=256, null=False)
-	msg = models.CharField(max_length=256)
-	link = models.CharField(max_length=256)
-	
 class Request(models.Model):
 	created_at = models.DateTimeField(default = timezone_now)
 	rid = models.IntegerField(unique=True,null=False)
@@ -94,8 +88,16 @@ class CallMeet(models.Model):
 class FileUpload(models.Model):
 	rid = models.ForeignKey(Request, to_field='rid')
 	file_name = models.CharField(max_length=100,default="xxx")
-	attachment = models.FileField(upload_to=upload_to)
+	attachment = models.FileField(upload_to=upload_to, unique=True)
 	
 	def __str__(self) :
 	    return str(self.rid)
 
+class Oversee(models.Model):
+
+	fromd = models.CharField(max_length=256, null=False)
+	tod = models.CharField(max_length=256, null=False)
+	qcms = models.ForeignKey(User,to_field='username', related_name='qcms', default='syhsnihs')
+	msg = models.CharField(max_length=256)
+	link = models.ForeignKey(FileUpload, to_field='attachment')
+	
