@@ -383,19 +383,7 @@
         <!-- page content -->
         <div class="right_col" role="main">
           <!-- top tiles -->
-          <div class="row tile_count">
-            <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-
-              <span class="count_top"><i class="fa fa-user"></i> No. of received requests </span>
-              <div class="count">{{count.countr}}</div>
-              
-            </div>
-            <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-              <span class="count_top"><i class="fa fa-clock-o"></i> No. of accepted requests </span>
-              <div class="count">{{count.counta}}</div>
-              
-            </div>
-            <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+               <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
               <span class="count_top"><i class="fa fa-user"></i> No. of pending requests</span>
               <div class="count green">{{count.countp}}</div>
               
@@ -413,9 +401,6 @@
 
           </div>
           <!-- /top tiles -->
-
-      
-           
 
           <div class="row">
             <div class="col-md-6 col-sm-12 col-xs-12">
@@ -458,7 +443,21 @@
                         </div>
                       </li>
                      {% endfor %}
-					
+					 {% if g %}
+					 {% for r in qobj %}
+                      <li>
+                        <div class="block">
+                          <div class="block_content">
+                            <h2 class="title">
+                                              <a>{{r.fromd}} sent to {{r.tod}}</a>
+											  <a href="/{{r.link}}"> Click to view </a>
+                                          </h2>
+						
+                          </div>
+                        </div>
+                      </li>
+                     {% endfor %}
+						{% endif %}
                     </ul>
                   </div>
                 </div>
@@ -475,7 +474,6 @@
                 </div>
                 <div class="x_content">
                   <div class="dashboard-widget-content">
-
                     <ul class="list-unstyled timeline widget">
 					{% for c in msgs %}
                       <li>
@@ -496,8 +494,11 @@
               </div>
             </div>
 
+			
+            </div>
 
              </div>
+
         </div>
         <!-- /page content -->
 
@@ -510,7 +511,7 @@
         </footer>
         <!-- /footer content -->
       </div>
-    </div>
+    
 
     <!-- jQuery -->
     <script src="{% static 'vendors/jquery/dist/jquery.min.js' %}"></script>
