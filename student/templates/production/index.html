@@ -385,13 +385,17 @@
           <!-- top tiles -->
           <div class="row tile_count">
             <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-              <span class="count_top"><i class="fa fa-user"></i> Requests Pending:</span>
-              <div class="count">2500</div>
-			  <br><br>
-              <span class="count_bottom"><i class="green">4% </i> Requests Completed:</span>
-			  <div class="count">543</div>
+
+              <span class="count_top"><i class="fa fa-user"></i> No. of received requests </span>
+              <div class="count">{{count.countr}}</div>
+              
             </div>
+            <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+              <span class="count_top"><i class="fa fa-clock-o"></i> No. of accepted requests </span>
+              <div class="count">{{count.counta}}</div>
+              
             </div>
+<<<<<<< HEAD
           </div>
           <!-- /top tiles -->
 		  <div class="clearfix"></div>
@@ -420,6 +424,84 @@
                     <li><a class="close-link"><i class="fa fa-close"></i></a>
                     </li>
                   </ul>
+=======
+            <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+              <span class="count_top"><i class="fa fa-user"></i> No. of pending requests</span>
+              <div class="count green">{{count.countp}}</div>
+              
+            </div>
+            <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+              <span class="count_top"><i class="fa fa-user"></i> No. of completed requests</span>
+              <div class="count">{{count.countc}}</div>
+             
+            </div>
+			  <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+              <span class="count_top"><i class="fa fa-user"></i> No. of sent requests</span>
+              <div class="count">{{count.counts}}</div>
+             
+            </div>
+
+          </div>
+          <!-- /top tiles -->
+
+      
+           
+
+          <div class="row">
+            <div class="col-md-6 col-sm-12 col-xs-12">
+              <div class="x_panel">
+                <div class="x_title">
+                  <h2>Recent Activities <small>Sessions</small></h2>
+
+                  <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+                  <div class="dashboard-widget-content">
+
+                    <ul class="list-unstyled timeline widget">
+					{% for r in rec_act %}
+                      <li>
+                        <div class="block">
+                          <div class="block_content">
+                            <h2 class="title">
+                                              <a>{{r.rid}}</a>
+                                          </h2>
+							{% if r.result == 'notseen' %}
+                            <p class="excerpt">Your request {{r.rid}} has been sent</p>
+							
+							{% elif r.result == 'yes' %}
+                              <p class="excerpt">Your request {{r.rid}} has been accepted</p>
+							  {% elif r.result == 'no' %}
+                              <p class="excerpt">Your request {{r.rid}} has been rejected</p>
+							  {% else %}
+                              <p class="excerpt">Your request {{r.rid}} has been completed</p>
+							  Following are attached documents if any:<br>
+						{% for a in myfiles %}
+					    
+		                {% if a.rid == r %}
+						
+						<a href="/{{a.attachment}}" target="_blank">{{a.file_name}}</a><br>
+						{% endif %}
+						{% endfor %}
+							  {% endif %}
+                          </div>
+                        </div>
+                      </li>
+                     {% endfor %}
+					
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+           
+			 <div class="col-md-6 col-sm-12 col-xs-12">
+              <div class="x_panel">
+                <div class="x_title">
+                  <h2>Broadcast Messages</h2>
+>>>>>>> a555db0f71557a4f943da88c305dd7f73ef0eaa0
                   <div class="clearfix"></div>
                 </div>
                 <div class="x_content">
@@ -427,11 +509,16 @@
 
 				  
                     <ul class="list-unstyled timeline widget">
+<<<<<<< HEAD
 					{% for rec in qobj %}
+=======
+					{% for c in msgs %}
+>>>>>>> a555db0f71557a4f943da88c305dd7f73ef0eaa0
                       <li>
                         <div class="block">
                           <div class="block_content">
                             <h2 class="title">
+<<<<<<< HEAD
                                               <a>{{rec.fromd}} department to {{rec.tod}} </a>
 											  <a> Click to view {{rec.link}} </a>
                                           </h2>
@@ -695,6 +782,24 @@
             </div>
           </div>
 		
+=======
+                                              <a>{{c.fromuser}}</a>
+                                          </h2>
+                           
+                            <p class="excerpt">{{c.msg}}</p>
+                          </div>
+                        </div>
+                      </li>
+                      {% endfor %}
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+             </div>
+>>>>>>> a555db0f71557a4f943da88c305dd7f73ef0eaa0
         </div>
         <!-- /page content -->
 

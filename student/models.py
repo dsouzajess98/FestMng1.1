@@ -35,11 +35,12 @@ def upload_to(instance, filename):
 	
 class Brmsg(models.Model):
 	mid = models.IntegerField(unique=True,null=False)
+	fromuser = models.ForeignKey(User, to_field='username', default='admin')
 	msg = models.CharField(max_length=256, null=False, default='Important Message')
 	
 	def __str__(self) :
 	    return str(self.mid)
-	
+		
 class Fuser(models.Model):
 
 	fid = models.IntegerField(unique=True, null=False, default=1000)
@@ -92,7 +93,9 @@ class FileUpload(models.Model):
 	
 	def __str__(self) :
 	    return str(self.rid)
+		
 
+<<<<<<< HEAD
 class Oversee(models.Model):
 
 	fromd = models.CharField(max_length=256, null=False)
@@ -101,3 +104,7 @@ class Oversee(models.Model):
 	msg = models.CharField(max_length=256)
 	link = models.ForeignKey(FileUpload, to_field='attachment')
 	
+=======
+	
+		
+>>>>>>> a555db0f71557a4f943da88c305dd7f73ef0eaa0

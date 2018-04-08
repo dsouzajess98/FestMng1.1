@@ -111,6 +111,34 @@ def user_rating_def(usernm):
 	else :
 		return 5
 		
+def count_req_no(usernm):
+	countr = 0
+	counta = 0
+	countp = 0
+	countc = 0
+	counts = 0
+	check = {}
+	for r in Request.objects.filter(touser = usernm):
+		if r.result == 'done':
+			countr = countr + 1
+			counta = counta + 1
+			countc = countc + 1
+		elif r.result == 'yes' :
+			countr = countr + 1
+			counta = counta + 1
+		else :
+			countr = countr + 1
+	for r in Request.objects.filter(fromuser = usernm):
+		counts = counts + 1
+		
+	check['countr'] = countr
+	check['counta'] = counta
+	check['countp'] = countp
+	check['countc'] = countc
+	check['counts'] = counts
+	
+	return check
+
 		
 	
 @login_required(login_url='/signin')	
@@ -119,9 +147,14 @@ def home(request):
 	resp ={}
 	rp1={}
 	rp2={}
+	msgs = {}
+	msgs =  Brmsg.objects.all()	
 	
 	current_user = request.user.username
 	rating = user_rating_def(current_user)
+	count_req = count_req_no(current_user)
+	rec_act = Request.objects.filter(fromuser = current_user)
+	files = FileUpload.objects.all()
 	
 #	current_user = User.get_username()
 	if Fuser.objects.filter(un=current_user,filter=1).exists():
@@ -147,9 +180,21 @@ def home(request):
 	resp['g']=g
 	resp['rating']=rating
 	resp['name'] = current_user
+
+	resp['count']=count_req
+	resp['msgs'] = msgs
+	resp['rec_act'] = rec_act
+	resp['myfiles'] =files
+
 	resp['qobj']=oobj
+
 	return render(request,'production/index.html',resp)
 
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> a555db0f71557a4f943da88c305dd7f73ef0eaa0
 def meetcheck(request):
 
 	count=0
@@ -598,9 +643,12 @@ def sentreq(request):
 	resp['two']=rp2
 	resp['name'] = current_user
 	return render(request,'production/sentreq.html',resp)
-	
-	
 
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> a555db0f71557a4f943da88c305dd7f73ef0eaa0
 def calldisp(request):
 
 	resp ={}
