@@ -100,6 +100,12 @@ def home(request):
 	else :
 		flag=True
 
+		
+	if Fuser.objects.filter(un=current_user, dept='qcm', post='su').exists():
+		g=True #display 
+	else:
+		g=False
+	oobj=Oversee.objects.all()	
 	rp1 = dispreqno(request)
 	
 	rp2 = meetcheck(request)
@@ -109,10 +115,11 @@ def home(request):
 	resp['two']=rp2
 	resp['three']=rp3
 	resp['curr']=flag
-	
+	resp['g']=g
 	resp['name'] = current_user
-	
+	resp['qobj']=oobj
 	return render(request,'production/index.html',resp)
+
 def meetcheck(request):
 
 	count=0
@@ -544,7 +551,7 @@ def saveameet(request):
 
 			
 	return redirect('/index')
-<<<<<<< HEAD
+
 	
 @login_required(login_url='/signin')	
 def sentreq(request):
@@ -568,7 +575,7 @@ def user_rating(request):
 	
 		
 	return render(request,'production/sentreq.html',resp)	
-=======
+
 def calldisp(request):
 
 	resp ={}
@@ -593,4 +600,3 @@ def updmeet(request,fro):
 		
 	return redirect('/index')
 
->>>>>>> 31cdad3a221ccd22154a230a44d5d57f97ce3811
