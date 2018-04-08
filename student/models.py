@@ -95,7 +95,6 @@ class FileUpload(models.Model):
 	    return str(self.rid)
 		
 
-<<<<<<< HEAD
 class Oversee(models.Model):
 
 	fromd = models.CharField(max_length=256, null=False)
@@ -103,8 +102,3 @@ class Oversee(models.Model):
 	qcms = models.ForeignKey(User,to_field='username', related_name='qcms', default='syhsnihs')
 	msg = models.CharField(max_length=256)
 	link = models.ForeignKey(FileUpload, to_field='attachment')
-	
-=======
-	
-		
->>>>>>> a555db0f71557a4f943da88c305dd7f73ef0eaa0

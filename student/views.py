@@ -180,21 +180,14 @@ def home(request):
 	resp['g']=g
 	resp['rating']=rating
 	resp['name'] = current_user
-
 	resp['count']=count_req
 	resp['msgs'] = msgs
 	resp['rec_act'] = rec_act
 	resp['myfiles'] =files
-
 	resp['qobj']=oobj
 
 	return render(request,'production/index.html',resp)
 
-<<<<<<< HEAD
-=======
-
-
->>>>>>> a555db0f71557a4f943da88c305dd7f73ef0eaa0
 def meetcheck(request):
 
 	count=0
@@ -459,6 +452,7 @@ def savereq(request,par):
 							attachment=a_file
 						)
 						instance.save()
+				
 		else:
 			type = request.POST['type']
 			descrp = request.POST['message']
@@ -522,9 +516,9 @@ def savereq(request,par):
 						count = count + 1
 					if count<minw :
 						minw=count
-						to = usr.un
+						to = usr
 					else :
-						to = 'admin'
+						to = Fuser.objects.get(un='admin')
 				
 				print(to)
 				
@@ -540,6 +534,16 @@ def savereq(request,par):
 				obj.date = datereq
 				obj.save();
 				
+				if request.POST['type'] == 'approv':
+						files = request.FILES.getlist('myfiles')
+						for a_file in files:
+							instance = FileUpload(
+								rid=obj,
+								file_name=a_file.name,
+								attachment=a_file
+							)
+							instance.save()
+							
 				if g==True: #diff dept
 					 
 					if ( d=='log' or d=='des') and Fuser.objects.filter(un=request.user.username, dept='ecc').exists():
@@ -551,12 +555,14 @@ def savereq(request,par):
 								count = count +1
 							if count<minw:
 								minw=count
-								toq = qrec.quser
+								toq = User.objects.get(username=qrec.quser)
 							else :
-								toq = 'admin'
+								toq = User.objects.get(username='admin')
 						print toq
 						sobj = Oversee()
-						sobj.link = FileUpload.objects.filter(rid=check)
+						print check
+						sobj.link = FileUpload.objects.get(rid=check)
+						print sobj.link
 						sobj.fromd = 'ecc'
 						sobj.tod = d
 						sobj.qcms = toq
@@ -644,11 +650,6 @@ def sentreq(request):
 	resp['name'] = current_user
 	return render(request,'production/sentreq.html',resp)
 
-<<<<<<< HEAD
-=======
-
-
->>>>>>> a555db0f71557a4f943da88c305dd7f73ef0eaa0
 def calldisp(request):
 
 	resp ={}
