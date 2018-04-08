@@ -49,7 +49,7 @@
               </div>
               <div class="profile_info">
                 <span>Welcome,</span>
-                <h2>{{name}}</h2>
+                <h2>{{name}}  {{rating}} <i class="fa fa-star"></i> </h2>
               </div>
             </div>
             <!-- /menu profile quick info -->
@@ -284,6 +284,7 @@
                     </li>
 					
 				{% endfor %}
+				
 					{% for key,value in three.req.items %}
                     <li style="background-color:lightgreen;">
                       <a href="/recrequestchk/{{value.rid}}/">

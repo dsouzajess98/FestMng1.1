@@ -13,6 +13,7 @@ from django.contrib.auth.models import User
 from random import randint, choice
 from string import ascii_lowercase,digits
 from django.utils.timezone import now as timezone_now
+from datetime import datetime,date
 
 register = template.Library()
 
@@ -84,7 +85,33 @@ def dispCred(request,id):
 def fourdig(request):
 #need to write code to check if first time
 	return render(request, 'start.html')
-	
+
+def user_rating_def(usernm):
+
+	count = 0
+	time_taken = 0
+	for r in Request.objects.filter(touser = usernm):
+		count = count + 1
+	for u in Request.objects.filter(touser = usernm,result='done'):
+		f_date = u.created_at
+		l_date = u.done_at
+		delta = l_date - f_date
+		time_taken = time_taken + delta.seconds/60/60
+		
+	ideal_time = count * 24
+	eff = (time_taken* 100/ideal_time) 
+	if eff < 20 :
+		return 1
+	elif eff < 40 :
+		return 2
+	elif eff < 60 :
+		return 3
+	elif eff < 80 :
+		return 4
+	else :
+		return 5
+		
+		
 	
 @login_required(login_url='/signin')	
 def home(request):
@@ -94,6 +121,8 @@ def home(request):
 	rp2={}
 	
 	current_user = request.user.username
+	rating = user_rating_def(current_user)
+	
 #	current_user = User.get_username()
 	if Fuser.objects.filter(un=current_user,filter=1).exists():
 		flag=False
@@ -115,11 +144,20 @@ def home(request):
 	resp['two']=rp2
 	resp['three']=rp3
 	resp['curr']=flag
+<<<<<<< HEAD
 	resp['g']=g
+=======
+	resp['rating']=rating
+>>>>>>> 5360d031c7bbfd147dbf39d299ac61eb2b939353
 	resp['name'] = current_user
 	resp['qobj']=oobj
 	return render(request,'production/index.html',resp)
+<<<<<<< HEAD
 
+=======
+	
+		
+>>>>>>> 5360d031c7bbfd147dbf39d299ac61eb2b939353
 def meetcheck(request):
 
 	count=0
@@ -127,7 +165,6 @@ def meetcheck(request):
 	req={}
 	current_user = request.user
 	for r in CallMeet.objects.filter(cto=current_user, stat='not seen'):
-		print count
 		req[count] = {'fruser1':r.cfrom,'msg':r.agen,'id':count}
 		count = count + 1
 		
@@ -157,12 +194,11 @@ def dispdonereq(request):
 
 	req = {}
 	current_user = request.user
-	for r in Request.objects.filter(touser=current_user,result='done'):
-		req[count] = {'fruser1':r.fromuser_id,'msg':r.descrp,'rid':r.rid}
+	for r in Request.objects.filter(fromuser=current_user,result='done'):
+		req[count] = {'fruser1':r.touser_id,'msg':r.descrp,'rid':r.rid}
 		count = count + 1
 		
 	check['notif'] = count
-	print count
 	check['req'] = req
 	return check
 	
@@ -570,11 +606,13 @@ def sentreq(request):
 	return render(request,'production/sentreq.html',resp)
 	
 	
-@login_required(login_url='/signin')	
-def user_rating(request):
+
 	
+<<<<<<< HEAD
 		
 	return render(request,'production/sentreq.html',resp)	
+=======
+>>>>>>> 5360d031c7bbfd147dbf39d299ac61eb2b939353
 
 def calldisp(request):
 

@@ -263,6 +263,21 @@
                       </a>
                     </li>
 				{% endfor %}
+									{% for key,value in three.req.items %}
+                    <li style="background-color:lightgreen;">
+                      <a href="/recrequestchk/{{value.rid}}/">
+                        <span class="image"><img src="{% static 'images/img.jpg' %}" alt="Profile Image" /></span>
+                        <span>
+                          <span style="color:#2A3F54;">{{value.fruser1}}</span>
+                          <span class="time">3 mins ago</span>
+                        </span>
+                        <span class="message">
+                          {{value.msg}}
+						  
+                        </span>
+                      </a>
+                    </li>
+				{% endfor %}
 					
                     <li>
                       <div class="text-center">
@@ -365,6 +380,11 @@
 
                       <tbody>
 
+<<<<<<< HEAD
+=======
+					  
+
+>>>>>>> 5360d031c7bbfd147dbf39d299ac61eb2b939353
 					   {% for c in one %}
 
                         <tr>
