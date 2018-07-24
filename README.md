@@ -6,8 +6,8 @@ The best way to handle this would be to digitize the entire process. Every perso
 
 # Features: 
 
-1. work ethics and work can be monitored more easily. 
+1. Work ethics and work can be monitored more easily. 
 2. Provides transparency. 
 3. Every user will be rated depending on the efficiency and other criteria. 
-4.Calling a meeting 
-5.Broadcast Message
+4. Calling a meeting 
+5. Broadcast Message
